@@ -1,4 +1,6 @@
 % $Id: network.tex 2 2012-09-13 23:13:00Z jbao $
+\graphicspath{{network/fig/}{flow/fig/}}
+
 \chapter{Network dynamics and topology}
 
 Cells initiate and control decisions like migration, proliferation or differentiation through the intricate, yet
@@ -310,11 +312,198 @@ a set of parameters that capture the time-dependent curvature
 of a gene's expression profile for each separate condition. 
 In this way, the full model assumes that the expression 
 profile is different across the two conditions, or
+\begin{eqnarray}
+\begin{pmatrix}
+Y_{control,1}\\
+\cdots\\
+Y_{control,N}\\
+Y_{stimulation,1}\\
+\cdots\\
+Y_{stimulation,N}
+\end{pmatrix}
+%
+&= \alpha_0 
+\begin{pmatrix}
+1\\
+\cdots\\
+1\\
+0\\
+\cdots\\
+0
+\end{pmatrix}
+%
++ \alpha_1 
+\begin{pmatrix}
+t_1\\
+\cdots\\
+t_N\\
+0\\
+\cdots\\
+0
+\end{pmatrix}
+%
++ \alpha_2 
+\begin{pmatrix}
+t_1^2\\
+\cdots\\
+t_N^2\\
+0\\
+\cdots\\
+0
+\end{pmatrix}
+%
++ \alpha_3
+\begin{pmatrix}
+t_1^3\\
+\cdots\\
+t_N^3\\
+0\\
+\cdots\\
+0
+\end{pmatrix}\notag \\
+%
+&+ \beta_0 
+\begin{pmatrix}
+0\\
+\cdots\\
+0\\
+1\\
+\cdots\\
+1
+\end{pmatrix}
+%
++ \beta_1
+\begin{pmatrix}
+0\\
+\cdots\\
+0\\
+t_1\\
+\cdots\\
+t_N
+\end{pmatrix}
+%
++ \beta_2
+\begin{pmatrix}
+0\\
+\cdots\\
+0\\
+t_1^2\\
+\cdots\\
+t_N^2
+\end{pmatrix}
+%
++ \beta_3
+\begin{pmatrix}
+0\\
+\cdots\\
+0\\
+t_1^3\\
+\cdots\\
+t_N^3
+\end{pmatrix}
+%
++ 
+\begin{pmatrix}
+\epsilon_1\\
+\epsilon_2\\
+\cdots\\
+\cdots\\
+\epsilon_{2N-1}\\
+\epsilon_{2N}
+\end{pmatrix}
+\end{eqnarray}
+where $t=(t_1,t_2,\dotsc,t_N)$ corresponds to the measured time points, and
+$\epsilon = (\epsilon_1,\epsilon_2,\dotsc,\epsilon_{2N})$ represents a random
+normal residual error term. The parameters $\alpha_0,\alpha_1,\alpha_2,
+\alpha_3$ and $\beta_0,\beta_1,\beta_2,\beta_3$ are the coefficients of the 
+time covariate in the model for the control and stimulation time series 
+respectively.
 
-\subsection{Heave-tail response distribution}
+The reduced model, in contrast, is a simpler model that assumes the expression
+profiles for different conditions need only be specified by one set of 
+parameters, or 
+\begin{align}
+\begin{pmatrix}
+Y_{control,1}\\
+\cdots\\
+Y_{control,N}\\
+Y_{stimulation,1}\\
+\cdots\\
+Y_{stimulation,N}
+\end{pmatrix}
+%
+&= \lambda_0 
+\begin{pmatrix}
+1\\
+\cdots\\
+1\\
+1\\
+\cdots\\
+1
+\end{pmatrix}
+%
++ \lambda_1 
+\begin{pmatrix}
+t_1\\
+\cdots\\
+t_N\\
+t_1\\
+\cdots\\
+t_N
+\end{pmatrix}
+%
++ \lambda_2 
+\begin{pmatrix}
+t_1^2\\
+\cdots\\
+t_N^2\\
+t_1^2\\
+\cdots\\
+t_N^2
+\end{pmatrix}
+%
++ \lambda_3
+\begin{pmatrix}
+t_1^3\\
+\cdots\\
+t_N^3\\
+t_1^3\\
+\cdots\\
+t_N^3
+\end{pmatrix}\notag \\
+%
+&+ 
+\begin{pmatrix}
+\epsilon_1\\
+\epsilon_2\\
+\cdots\\
+\cdots\\
+\epsilon_{2N-1}\\
+\epsilon_{2N}
+\end{pmatrix}
+\end{align}
+Fitting these two models to a single gene, is equivalent to
+proposing two hypotheses: one, that this gene is not differentially regulated 
+over time and is therefore defined by the reduced model, and two, this gene is 
+differentially regulated over time and is defined by the full model. To decide 
+which of these two hypotheses is more plausible given the available data, we 
+use the analysis of deviance test, which is an extension of the likelihood 
+ratio test.
+
+\subsection{Heavy-tailed response distribution}
 Based on both the multidimensional scaling and full/reduced
 model approach, we observe an invariant response pattern that only few genes are strongly induced upon stimulation, while the majority reacts
 moderately (\ref{fig:response_strength}). 
+In a real-world example where transcripts
+are profiled in primary human keratinocytes under the stimulation of 
+hepatocyte growth factor (HGF), we found the distribution of response
+strengths has a long tail, indicating that 
+only few genes are strongly induced by a certain stimulus, while the majority 
+are barely regulated. Interestingly, this long-tail response strength
+distribution is also observed in other cell types with various stimuli.
+Among them are yeast cells that undergo cell cycles when synchronized by 
+$\alpha$-factor, mouse skin cells stimulated with TPA and erythrocyte progenitor
+(CFU-E) cells from the mouse fetal liver stimulated with erythropoietin (Epo). 
 
 \begin{figure}[!ht]
 \begin{center}
@@ -385,7 +574,15 @@ in each dataset is normalized to 1.
 \label{fig:response_qqplot}
 \end{figure}
 
-One possible cause of the similar be behavior has been the similarity in underlying topology of the gene and protein regulatory network. 
+It is known that the structures of
+regulatory networks in various species are highly conserved~\citep{Brown2007}, 
+we thus hypothesize that this
+universally invariant transcriptome response pattern results from the generic
+topological features of the gene regulatory networks. Further questions 
+arise, what distinguishes 
+between the strongly and weakly responding genes? How is phenotype encoded 
+in the gene network?
+
 
 \section{Gene response and connectivity}
 Through the simulation of a thermodynamical gene network model, we observed that the response strength of a certain gene negatively correlates with its degree, which is also 
@@ -479,69 +676,6 @@ is available upon request.
 
 \subsection{Topology determines dynamics}
 We investigate the influence of network topology on the immediate, dynamic gene response in networks. 
-Using biologically meaningful networks of \emph{E. Coli} and 
-the budding yeast \emph{S. cerevisiae} generated 
-\emph{in silico}, we show that topology has a significant influence on the dynamics, scaling with size. Hub genes are not responding, while weakly connected genes are 
-
-Our results demonstrated that genes with a high level of change in expression are more likely to be peripheral nodes (low connectivity) in the network, whereas hubs (nodes with higher connectivity) and superhubs (nodes that link hubs) tend to have a lower level of change in expression. 
-To analyze the biological roles of the modulated genes, we assessed the Gene Ontology (GO) of nodes and hubs. Our analysis identified different annotations of mole- cular functions based on the topological classifications.
-
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{network/fig/ecoli_yeast_go.pdf}
-\end{center}
-\caption[GO term enrichment of strongly regulated genes]{
-{\bf GO term enrichment of strongly regulated genes in the
-\emph{E. coli} and yeast datasets.} 
-}
-\label{fig:response_qqplot}
-\end{figure}
-
-\section{Biological application}
-We further went on to verify our hypothesis that strongly regulated peripheral 
-genes are correlated with the phenotype by means of an \emph{in vitro}
-mammalian cell system. Primary human keratinocytes extracted from the foreskin
-migrate upon the treatment of hepatocyte growth factor (HGF), we measured
-the gene expression profiles up to 8h after treatment of HGF (\citealp{Busch2008}) 
-and identified
-key genes with a large response strength according to MDS.
-
-\subsection*{Invariant transcriptome response pattern}
-
-%Cells coordinate their various functions as migration, proliferation or differentiation by regulation of their large gene interaction networks. To gain insight this gene network the usage of microarray analysis is nowadays state of the art. Time-dependent transcriptomic data are necessary to observe the dynamic response of cellular functions and decision. Fig.  (left panel) present the global gene response of different mammalian cells under diverse stimulation. The dynamic distributions of genes are ranked by the Multi-Dimensional Scaling (MDS) method (Figure 1, right panel). We quantify the relative dynamic response of all genes using a multi-dimensional scaling analysis (MDS). MDS embeds the high-dimensional distance matrix D of all pair-wise Euclidean distances between all gene expression kinetics into a low dimensional space, while conserving pair-wise distances \citealp{Strickert2009}.  Mapping the distance matrix $D$ onto a plane results in a cloud of points corresponding to the individual genes. Close or distant points represent genes with similar or dissimilar kinetics, respectively. We find the point cloud to be compact with few outliers, with the latter respresenting strongly responding genes having unique temporal expression profiles (Suppl. Fig. 7). 
-Previous studies (\citep{Lu2007a,Mar2011}) have demonstrated a negative
-correlation between the connectivity of a gene in the regulatory network
-and its expression variance in the context of static disease models.
-Here, we aim to address whether this negative correlation also exists 
-between the network topology and its dynamic response.
-In order to characterize the response strength over time of a certain gene, we
-designed a metric based on multidimensional scaling (MDS). As a dimensionality 
-reduction technique, MDS maps the high-dimensional gene expression profiles
-to a low-dimensional space, while the relative pairwise distances are preserved
-(\citealp{Taguchi2005,Tzeng2008}). Since genes with distinct kinetics have a
-larger distance to the those with similar kinetics, and the dynamical behavior
-is most likely a result of differential regulation, we created a metric to
-describe the gene response strength based on its radial distance on the MDS
-projection (Figure 1C right panel). In a real-world example where transcripts
-are profiled in primary human keratinocytes under the stimulation of 
-hepatocyte growth factor (HGF), we found the distribution of response
-strengths has a long tail, indicating that 
-only few genes are strongly induced by a certain stimulus, while the majority 
-are barely regulated. Interestingly, this long-tail response strength
-distribution is also observed in other cell types with various stimuli.
-Among them are yeast cells that undergo cell cycles when synchronized by 
-$\alpha$-factor, mouse skin cells stimulated with TPA and human Huh7.5 cells
-under the stimulation of IFN-$\alpha$. It is known that the structures of
-regulatory networks in various species are highly conserved 
-(citation from Hauke), we thus hypothesize that this
-universally invariant transcriptome response pattern results from the generic
-topological features of the gene regulatory networks. Further questions 
-arise, what distinguishes 
-between the strongly and weakly responding genes? How is phenotype encoded 
-in the gene network?
-
-\subsection*{Topology is the determinant of dynamics in large networks}
-
 To address the above questions, we applied biologically meaningful 
 \emph{in silico} 
 network models that are used to generate benchmark datasets for the DREAM 
@@ -568,39 +702,76 @@ degradation rates constant. Pearson correlation coefficients of the response
 strengths before and after rewiring decrease slightly with the network size. 
 In contrast, when we 
 change the kinetic parameters without affecting the network topology (scheme, 
-Figure 3A), the Pearson correlation coefficients remains at the same level and 
+\ref{fig:rewiring_scheme}), the Pearson correlation coefficients remains 
+at the same level and 
 are in general higher than that before and after rewiring. The Kullback-Leibler
 divergence, which measures the distance between two distributions, further 
 confirms that the distance between the effect of rewiring and parameter change 
 increases with the network size, indicating that network topology has a stronger 
 impact on the response pattern, especially in large networks. 
 
-\subsection*{Anti-correlation between connectivity and response}
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{rewiring_scheme.pdf}
+\end{center}
+\caption[Schematic view of network rewiring and kinetic parameter change]{
+{\bf Schematic view of network rewiring and change of kinetic parameters.} 
+Black edges with a blunt head represent inhibiting
+connections and red edges with an arrow head represent activating
+connections, the values of kinetic parameters for each node are 
+coded in gray scale. 
+}
+\label{fig:rewiring_scheme}
+\end{figure}
 
-To understand the functions of strong and moderate responders 
-respectively, especially in a network point of view, we characterized
-the relationship between the dynamic response of a node and its 
-topological features with the help of an \emph{in silico} model of the
-\emph{E. coli} network from RegulonDB. 
-There is a weak but statistically significant
-negative correlation between the degree of a gene and its response
-strength. In other words, strong responders tend to have a low degree, 
-whereas hub
-genes with a high degree are hardly induced in general. We further characterized
-the anti-correlation with a weighted exponential function, where the decay
-constant $\lambda$ describes how strong this anti-correlation is.
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{system_size.pdf}
+\includegraphics[width=0.45\textwidth]{kl_system_size.pdf}
+\end{center}
+\caption[Effect of rewiring and parameter change]{
+{\bf Effect of network rewiring and kinetic parameter change for different network
+sizes.} 
+(A) Distribution of the correlation coefficients
+before and after rewiring (change of parameters) in black (red) for 
+different network sizes. (B) Kullback-Leibler divergence of the 
+correlation coefficient distributions in (A) for different network
+sizes.
+}
+\label{fig:system_size}
+\end{figure}
 
-With the help of the decay constant $\lambda$, we studied how the 
-topology-response anti-correlation depends on the network structure.
-While a hierarchically structured network, such as scale-free,
-bow-tie networks, has a similar anti-correlation profile as the \emph{E. coli} 
-network, random 
-or uniform networks show a much higher variance in the anti-correlation between 
-topology
-and response. 
 
-\subsection*{Strongly responding peripheral genes correlated with the phenotype}
+\subsection{Anti-correlation between dynamics and topology}
+Previous studies~\citep{Lu2007a,Mar2011} have demonstrated a negative
+correlation between the connectivity of a gene in the regulatory network
+and its expression variance in the context of static disease models.
+Here, we aim to address whether this negative correlation also exists 
+between the network topology and its dynamic response.
 
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{degree_response-example.pdf}
+\end{center}
+\caption[Anti-correlation between response and connectivity]{
+{\bf Anti-correlation between response and connectivity for biological and 
+\emph{in silico} networks.} 
+}
+\label{fig:degree_response_example}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{degree_response-summary.pdf}
+\end{center}
+\caption[Comparison between biological and \emph{in silico} networks]{
+{\bf Centers of mass of the response-connectivity distribution for biological
+and \emph{in silico} networks.} 
+}
+\label{fig:degree_response_summary}
+\end{figure}
+
+Our results demonstrated that genes with a high level of change in expression are more likely to be peripheral nodes (low connectivity) in the network, whereas hubs (nodes with higher connectivity) and superhubs (nodes that link hubs) tend to have a lower level of change in expression. 
 The fact that strongly regulated genes always have a low degree and thus are
 located at the periphery of the network poses the question whether these genes
 mediate the computation of the whole network and then translate it into the 
@@ -610,7 +781,8 @@ where time-resolved response of \emph{E. coli} (\citealp{Jozefczuk2010}) and
 measured under different stimuli. We found a similar anti-correlation between
 network topology and response in the above datasets. Furthermore, we
 carried out enrichment test of Gene Ontology (GO) terms in the significantly 
-strong responders identified from MDS. For \emph{E. coli} cells in response
+strong responders identified from MDS (\ref{fig:ecoli_yeast_go}). 
+For \emph{E. coli} cells in response
 to different stress conditions, GO terms as metabolic processes, biosynthesis 
 are over-represented in the strongly responding genes, which is in accordance
 to the fact that cells have to adjust their growth rates under stress conditions.
@@ -621,57 +793,13 @@ phenotype of cell cycles. Taken together, we found strongly induced genes,
 which are located at the periphery of gene regulatory networks, are nicely
 correlated with the cellular phenotype.
 
-\subsection*{Microarray datasets}
 
-\section*{Figure Legends}
-
-\paragraph*{Figure~1 }
-
-Invariant transcriptome response patterns and the modelling approach. (A) 
-Gene expression time series of primary human keratinocytes stimulated with 
-hepatocyte growth factor (HGF). Histogram of the response strenth as determined by 
-multidimensional scaling (MDS). (B) Histogram of the response strenth as determined by 
-MDS for various cell types and stimuli. (C) Workflow to
-investigate the relationship between topology and dynamics in a
-thermodynamic model of cooperative gene regulation.
-Time series are simulated after multi-factorial perturbations of the whole network.
-MDS is applied to characterize dynamic response strengths
-of individual genes.
-
-\paragraph*{Figure~2 }
-
-Effect of rewiring and parameter change on the network response 
-pattern. (A) Schematic view of rewiring and the change of kinetic 
-parameters, where black edges with a blunt head represent inhibiting
-connections and red edges with an arrow head represent activating
-connections, the values of kinetic parameters for each node are 
-coded in gray scale. Dashed lines represent rewired edges. (B) Distribution 
-of the correlation coefficients
-before and after rewiring (change of parameters) in black (red) for 
-different network sizes. (C) Kullback-Leibler divergence of the 
-correlation coefficient distributions in B for different network
-sizes.
-
-\paragraph*{Figure~3 }
-
-Correlation between the degree of a certain node in the network with its
-response strength, which is defined by the radial distance in MDS.
-Dashed lines are weighted exponential fits of the scatter plots from
-1000 simulations with independent perturbations on the whole \emph{E. coli}
-network from RegulonDB Version 6.2.
-
-\paragraph*{Figure~4 }
-
-Correlation between network dynamics and different topologies.
-(A) Topology-respnose anti-correlation, as characterized by the decay constant 
-$\lambda$, for different network structures. (B) Hierarchical clustering of 
-different
-network structures based on the Kullback-Leibler divergence between the $\lambda$
-distributions.
-
-\paragraph*{Figure~5 }
-
-Strongly regulated peripheral genes are correlated with the phenotype.
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{ecoli_yeast_go.pdf}
+\end{center}
+\caption[GO term enrichment of strongly regulated genes]{
+{\bf Strongly regulated peripheral genes are correlated with the phenotype.}
 (A) Topology-response anti-correlation of \emph{E. coli} in response 
 to different stresses (extracted from \citealp{Jozefczuk2010}). (B) Topology-response
 anti-correlation of \emph{S. cerevisiae} in response to different synchronizations
@@ -683,6 +811,30 @@ terms in the strongly induced peripheral genes of \emph{S. cerevisiae}. Shown
 are $p$-values
 from Fisher's exact test in gray scale for different GO terms under different 
 conditions.
+}
+\label{fig:ecoli_yeast_go}
+\end{figure}
 
-\paragraph*{Figure~6 }
+\section{Biological application}
+We further went on to verify our hypothesis that strongly regulated peripheral 
+genes are correlated with the phenotype by means of an \emph{in vitro}
+mammalian cell system. Primary human keratinocytes extracted from the foreskin
+migrate upon the treatment of hepatocyte growth factor (HGF), we measured
+the gene expression profiles up to 8h after treatment of HGF (\citealp{Busch2008}) 
+and identified
+key genes with a large response strength according to MDS.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{migration_prediction.pdf}
+\end{center}
+\caption[Prediction of migration inhibition after perturbing key players]{
+{\bf Prediction of migration inhibition after perturbing key players identified
+from MDS.} 
+}
+\label{fig:migration_prediction}
+\end{figure}
+
+
+
 
