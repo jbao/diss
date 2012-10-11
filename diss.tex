@@ -1,0 +1,303 @@
+%% LyX 1.6.7 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,a4paper,ngerman,english,intoc,bibtotoc,idxtotoc,BCOR10mm,titlepage,tablecaptionabove,oneside]{scrbook}
+\usepackage{lmodern}
+\renewcommand{\sfdefault}{lmss}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setcounter{secnumdepth}{3}
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\usepackage{babel}
+
+\usepackage[authoryear]{natbib}
+
+\def\CC{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{nomencl}
+% the following is useful when we have the old nomencl.sty package
+\providecommand{\printnomenclature}{\printglossary}
+\providecommand{\makenomenclature}{\makeglossary}
+\makenomenclature
+\usepackage[unicode=true, 
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,
+ breaklinks=false,pdfborder={0 0 0},backref=false,colorlinks=true,citecolor=blue,linkcolor=magenta]
+ {hyperref}
+\hypersetup{pdftitle={Your Title},
+ pdfauthor={Jie Bao},
+ pdfsubject={Dissertation zur Erlangung des Doktorgrades der Fakultät f\"ur Biologie der Albert-Ludwigs-Universität Freiburg im Breisgau},
+ pdfkeywords={Ph.D. thesis},
+ pdfpagelayout=OneColumn, pdfnewwindow=true, pdfstartview=XYZ, plainpages=false}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+\DeclareRobustCommand*{\lyxarrow}{%
+\@ifstar
+{\leavevmode\,$\triangleleft$\,\allowbreak}
+{\leavevmode\,$\triangleright$\,\allowbreak}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+% print no date
+\date{}
+
+% increase link area for cross-references and autoname them
+\AtBeginDocument{\renewcommand{\ref}[1]{\mbox{\autoref{#1}}}}
+\newlength{\abc}
+\settowidth{\abc}{\space}
+\addto\extrasenglish{
+ \renewcommand{\equationautorefname}{\hspace{-\abc}}
+ \renewcommand{\sectionautorefname}{sec.\negthinspace}
+ \renewcommand{\subsectionautorefname}{sec.\negthinspace}
+ \renewcommand{\subsubsectionautorefname}{sec.\negthinspace}
+ \renewcommand{\figureautorefname}{Fig.\negthinspace}
+ \renewcommand{\tableautorefname}{Tab.\negthinspace}
+}
+
+% in case somebody want to have the label "equation"
+%\renewcommand{\eqref}[1]{equation~(\negthinspace\autoref{#1})}
+
+% that links to image floats jumps to the beginning
+% of the float and not to its caption
+\usepackage[figure]{hypcap}
+
+% the pages of the TOC is numbered roman
+% and a pdf-bookmark for the TOC is added
+\let\myTOC\tableofcontents
+\renewcommand\tableofcontents{%
+  \frontmatter
+  \pdfbookmark[1]{\contentsname}{}
+  \myTOC
+  \mainmatter }
+
+% make caption labels bold
+\setkomafont{captionlabel}{\bfseries}
+\setcapindent{1em}
+
+% enable calculations
+\usepackage{calc}
+
+% fancy page header/footer settings
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+%\lhead[\fancyplain{}{}]{\fancyplain{}{\rightmark}}
+\rhead[\fancyplain{}{\leftmark}]{\fancyplain{}{}}
+\lfoot[\thepage]{}
+\rfoot[]{\thepage}
+\cfoot{}
+
+% increase the bottom float placement fraction
+\renewcommand{\bottomfraction}{0.5}
+
+% avoid that floats are placed above its sections
+\let\mySection\section\renewcommand{\section}{\suppressfloats[t]\mySection}
+
+% widen the space for the nomenclature entry labels
+\renewcommand{\nomlabelwidth}{2.5cm}
+
+\makeatother
+
+\begin{document}
+\selectlanguage{ngerman}%
+
+\subject{Dissertation zur Erlangung des Doktorgrades der 
+Fakultät f\"ur Biologie
+der Albert-Ludwigs-Universität Freiburg im Breisgau}
+
+\selectlanguage{english}%
+
+\title{A Network View of the Dynamic Transcriptome Response}
+
+
+\author{Jie Bao}
+
+
+\date{}
+
+\selectlanguage{ngerman}%
+
+\publishers{\includegraphics[width=0.4\columnwidth]{fig/Uni_Logo-Grundversion_E1_A4_CMYK}\vspace{\baselineskip}\\
+Albert-Ludwigs-Universität Freiburg im Breisgau\\
+Fakultät f\"ur Biologie\\
+%Institut für zzz\vspace{-3cm}
+}
+
+
+\lowertitleback{\textbf{Dekan}\smallskip{}
+\\
+Prof. Dr. Ad Aertsen\bigskip{}
+\\
+\textbf{Promotionsvorsitzender}\smallskip{}
+\\
+Prof. Dr. Samuel Rossel\bigskip{}
+\\
+\textbf{Betreuer der Arbeit}\smallskip{}
+\\
+Dr. Hauke Busch\bigskip{}
+\\
+\textbf{Datum der Promotion (only necessary for final publication)}\smallskip{}
+\\
+xx.yy.zzzz}
+
+\selectlanguage{english}%
+
+\maketitle
+
+\thispagestyle{empty}
+\setcounter{page}{0}
+\vspace*{\fill}
+\begin{quote}
+The whole is more than the sum of its parts. 
+\begin{flushright}
+--- Aristotle\\
+\end{flushright}
+\end{quote}
+\vskip 1in
+\begin{quote}
+Theorie ohne Praxis ist 
+wirkungslos, Praxis ohne Theorie ist blind.
+\begin{flushright}
+--- Immanuel Kant\\
+\end{flushright}
+\end{quote}
+\vfill
+\noindent
+
+\cleardoublepage{}
+
+\lhead[\fancyplain{}{}]{\fancyplain{}{\rightmark}}
+
+\tableofcontents{}
+\listoffigures
+
+\cleardoublepage{}
+
+\pagestyle{plain}
+
+\begin{itemize}
+  \item introduction
+  \begin{itemize}
+    \item signal flow: protein interaction network $\rightarrow$ transcriptome
+    \item failure of biomarker
+    \item complexity can only be understood within the
+      network context~\citep{Barabasi2012}, Understanding a complex network's 
+      structure is beneficial to understanding its function
+  \end{itemize}
+  \item network dynamics and topology
+  \begin{itemize}
+    \item fireworks: sequence of events, dynamics
+    \item elephant in the room: what we can and cannot see from
+    the transcriptome data
+    \item gene expression heavy-tailed distributed, discuss 
+    bimodal distribution 
+    \item normalization assumption: most genes do not change
+    expressions
+    \item few genes respond: sparsity assumption in reverse-%
+    engineering
+    \item Network inference in the yeast is already hard because absence of correlation
+    between TF expression and activity~\cite{Marbach2012}
+    \item CRNT: structure of the reaction network determines the number and type of
+    steady states
+  \end{itemize}
+  \item signal flow
+  \begin{itemize}
+    \item TF important in disease, but not detectable: many of the TFs that regulate physiological
+    targets are constitutively present, and their activity is determined
+    by posttranslational modifications such as phosphorylation%
+    ~\cite{Messina2004}
+  \end{itemize}
+  \item conclusions
+\end{itemize}
+
+%\include{Summary}
+%
+%\include{Zusammenfassung}
+%
+%\cleardoublepage{}
+%
+%\pagestyle{fancy}\lhead[\fancyplain{}{\chaptername\;\thechapter}]{\fancyplain{}{\rightmark}}
+%
+%\include{chapter-1}
+
+\input{network/network.tex}
+
+%\cleardoublepage{}
+%
+%\lhead[\fancyplain{}{}]{\fancyplain{}{Acknowledgments}}
+%
+%\rhead[\fancyplain{}{Acknowledgments}]{\fancyplain{}{}}
+%
+%
+%
+%\include{Appendix}
+
+\cleardoublepage{}
+
+\lhead[\fancyplain{}{}]{\fancyplain{}{\rightmark}}
+
+\rhead[\fancyplain{}{\leftmark}]{\fancyplain{}{}}
+
+\bibliographystyle{natbib}
+\bibliography{diss,network/network}
+
+\cleardoublepage{}
+
+\lhead[\fancyplain{}{}]{\fancyplain{}{Nomenclature}}
+\rhead[\fancyplain{}{Nomenclature}]{\fancyplain{}{}}
+
+\printnomenclature{}
+
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+
+First off, I am grateful that Prof.~Ad Aertsen offered me this opportunity to 
+perform this work in the BrainWorks group. He not only oversees the whole 
+project, but discusses with me about the progress on a regular basis as well. 
+
+Dr.~Ralph Meier initiated the whole project and guided me through all the 
+essential literature concerning various hippocampal models of epilepsy.
+He also built a bridge between me and other experienced researchers in
+this field and allowed me to freely explore something new.
+
+I want to thank Dr.~Thomas Fucke, without whom the completion of this
+work would not have been possible. His stimulating ideas and constant
+encouragement are very much appreciated. Besides, Thomas' easy-going
+character makes him an ideal person to share an office with.
+
+There are numerous people, both experimentalists and theoreticians, 
+whom I have had discussion with and who have read
+and commented on the working copies of this thesis. I am also 
+fond of all the ``balcony breaks''.
+
+I am thankful to Huili, who is a good company and makes my life
+more colorful; to my parents for their unconditional support.
+
+\newpage
+\chapter*{Erkl\"arung}
+\addcontentsline{toc}{chapter}{Declaration}
+\begin{enumerate}
+\item Ich erkl\"are hiermit, dass ich die vorliegende Arbeit ohne unzul\"assige Hilfe Dritter und ohne Benutzung anderer als der angegebenen Hilfsmittel angefertigt habe. Die aus anderen Quellen direkt 
+oder indirekt \"ubernommenen Daten und Konzepte sind unter Angabe der Quellen gekennzeichnet. Insbesondere habe ich hierf\"ur 
+nicht die entgeltliche Hilfe von Vermittlungs- beziehungsweise 
+Beratungsdiensten (Promotionsberater oder anderer Personen) 
+in Anspruch genommen. Niemand hat von mir unmittelbar oder 
+mittelbar geldwerte Leistungen f\"ur Arbeiten erhalten, die im Zusammenhang mit dem Inhalt der vorgelegten Dissertation stehen.
+\item Die Arbeit wurde bisher weder im In- noch im Ausland in gleicher 
+oder \"ahnlicher Form einer anderen Pr\"ufungsbeh\"orde vorgelegt.
+\item Die Bestimmungen der Promotionsordnung der Fakult\"at f\"ur Biologie der Universit\"at Freiburg sind mir bekannt, insbesondere 
+wei\ss ich, dass ich vor Vollzug der Promotion zur F\"uhrung des 
+Doktortitels nicht berechtigt bin.
+\end{enumerate}
+\vskip 3cm
+Freiburg, den xx.xx.xxxx \hspace{6cm} Jie Bao
+
+\end{document}
