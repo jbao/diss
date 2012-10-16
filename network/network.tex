@@ -13,7 +13,7 @@ Systems theory points to ways how complex systems are regulated and obey common 
 In order to tackle the complexity of such systems, 
 one usually works with
 an abstract
-representation or a graph consisting of different molecules as nodes and the 
+representation or a graph\footnote{Throughout the text, we use \emph{graph} and \emph{network} interchangably.} consisting of different molecules as nodes and the 
 interactions among them as edges. In order to understand the
 behavior of complex systems, one has to understand both
 the topological and dynamical properties of networks. In this chapter, we first
@@ -53,12 +53,12 @@ hierarchy, which again is due to different design principles of the two
 systems: robustness for biological systems and cost effectiveness for 
 software systems~\citep{Yan2010}.
 Such findings highlight the hypothesis of \emph{form follows function}, or 
-the function of complex networks can be attributed to their distinct structural 
+the function of complex networks is reflected in their distinct structural 
 properties.
 
 \section{Network topology}
 There are a variety of measures that characterize the topology of networks,
-some capture local network topology, yet others are global topology measures.
+some capture local network topology, yet others are global topological measures.
 
 \subsection{Topological measures}
 
@@ -164,6 +164,14 @@ binding between proteins results exactly in a scale-free protein-protein
 interaction network~\citep{Deeds2006}.
 
 \section{Network dynamics}
+Imagine the scene of fireworks, the beauty lies exactly in the whole sequence 
+of explosive events. When you try to snap a shot, maybe you will end up with
+a black sky. Even if you are able to capture the highlight, you still 
+effectively miss certain information, such as how the visual pattern developed,
+what is the interval between consecutive illuminations. The same holds in the
+study of complex networks, if we want to understand the behavior of networks,
+we always have to study their dynamics, rather than simply in a static context.
+
 Here the network dynamics refers specifically to the dynamic response of the 
 gene regulatory network. Such data are usually obtained from the microarray
 time series. Microarray technology takes advantage of hybridization properties 
@@ -176,19 +184,20 @@ intensity~\citep{Gentleman2005}. This intensity value is then interpreted as a
 proxy for the level of gene expression. In order to characterize the global 
 gene expression given a certain stimulus over time, one can perform the 
 hybridization at multiple time points. The ultimate gene expression data are
-thus multidimensional time series. Below we provide some of the methods that
+thus multidimensional time series. In the following we provide some of the methods that
 can be used to analyse such data.
 
 \subsection{Dimensionality reduction}
 Dimensionality reduction is the transformation of high-dimensional data into 
 a meaningful representation of reduced dimensionality~\citep{Maaten2009}, 
-which is easy to both visualize and interpret. There are a variety of linear
+which is easy to both visualize and interpret. There are a whole spectrum of linear
 and nonlinear dimensionality reduction algorithms 
 (\ref{fig:dimension_reduction}). In this work, we heavily 
-focus on the Euclidean distance based multidimensional 
-scaling, which is equivalent to principal component analysis%
+focus on a variant of Euclidean distance based multidimensional 
+scaling (MDS), which is similar to principal component analysis (PCA)%
 ~\citep{Haerdle2003},
-but more intuitive.
+but more intuitive. We also evaluate the performance of MDS in comparison to 
+PCA.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -203,6 +212,7 @@ techniques, taken from \cite{Maaten2009}.
 \end{figure}
 
 \subsubsection{Multidimensional scaling}
+\label{sec:mds}
 Multidimensional scaling (MDS) is a family of algorithms that produces a spatial
 representation of the dissimilarities between a number of entities $x_l^i \in 
 \boldsymbol{X}_{n \times q}$ in $q$-dimensional space. In 
@@ -237,9 +247,10 @@ Pearson correlation of the original and the reconstructed distances
     \mu_{\hat{\boldsymbol{D}}})}{\sqrt{\sum_{i \neq j}^n (d_{ij} - \mu_{\boldsymbol{D}})^2} 
     \cdot \sqrt{
     \sum_{i \neq j}^n (\hat{d}_{ij} - \mu_{\hat{\boldsymbol{D}}})^2}}
+  \label{eq:dist_corr}
 \end{equation}
 is maximized using a gradient descent approach.
-Perticularly, $\boldsymbol{D} = (d_{ij})_{i,j=1...n}$ is Euclidean distance matrix of the
+Particularly, $\boldsymbol{D} = (d_{ij})_{i,j=1...n}$ is Euclidean distance matrix of the
 gene expression time series, and $\hat{\boldsymbol{D}} = (\hat{d}_{ij})_{i,j=1...n}$ 
 is the 
 Euclidean distance matrix of the reconstructed low-dimensional points. 
@@ -257,6 +268,49 @@ and $\hat{\boldsymbol{D}}$ respectively.
 Throughout this work, the number of optimization cycles is fixed to be $100$.
 The final configuration is centered, normalized by the largest dimension variance,
 and rotated by Principal Component Analysis.
+
+\subsubsection{Performance of multidimensional scaling}
+Taking the time-resolved gene expression profiles of hepatocyte growth factor
+stimulated keratinocytes as an example, we projected the time series onto a 
+two-dimensional space by different algorithms and assessed their performance
+by calculating the correlation between the original and reconstructed distance
+matrices (\ref{eq:dist_corr}).
+
+While the correlation of distances by PCA (\ref{fig:svd-mds} A) is 0.89, two 
+realizations of the HiT-MDS-2 algorithm show a correlation coefficient around 
+0.98 (\ref{fig:svd-mds} C,D). Although this is slightly lower than the correlation of a recently 
+proposed algorithm (\ref{fig:svd-mds} B), it clearly outperforms PCA. The 
+better performance of the SVD-MDS algorithm~\citep{Becavin2011} results from
+the fact that it initializes the spatial configuration with PCA instead of 
+random guess, thus already starts from a relatively good solution of MDS and
+avoids being stuck in local minima.
+
+\begin{figure}[!ht]
+\centering
+%\begin{narrow}{-0.5in}{-0.5in}
+\includegraphics[width=0.45\textwidth]{svd.png}
+\includegraphics[width=0.45\textwidth]{svd-mds.png}\\
+\includegraphics[width=0.45\textwidth]{mds1.png}
+\includegraphics[width=0.45\textwidth]{mds2.png}
+%\end{narrow}
+\caption[Performance of the MDS algorithm]{
+{\bf Comparison of PCA and MDS algorithm.}
+(A) Singular 
+value decomposition, which is the basis of PCA. (B) SVD-MDS
+proposed by \citealp{Becavin2011}, which first makes use of
+SVD to initialize the low-dimensional configuration in MDS.
+(C,D) MDS run with two different random initial 
+configurations. $r$ indicates the correlation between the
+original and the reconstructed distance matrices (see also
+\ref{sec:mds}). 
+Data are taken from the 8h time course of primary human keratinocytes 
+stimulated with hepatocyte growth factor (\cite{Busch2008}, 
+ArrayExpress accession number E-TABM-440),
+red and green labels represent up- and 
+down-regulated genes with an average fold expression 
+$> 0.5$. }
+\label{fig:svd-mds}
+\end{figure}
 
 \subsubsection{Response strength metric}
 \label{sec:response_strength}
@@ -279,7 +333,7 @@ f(X) = 2 \phi_d (X;\Omega) \ \Phi(\alpha^{\mathrm{T}} X), \quad X \in \mathbb{R}
 where $\phi_d(X;\Omega)$ is the $N_d(0,\Omega)$ normal density function at $X$
 with the correlation matrix $\Omega$, $\Phi(\alpha^{\mathrm{T}} X)$ is the 
 cumulative distribution function of $N(0,1)$ evaluated at $\alpha^{\mathrm{T}} X$.
-$\alpha$ is the shape parameter since when $\alpha=0$, Eq.~\ref{eq:sn} becomes
+$\alpha$ is the shape parameter since when $\alpha=0$, \ref{eq:sn} becomes
 the regular normal probability density function again. $X$ can be further
 linear transformed to
 \[
@@ -290,11 +344,12 @@ to include the location and scale parameter, $\xi$ and $\omega$ respectively.
 Fitting of the skewed Gaussian distribution is performed with
 the maximum likelihood method as implemented in the 
 \texttt{R}
-library \texttt{sn}, version 0.4-16.
+library \texttt{sn}.
 
 \subsection{Modelling time series}
 Another method to determine the dynamic response of a certain
-gene is based on the work of \cite{Mar2009}. The difficulty 
+gene in the network is based on the work of \cite{Mar2009}. 
+The difficulty 
 in analyzing microarray time series data comes from the lack
 of replicates in general at each time point. In order to 
 circumvent this problem and increase the statistical power,
@@ -494,16 +549,16 @@ ratio test.
 Based on both the multidimensional scaling and full/reduced
 model approach, we observe an invariant response pattern that only few genes are strongly induced upon stimulation, while the majority reacts
 moderately (\ref{fig:response_strength}). 
-In a real-world example where transcripts
-are profiled in primary human keratinocytes under the stimulation of 
-hepatocyte growth factor (HGF), we found the distribution of response
+For example, in the case of transcripts
+profiled in primary human keratinocytes under the stimulation of 
+hepatocyte growth factor (HGF)~\citep{Busch2008}, we found the distribution of response
 strengths has a long tail, indicating that 
 only few genes are strongly induced by a certain stimulus, while the majority 
-are barely regulated. Interestingly, this long-tail response strength
+are barely regulated. This long-tail response strength
 distribution is also observed in other cell types with various stimuli.
 Among them are yeast cells that undergo cell cycles when synchronized by 
-$\alpha$-factor, mouse skin cells stimulated with TPA and erythrocyte progenitor
-(CFU-E) cells from the mouse fetal liver stimulated with erythropoietin (Epo). 
+$\alpha$-factor~\citep{Spellman1998,Cho1998}, mouse skin cells stimulated with TPA~\citep{Riehl2010} and erythrocyte progenitor
+(CFU-E) cells from the mouse fetal liver stimulated with erythropoietin (Epo)~\citep{Bachmann2011}. 
 
 \begin{figure}[!ht]
 \begin{center}
@@ -533,7 +588,7 @@ distribution up to a certain range (\ref{fig:response_fit}).
 Nevertheless, the response distributions from various 
 biological systems do share the same shape between each 
 other (\ref{fig:response_qqplot}). Taken together, gene
-responses are indeed heavy-tail distributed, with few
+responses are indeed heavy-tailed distributed, with few
 genes strongly regulated and the majority only moderately
 regulated, but they do not follow the power-law distribution,
 which underlines again the necessity of assessing power-law
@@ -823,6 +878,31 @@ migrate upon the treatment of hepatocyte growth factor (HGF), we measured
 the gene expression profiles up to 8h after treatment of HGF (\citealp{Busch2008}) 
 and identified
 key genes with a large response strength according to MDS.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{scratch_assay.pdf}
+\end{center}
+\caption[Migration of keratinocytes]{
+{\bf Comparison of keratinocyte migration under the control condition and 
+inhibition of IL8.}
+Time-lapse microscopy of keratinocytes treated with HGF and the IL8 inhibitors. 
+Control keratinocytes were treated with HGF alone. Images recorded on a Nikon 
+microscope and an ibidi humidity chamber.
+}
+\label{fig:scratch_assay}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{inhibition_method.pdf}
+\end{center}
+\caption[Prediction of migration inhibition after perturbing key players]{
+{\bf Prediction of migration inhibition after perturbing key players identified
+from MDS.} To be converted to table!
+}
+\label{fig:inhibition_method}
+\end{figure}
 
 \begin{figure}[!ht]
 \begin{center}
