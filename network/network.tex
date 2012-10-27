@@ -1,13 +1,13 @@
 % $Id: network.tex 2 2012-09-13 23:13:00Z jbao $
 \graphicspath{{network/fig/}{flow/fig/}}
 
-\chapter{Network dynamics and topology}
+\chapter{Network topology and dynamics}
 
 Cells initiate and control decisions like migration, proliferation or differentiation through the intricate, yet
 coordinated, regulation of large gene interaction networks. 
 As a consequence, there is  well orchestrated time-sequential regulation of protein pathways, resulting in and regulated by a  global change in gene expression.
 Gaining insight into the necessary and suffient regulators controlling cellular decisions  is therefore difficult. 
-The central questions are, how to bridge the large data set to regulator or key players, how does the cell come to unique and well defined decisions despite the underlying complexity?
+The central questions are, how to bridge the large data set to a few regulator or key players, how does the cell come to unique and well defined decisions despite the underlying complexity?
 
 Systems theory points to ways how complex systems are regulated and obey common rules with respect to their organisation and dynamic responses~\citep{Kauffman1993}. 
 In order to tackle the complexity of such systems, 
@@ -629,6 +629,11 @@ in each dataset is normalized to 1.
 \label{fig:response_qqplot}
 \end{figure}
 
+The finding of the heavy-tailed response distribution provides a theoretical
+proof of various microarray normalization schemes, since it is often assumed
+that the majority of 
+genes are not differentially regulated or the number of upregulated genes 
+roughly equals the number of downregulated genes~\citep{Do2006}.
 It is known that the structures of
 regulatory networks in various species are highly conserved~\citep{Brown2007}, 
 we thus hypothesize that this
@@ -680,16 +685,17 @@ except that Poisson in-degree (with $\lambda = 3$) and power-law
   graph is of the multiple-input multiple-output type.
 \end{itemize}
 All networks have 1000 nodes and are generated with the Python package NetworkX (\citealp{Hagberg2008}) 
-version 1.4, they are further made sure to be connected.
+, they are further made sure to be connected.
 
 \subsubsection{Dynamics}
 We adapted a thermodynamical gene network model 
-(\citealp{Marbach2010,Schilstra2002}),
+(\citealp{Marbach2010,Schilstra2002,Schaffter2011}),
 which takes into account the combinatorial control of transcription factors. 
 Precisely, the 
 gene expression dynamics is defined by 
 \begin{equation}
   \dot{x_i}(t) = m_i \cdot f_i(x_j(t)) - d_i \cdot x_i(t), 
+\label{eq:gnw_model}
 \end{equation}
 where $x_i(t)$ denotes the expression level of gene $i$ at time $t$, 
 $m_i$ is the 
@@ -724,46 +730,26 @@ is randomly perturbed and the gene expression dynamics is simulated for a total
 time of $200$ with $10$ as the time interval and the
 steady state as the initial condition.
 
-\CC{} code of the model adapted from GeneNetWeaver (\citealp{Schaffter2011})
-is available upon request.
+%\CC{} code of the model adapted from GeneNetWeaver (\citealp{Schaffter2011})
+%is available upon request.
 
-\subsubsection{Rewiring}
-
-\subsection{Topology determines dynamics}
-We investigate the influence of network topology on the immediate, dynamic gene response in networks. 
-To address the above questions, we applied biologically meaningful 
-\emph{in silico} 
-network models that are used to generate benchmark datasets for the DREAM 
-(Dialogue for Reverse Engineering Assessments and Methods) challenge. The
-model (\citealp{Marbach2010}) describes gene expression dynamics by the 
-combinatorial regulation of upstream transcription factors. We constructed 
-\emph{in silico} network models (Figure 2a) with a predefined topology from 
-transcriptional regulatory networks in the \emph{E. coli} RegulonDB 
-(\citealp{Gama-Castro2008}) 
-and \emph{S. cerevisiae} (\citealp{Balaji2006}) or otherwise from a random,
-uniform, scale-free or bow-tie network. Network dynamics was simulated after 
-random 
-multi-factorial perturbations from the steady state. Afterwards, the response 
-strengths of individual genes are quantified by means of multidimensional 
-scaling (Figure 2c). This workflow enables us to investigate how the dynamic
-response pattern of a network relates to its topology. 
-
-To first gain insight into the role that network topology plays, we compared
-the different network responses after change of topology and change of kinetic 
-parameters in an ensemble of \emph{E. coli} networks.
-In the case of rewiring, we permutated the order of target nodes while keeping
-the number of connections and kinetics parameters such as synthesis and 
-degradation rates constant. Pearson correlation coefficients of the response
-strengths before and after rewiring decrease slightly with the network size. 
-In contrast, when we 
-change the kinetic parameters without affecting the network topology (scheme, 
-\ref{fig:rewiring_scheme}), the Pearson correlation coefficients remains 
-at the same level and 
-are in general higher than that before and after rewiring. The Kullback-Leibler
-divergence, which measures the distance between two distributions, further 
-confirms that the distance between the effect of rewiring and parameter change 
-increases with the network size, indicating that network topology has a stronger 
-impact on the response pattern, especially in large networks. 
+\subsubsection{Rewiring and change of parameters}
+In order to compare the influence of both topology and model parameters on 
+the network response, we changed the network topology by rewiring edges and 
+the kinetic parameters $m_i, d_i$ (\ref{eq:gnw_model}) of a gene $i$ 
+(\ref{fig:rewiring_scheme}). The
+network response strengths before and afterwards were then compared by
+calculating the Pearson correlation. More specifically, in the case of 
+rewiring, the list of target nodes is randomly permutated and assigned to the
+source nodes to form new edges. 
+In such a way, the total number of edges
+remains the same after rewiring. 
+Topology-related parameters $\alpha, k, n$ are
+then regenerated, but kinetic parameters were kept the same. 
+When changing the model parameters of individual genes, we fixed the network
+topology, but changed both the intrinsic response of individual genes and 
+the connection strength by tuning the kinetic and topological parameters 
+respectively.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -778,6 +764,43 @@ coded in gray scale.
 }
 \label{fig:rewiring_scheme}
 \end{figure}
+
+\subsection{Topology determines dynamics}
+We investigate the influence of network topology on the immediate, dynamic gene response in networks. 
+To address the above questions, we applied biologically meaningful 
+\emph{in silico} 
+network models that are used to generate benchmark datasets for the DREAM 
+(Dialogue for Reverse Engineering Assessments and Methods) challenge. The
+model (\citealp{Marbach2010}) describes gene expression dynamics by the 
+combinatorial regulation of upstream transcription factors. We constructed 
+\emph{in silico} network models (Figure 2a) with a predefined topology from 
+transcriptional regulatory networks in the \emph{E. coli} RegulonDB 
+(\citealp{Gama-Castro2008}) 
+and \emph{S. cerevisiae} (\citealp{Balaji2006}) or otherwise from a random,
+uniform, small-world, scale-free or bow-tie network. Network dynamics was simulated after 
+random 
+multi-factorial perturbations from the steady state. Afterwards, the response 
+strengths of individual genes are quantified by means of multidimensional 
+scaling (\ref{sec:response_strength}). 
+This workflow enables us to investigate how the dynamic
+response pattern of a network relates to its topology. 
+
+To first gain insight into the role that network topology plays, we compared
+the different network responses after change of topology and change of model
+parameters in an ensemble of \emph{E. coli} networks.
+In the case of rewiring, we permutated the order of target nodes while keeping
+the number of connections and kinetics parameters such as synthesis and 
+degradation rates constant. Pearson correlation coefficients of the response
+strengths before and after rewiring decrease slightly with the network size. 
+In contrast, when we 
+change the model parameters without affecting the network topology (%
+\ref{fig:rewiring_scheme}), the Pearson correlation coefficients almost remains 
+at the same level and 
+are in general higher than that before and after rewiring. The Kullback-Leibler
+divergence, which measures the distance between two distributions, further 
+confirms that the distance between the effect of rewiring and parameter change 
+increases with the network size, indicating that network topology has a stronger 
+impact on the response pattern, especially in large networks. 
 
 \begin{figure}[!ht]
 \begin{center}
@@ -796,6 +819,25 @@ sizes.
 \label{fig:system_size}
 \end{figure}
 
+This result highlights the importance of network topology in
+determining the network dynamics, since rewiring decreases
+the correlation of network response more strongly than 
+parameter change, and this effect becomes more pronounced in
+larger networks. Our conclusion is very much in line with a 
+recent idea of \emph{geometry-controlled kinetics}~%
+\citep{Benichou2010}, or the 
+initial distance between reactants in compact systems is 
+a key parameter and determinant of reaction kinetics, which 
+could possibly be applied to the role that topology plays 
+in gene regulatory networks.
+
+The existence of topological determinant in network dynamics
+further justifies the assumptions of chemical reaction network
+theory (CRNT), that is for any networks following mass action kinetics,
+a non-negative integer $\delta$ called the
+deficiency can be derived from the network structure
+alone and the number of steady states and the possibility of 
+oscillation can be deduced from the deficiency value~\citep{Conradi2005}.
 
 \subsection{Anti-correlation between dynamics and topology}
 Previous studies~\citep{Lu2007a,Mar2011} have demonstrated a negative
@@ -851,33 +893,149 @@ correlated with the cellular phenotype.
 
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=\textwidth]{ecoli_yeast_go.pdf}
+\includegraphics[width=\textwidth]{yeast_ecoli_go.pdf}
 \end{center}
 \caption[GO term enrichment of strongly regulated genes]{
 {\bf Strongly regulated peripheral genes are correlated with the phenotype.}
-(A) Topology-response anti-correlation of \emph{E. coli} in response 
-to different stresses (extracted from \citealp{Jozefczuk2010}). (B) Topology-response
+(A) Topology-response
 anti-correlation of \emph{S. cerevisiae} in response to different synchronizations
-(extracted from \citealp{Spellman1998,Cho1998}). (C) Enrichment of GO terms
-in the strongly induced peripheral genes of \emph{E. coli}. Shown are $p$-values
-from Fisher's exact test in gray scale for different GO terms under different 
-conditions. (D) Enrichment of GO
-terms in the strongly induced peripheral genes of \emph{S. cerevisiae}. Shown 
+(extracted from \citealp{Spellman1998,Cho1998}). 
+(B) Enrichment of GO
+terms in the strongly induced (response strength $> -\log_{10}0.05$) 
+peripheral genes of \emph{S. cerevisiae}. Shown 
 are $p$-values
 from Fisher's exact test in gray scale for different GO terms under different 
 conditions.
+(C) Topology-response anti-correlation of \emph{E. coli} in response 
+to different stresses (extracted from \citealp{Jozefczuk2010}). 
+(D) Enrichment of GO terms
+in the strongly induced (response strength $> -\log_{10}0.1$) 
+peripheral genes of \emph{E. coli}. Shown are $p$-values
+from Fisher's exact test in gray scale for different GO terms under different 
+conditions. 
 }
 \label{fig:ecoli_yeast_go}
+\end{figure}
+
+Our results present an invariant feature of gene regulatory
+networks, namely strongly responding genes correlate with
+the phenotype and are sparsely connected peripheral nodes, 
+in contrast, densely connected hub genes are only moderately
+regulated and responsible for signal transduction. This 
+feature can be considered as an \emph{elephant in the room},
+things that people tend to overlook although quite obvious
+in the first place. People working with microarray data are
+usually interested in a ranked list of genes, sometimes as the 
+main research result, sometimes as a
+preliminary step to more complex experimental validation~%
+\citep{Boulesteix2009,Smyth2004}. On the one hand, different ranking
+algorithms often lead to unreproducible lists; On the other
+hand, if one only examines those top-ranked genes in more
+details, one only focuses on the genes related to the phenotype,
+or workhorses, and will thus not be able to detect master regulators
+that determine the mechanism of action.
+
+The finding of strongly regulated genes being sparsely connected
+has also implication for the reverse engineering of gene regulatory
+networks. Although sparsity has widely been assumed in the field
+of reverse engineering~\citep{Yeung2002,Gardner2003}, especially
+for solving linear ordinary differential equation models, it was
+not explicitly stated whether this assumption holds. From what
+we learned, if one starts to reconstruct the network consisting only of
+differentially regulated genes, it is also highly likely that
+the network is sparse.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{yeast_ecoli_go_under.pdf}
+\end{center}
+\caption[GO term depletion of strongly regulated genes]{
+{\bf Metabolic and transcriptional regulation is under-represented in 
+strongly regulated peripheral genes.}
+(A) Under-representation of GO
+terms in the strongly induced (response strength $> -\log_{10}0.05$) 
+peripheral genes of \emph{S. cerevisiae} from
+the dataset in \ref{fig:ecoli_yeast_go}. Shown 
+are $p$-values
+from Fisher's exact test in gray scale for different GO terms under different 
+conditions.
+(B) Under-representation of GO terms
+in the strongly induced (response strength $> -\log_{10}0.1$) peripheral genes 
+of \emph{E. coli} from the dataset 
+in \ref{fig:ecoli_yeast_go}. Shown are $p$-values
+from Fisher's exact test in gray scale for different GO terms under different 
+conditions. 
+}
+\label{fig:ecoli_yeast_go_under}
 \end{figure}
 
 \section{Biological application}
 We further went on to verify our hypothesis that strongly regulated peripheral 
 genes are correlated with the phenotype by means of an \emph{in vitro}
-mammalian cell system. Primary human keratinocytes extracted from the foreskin
-migrate upon the treatment of hepatocyte growth factor (HGF), we measured
-the gene expression profiles up to 8h after treatment of HGF (\citealp{Busch2008}) 
+mammalian cell system, namely migration of primary human keratinocytes extracted from the foreskin
+upon the treatment of hepatocyte growth factor (HGF). 
+This system is of particular interest to wound healing, which is a complex 
+dynamic process involving a variety of players in the skin.
+HGF activates its receptor MET, a proto-oncogene commonly mutated in 
+metastasizing epithelial cell, and thus the cellular response to HGF is 
+crucial for understanding the migration behavior or even wound healing and 
+metastasis in general. 
+
+We measured
+the gene expression profiles in keratinocytes up to 8h after treatment of HGF (\citealp{Busch2008}) 
 and identified
-key genes with a large response strength according to MDS.
+key genes with a large response strength according to MDS 
+(\ref{fig:degree_response_hgf}). The gene list 
+ranked by MDS-based response metric largely agrees with a previous list 
+according to the ranking of peak and mean fold expression over time~%
+\citep{Busch2008}. Among the top-ranked genes, PTGS2 is a prostaglandin 
+synthase and a major mediator of inflammation; AKAP12 is a regulator 
+of protein kinase A (PKA) signaling, which could suppress HGF-induced 
+migration; PLAUR encodes the plasminogen urokinase activator receptor;
+CEACAM1 encodes a member of the immunoglobulin superfamily and is a
+cell adhesion molecule in leukocytes, epithelial and endothelial cells.
+The perturbation of all the above players can reduce the closed migration 
+area~\citep{Busch2008,Schnickmann2009}.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{degree_response_hgf.pdf}
+\end{center}
+\caption[Degree-response anti-correlation of HGF-induced response]{
+{\bf Degree-response anti-correlation of gene regulation in HGF-stimulated
+keratinocytes.}
+
+}
+\label{fig:degree_response_hgf}
+\end{figure}
+
+We further identified 3 genes that only pop up in the MDS-based ranking.
+FERMT2 is also called kindlin 2 and participates in the connection between 
+extracellular matrix (ECM) adhesion sites and the actin cytoskeleton, the
+colocalization of kindlin gene products is relevant for the pathophysiology
+of the Kindler syndrome; Interleukin 8 is one of the major mediators
+of the inflammatory response; PTGER4 is a receptor for prostaglandin E2.
+The functions of these genes all point to the regulation of cell shape and
+inflammation. 
+To verify the role these genes play in keratinocyte migration,
+we used either antibodies or siRNAs to perturb the products of these genes
+(\ref{fig:inhibition_method}). One example is shown in 
+\ref{fig:scratch_assay}, where keratinocytes treated with HGF and IL8 
+neutralizing antibodies were found to migrate slower within 12 hours 
+than those only treated with HGF.
+Indeed, the inhibition of FERMT2, IL8 and PTGER4 all have an effect on the 
+migratory phenotype of keratinocytes (\ref{fig:migration_prediction}).
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{inhibition_method.pdf}
+\end{center}
+\caption[Prediction of migration inhibition after perturbing key players]{
+{\bf Prediction of migration inhibition after perturbing key players identified
+from MDS.} To be converted to table!
+}
+\label{fig:inhibition_method}
+\end{figure}
 
 \begin{figure}[!ht]
 \begin{center}
@@ -895,17 +1053,6 @@ microscope and an ibidi humidity chamber.
 
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=\textwidth]{inhibition_method.pdf}
-\end{center}
-\caption[Prediction of migration inhibition after perturbing key players]{
-{\bf Prediction of migration inhibition after perturbing key players identified
-from MDS.} To be converted to table!
-}
-\label{fig:inhibition_method}
-\end{figure}
-
-\begin{figure}[!ht]
-\begin{center}
 \includegraphics[width=\textwidth]{migration_prediction.pdf}
 \end{center}
 \caption[Prediction of migration inhibition after perturbing key players]{
@@ -915,6 +1062,9 @@ from MDS.}
 \label{fig:migration_prediction}
 \end{figure}
 
-
-
+We provided a proof of principle that key genes with a high MDS-based response
+score are correlated with the cellular phenotype, they fulfil their functions
+while being located at the periphery of the network and sparsely connected.
+The advantage of the MDS-based response metric is that it can rapidly generate
+testable hypotheses from the multidimensional gene expression time series data.
 
