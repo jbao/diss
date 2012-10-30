@@ -355,6 +355,59 @@
   url = {http://dx.doi.org/10.1016/j.jmb.2006.04.029}
 }
 
+@ARTICLE{Bar-Joseph2003,
+  author = {Ziv Bar-Joseph and Georg Gerber and Itamar Simon and David K Gifford
+	and Tommi S Jaakkola},
+  title = {Comparing the continuous representation of time-series expression
+	profiles to identify differentially expressed genes.},
+  journal = {Proc Natl Acad Sci U S A},
+  year = {2003},
+  volume = {100},
+  pages = {10146--10151},
+  number = {18},
+  month = {Sep},
+  abstract = {We present a general algorithm to detect genes differentially expressed
+	between two nonhomogeneous time-series data sets. As increasing amounts
+	of high-throughput biological data become available, a major challenge
+	in genomic and computational biology is to develop methods for comparing
+	data from different experimental sources. Time-series whole-genome
+	expression data are a particularly valuable source of information
+	because they can describe an unfolding biological process such as
+	the cell cycle or immune response. However, comparisons of time-series
+	expression data sets are hindered by biological and experimental
+	inconsistencies such as differences in sampling rate, variations
+	in the timing of biological processes, and the lack of repeats. Our
+	algorithm overcomes these difficulties by using a continuous representation
+	for time-series data and combining a noise model for individual samples
+	with a global difference measure. We introduce a corresponding statistical
+	method for computing the significance of this differential expression
+	measure. We used our algorithm to compare cell-cycle-dependent gene
+	expression in wild-type and knockout yeast strains. Our algorithm
+	identified a set of 56 differentially expressed genes, and these
+	results were validated by using independent protein-DNA-binding data.
+	Unlike previous methods, our algorithm was also able to identify
+	22 non-cell-cycle-regulated genes as differentially expressed. This
+	set of genes is significantly correlated in a set of independent
+	expression experiments, suggesting additional roles for the transcription
+	factors Fkh1 and Fkh2 in controlling cellular activity in yeast.},
+  doi = {10.1073/pnas.1732547100},
+  institution = {Laboratory for Computer Science, Massachusetts Institute of Technology,
+	200 Technology Square, Cambridge, MA 02139, USA. zivbj@mit.edu},
+  keywords = {Algorithms; Cell Cycle Proteins, physiology; Cell Cycle, genetics;
+	Forkhead Transcription Factors; Gene Expression Profiling; Oligonucleotide
+	Array Sequence Analysis; Saccharomyces cerevisiae Proteins, physiology;
+	Schizosaccharomyces pombe Proteins; Sequence Alignment; Tacrolimus
+	Binding Protein 1A, physiology; Transcription Factors, physiology;
+	Yeasts, genetics},
+  language = {eng},
+  medline-pst = {ppublish},
+  owner = {bao},
+  pii = {1732547100},
+  pmid = {12934016},
+  timestamp = {2012.10.30},
+  url = {http://dx.doi.org/10.1073/pnas.1732547100}
+}
+
 @ARTICLE{Barabasi1999,
   author = {Barab\'asi and Albert},
   title = {Emergence of scaling in random networks},
@@ -1959,6 +2012,96 @@
   timestamp = {2009.05.13}
 }
 
+@ARTICLE{Stark2006,
+  author = {Chris Stark and Bobby-Joe Breitkreutz and Teresa Reguly and Lorrie
+	Boucher and Ashton Breitkreutz and Mike Tyers},
+  title = {{BioGRID}: a general repository for interaction datasets.},
+  journal = {Nucleic Acids Res},
+  year = {2006},
+  volume = {34},
+  pages = {D535--D539},
+  number = {Database issue},
+  month = {Jan},
+  abstract = {Access to unified datasets of protein and genetic interactions is
+	critical for interrogation of gene/protein function and analysis
+	of global network properties. BioGRID is a freely accessible database
+	of physical and genetic interactions available at http://www.thebiogrid.org.
+	BioGRID release version 2.0 includes >116 000 interactions from Saccharomyces
+	cerevisiae, Caenorhabditis elegans, Drosophila melanogaster and Homo
+	sapiens. Over 30 000 interactions have recently been added from 5778
+	sources through exhaustive curation of the Saccharomyces cerevisiae
+	primary literature. An internally hyper-linked web interface allows
+	for rapid search and retrieval of interaction data. Full or user-defined
+	datasets are freely downloadable as tab-delimited text files and
+	PSI-MI XML. Pre-computed graphical layouts of interactions are available
+	in a variety of file formats. User-customized graphs with embedded
+	protein, gene and interaction attributes can be constructed with
+	a visualization system called Osprey that is dynamically linked to
+	the BioGRID.},
+  doi = {10.1093/nar/gkj109},
+  file = {Stark2006.pdf:Stark2006.pdf:PDF},
+  institution = {Ontario Cancer Institute, Princess Margaret Hospital, 610 University
+	Avenue, Toronto, Ontario, Canada M5G 2M9.},
+  keywords = {Animals; Caenorhabditis elegans, genetics/metabolism; Computer Graphics;
+	Databases, Genetic; Drosophila melanogaster, genetics/metabolism;
+	Genes; Humans; Internet; Models, Genetic; Multiprotein Complexes,
+	genetics/metabolism; Protein Interaction Mapping; Saccharomyces cerevisiae,
+	genetics/metabolism; Systems Integration; User-Computer Interface},
+  owner = {bao},
+  pii = {34/suppl_1/D535},
+  pmid = {16381927},
+  timestamp = {2010.05.11},
+  url = {http://dx.doi.org/10.1093/nar/gkj109}
+}
+
+@ARTICLE{Stegle2010a,
+  author = {Oliver Stegle and Katherine J Denby and Emma J Cooke and David L
+	Wild and Zoubin Ghahramani and Karsten M Borgwardt},
+  title = {{A robust Bayesian two-sample test for detecting intervals of differential
+	gene expression in microarray time series.}},
+  journal = {J Comput Biol},
+  year = {2010},
+  volume = {17},
+  pages = {355--367},
+  number = {3},
+  month = {Mar},
+  abstract = {Understanding the regulatory mechanisms that are responsible for an
+	organism's response to environmental change is an important issue
+	in molecular biology. A first and important step towards this goal
+	is to detect genes whose expression levels are affected by altered
+	external conditions. A range of methods to test for differential
+	gene expression, both in static as well as in time-course experiments,
+	have been proposed. While these tests answer the question whether
+	a gene is differentially expressed, they do not explicitly address
+	the question when a gene is differentially expressed, although this
+	information may provide insights into the course and causal structure
+	of regulatory programs. In this article, we propose a two-sample
+	test for identifying intervals of differential gene expression in
+	microarray time series. Our approach is based on Gaussian process
+	regression, can deal with arbitrary numbers of replicates, and is
+	robust with respect to outliers. We apply our algorithm to study
+	the response of Arabidopsis thaliana genes to an infection by a fungal
+	pathogen using a microarray time series dataset covering 30,336 gene
+	probes at 24 observed time points. In classification experiments,
+	our test compares favorably with existing methods and provides additional
+	insights into time-dependent differential expression.},
+  doi = {10.1089/cmb.2009.0175},
+  institution = {Interdepartmental Bioinformatics Group, Max Planck Institute for
+	Developmental Biology, Max Planck Institute for Biological Cybernetics,
+	Tübingen, Germany. oliver.stegle@tuebingen.mpg.de},
+  keywords = {Arabidopsis, genetics/microbiology; Area Under Curve; Bayes Theorem;
+	Computational Biology; Gene Expression Profiling; Gene Expression
+	Regulation, Plant; Genes, Plant, genetics; Models, Genetic; Multigene
+	Family, genetics; Normal Distribution; Oligonucleotide Array Sequence
+	Analysis, methods; Time Factors},
+  language = {eng},
+  medline-pst = {ppublish},
+  owner = {bao},
+  pmid = {20377450},
+  timestamp = {2012.10.26},
+  url = {http://dx.doi.org/10.1089/cmb.2009.0175}
+}
+
 @ARTICLE{Stelzl2005,
   author = {Ulrich Stelzl and Uwe Worm and Maciej Lalowski and Christian Haenig
 	and Felix H Brembeck and Heike Goehler and Martin Stroedicke and
@@ -2005,6 +2148,50 @@
   pmid = {16169070},
   timestamp = {2012.09.21},
   url = {http://dx.doi.org/10.1016/j.cell.2005.08.029}
+}
+
+@ARTICLE{Storey2005,
+  author = {John D Storey and Wenzhong Xiao and Jeffrey T Leek and Ronald G Tompkins
+	and Ronald W Davis},
+  title = {Significance analysis of time course microarray experiments.},
+  journal = {Proc Natl Acad Sci U S A},
+  year = {2005},
+  volume = {102},
+  pages = {12837--12842},
+  number = {36},
+  month = {Sep},
+  abstract = {Characterizing the genome-wide dynamic regulation of gene expression
+	is important and will be of much interest in the future. However,
+	there is currently no established method for identifying differentially
+	expressed genes in a time course study. Here we propose a significance
+	method for analyzing time course microarray studies that can be applied
+	to the typical types of comparisons and sampling schemes. This method
+	is applied to two studies on humans. In one study, genes are identified
+	that show differential expression over time in response to in vivo
+	endotoxin administration. By using our method, 7,409 genes are called
+	significant at a 1\% false-discovery rate level, whereas several
+	existing approaches fail to identify any genes. In another study,
+	417 genes are identified at a 10\% false-discovery rate level that
+	show expression changing with age in the kidney cortex. Here it is
+	also shown that as many as 47\% of the genes change with age in a
+	manner more complex than simple exponential growth or decay. The
+	methodology proposed here has been implemented in the freely distributed
+	and open-source edge software package.},
+  doi = {10.1073/pnas.0504609102},
+  institution = {Department of Biostatistics, University of Washington, Seattle, WA
+	98195, USA. jstorey@u.washington.edu},
+  keywords = {Adult; Aged; Aged, 80 and over; Aging, genetics; Gene Expression Profiling,
+	methods; Gene Expression Regulation, drug effects; Humans; Inflammation,
+	chemically induced/genetics; Kidney Cortex, metabolism; Lipopolysaccharides,
+	pharmacology; Middle Aged; Oligonucleotide Array Sequence Analysis,
+	methods; Software; Time Factors},
+  language = {eng},
+  medline-pst = {ppublish},
+  owner = {bao},
+  pii = {0504609102},
+  pmid = {16141318},
+  timestamp = {2012.10.30},
+  url = {http://dx.doi.org/10.1073/pnas.0504609102}
 }
 
 @INCOLLECTION{Strickert2009,

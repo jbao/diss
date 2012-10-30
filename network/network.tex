@@ -133,6 +133,7 @@ as groups of links rather than nodes and demonstrated this approach can uncover
 natural overlap while revealing hierarchical organization of the network.
 
 \subsection{Scale-free networks}
+\label{sec:scale_free}
 Together with the small-world network model, the scale-free network model~%
 \citep{Barabasi1999} has
 also attracted much attention in the research community. The basic idea of 
@@ -184,8 +185,13 @@ intensity~\citep{Gentleman2005}. This intensity value is then interpreted as a
 proxy for the level of gene expression. In order to characterize the global 
 gene expression given a certain stimulus over time, one can perform the 
 hybridization at multiple time points. The ultimate gene expression data are
-thus multidimensional time series. In the following we provide some of the methods that
-can be used to analyse such data.
+thus multidimensional time series. 
+
+In the following we provide two distinct 
+perspectives of viewing the gene expression time series, namely ranking the 
+single gene dynamics within the same experimental condition by multidimensional
+scaling, and likelihood ratio test of kinetic profiles between two conditions
+by fitting a linear model to the time series.
 
 \subsection{Dimensionality reduction}
 Dimensionality reduction is the transformation of high-dimensional data into 
@@ -196,8 +202,8 @@ and nonlinear dimensionality reduction algorithms
 focus on a variant of Euclidean distance based multidimensional 
 scaling (MDS), which is similar to principal component analysis (PCA)%
 ~\citep{Haerdle2003},
-but more intuitive. We also evaluate the performance of MDS in comparison to 
-PCA.
+but more flexible and intuitive. We also evaluate the performance of MDS in comparison to 
+PCA in the following.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -235,7 +241,7 @@ such that the pairwise distances between them
 reflect as closely as possible  
 the original
 dissimilarities between the entities. 
-The optimization of the spatial configuration is realized by the 
+The optimization of the spatial configuration can be realized by the 
 minimization of different stress functions.
 We applied
 here the HiT-MDS-2 algorithm (\citealp{Strickert2009}), where the
@@ -249,7 +255,7 @@ Pearson correlation of the original and the reconstructed distances
     \sum_{i \neq j}^n (\hat{d}_{ij} - \mu_{\hat{\boldsymbol{D}}})^2}}
   \label{eq:dist_corr}
 \end{equation}
-is maximized using a gradient descent approach.
+is defined as the negated stress function and is maximized using a gradient descent approach.
 Particularly, $\boldsymbol{D} = (d_{ij})_{i,j=1...n}$ is Euclidean distance matrix of the
 gene expression time series, and $\hat{\boldsymbol{D}} = (\hat{d}_{ij})_{i,j=1...n}$ 
 is the 
@@ -266,8 +272,11 @@ and $\hat{\boldsymbol{D}}$ respectively.
 %\end{equation}
 %is minimized by gradient descent.
 Throughout this work, the number of optimization cycles is fixed to be $100$.
-The final configuration is centered, normalized by the largest dimension variance,
-and rotated by Principal Component Analysis.
+Since any reflection or rotation of the low-dimensional point configuration
+remains a valid solution of MDS,
+we centered the final configuration, normalized it by the largest dimension variance,
+and rotated it by Principal Component Analysis to generate a unique 
+representation of the low-dimensional configuration.
 
 \subsubsection{Performance of multidimensional scaling}
 Taking the time-resolved gene expression profiles of hepatocyte growth factor
@@ -307,7 +316,7 @@ Data are taken from the 8h time course of primary human keratinocytes
 stimulated with hepatocyte growth factor (\cite{Busch2008}, 
 ArrayExpress accession number E-TABM-440),
 red and green labels represent up- and 
-down-regulated genes with an average fold expression 
+down-regulated genes with an average $\log_2$ fold expression 
 $> 0.5$. }
 \label{fig:svd-mds}
 \end{figure}
@@ -349,13 +358,18 @@ library \texttt{sn}.
 \subsection{Modelling time series}
 Another method to determine the dynamic response of a certain
 gene in the network is based on the work of \cite{Mar2009}. 
-The difficulty 
-in analyzing microarray time series data comes from the lack
-of replicates in general at each time point. In order to 
+Since statistical analyses of microarray time series data usually 
+suffers from the lack
+of replicates at each time point, classical statistical tests 
+cannot be directly applied. In order to 
 circumvent this problem and increase the statistical power,
-we take into account all data points in a time series at the
-same time.
+previous studies~\citep{Bar-Joseph2003,Storey2005} have taken into 
+account all data points at the
+same time by fitting the time series with a spline function and 
+performing likelihood ratio test to judge the significance of 
+differential expression.
 
+Our approach works in an analogous way.
 More specifically, we fitted cubic regression models to each 
 individual gene expression profile. A cubic model was chosen 
 because of the moderately large number of time points 
@@ -543,7 +557,22 @@ over time and is therefore defined by the reduced model, and two, this gene is
 differentially regulated over time and is defined by the full model. To decide 
 which of these two hypotheses is more plausible given the available data, we 
 use the analysis of deviance test, which is an extension of the likelihood 
-ratio test.
+ratio test (\ref{fig:full_reduced}).
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{hdf-fit_cebpd.pdf}
+\end{center}
+\caption[Full/reduced model fit of gene expression profile]{
+{\bf Full/reduced model fit of the expression profile of CEBPD in fibroblasts.}
+Shown are the microarray time series under the control and 
+keratinocyte-conditioned medium stimulation. Dashed lines indicate the full
+model which assumes the alternative hypothesis of differential expression
+between conditions; Dot-dashed line represent the reduced model of null 
+hypothesis.
+}
+\label{fig:full_reduced}
+\end{figure}
 
 \subsection{Heavy-tailed response distribution}
 Based on both the multidimensional scaling and full/reduced
@@ -684,12 +713,12 @@ except that Poisson in-degree (with $\lambda = 3$) and power-law
   concatenated to the other one through the root nodes, such that the resulting
   graph is of the multiple-input multiple-output type.
 \end{itemize}
-All networks have 1000 nodes and are generated with the Python package NetworkX (\citealp{Hagberg2008}) 
-, they are further made sure to be connected.
+All networks have 1000 nodes and are generated with the Python package NetworkX 
+(\citealp{Hagberg2008}), they are further made sure to be connected.
 
 \subsubsection{Dynamics}
 We adapted a thermodynamical gene network model 
-(\citealp{Marbach2010,Schilstra2002,Schaffter2011}),
+(\citealp{Schilstra2002,Marbach2010,Schaffter2011}),
 which takes into account the combinatorial control of transcription factors. 
 Precisely, the 
 gene expression dynamics is defined by 
@@ -737,7 +766,7 @@ steady state as the initial condition.
 In order to compare the influence of both topology and model parameters on 
 the network response, we changed the network topology by rewiring edges and 
 the kinetic parameters $m_i, d_i$ (\ref{eq:gnw_model}) of a gene $i$ 
-(\ref{fig:rewiring_scheme}). The
+respectively (\ref{fig:rewiring_scheme}). The
 network response strengths before and afterwards were then compared by
 calculating the Pearson correlation. More specifically, in the case of 
 rewiring, the list of target nodes is randomly permutated and assigned to the
@@ -745,7 +774,7 @@ source nodes to form new edges.
 In such a way, the total number of edges
 remains the same after rewiring. 
 Topology-related parameters $\alpha, k, n$ are
-then regenerated, but kinetic parameters were kept the same. 
+then regenerated, but kinetic parameters remain the same. 
 When changing the model parameters of individual genes, we fixed the network
 topology, but changed both the intrinsic response of individual genes and 
 the connection strength by tuning the kinetic and topological parameters 
@@ -767,31 +796,14 @@ coded in gray scale.
 
 \subsection{Topology determines dynamics}
 We investigate the influence of network topology on the immediate, dynamic gene response in networks. 
-To address the above questions, we applied biologically meaningful 
-\emph{in silico} 
-network models that are used to generate benchmark datasets for the DREAM 
-(Dialogue for Reverse Engineering Assessments and Methods) challenge. The
-model (\citealp{Marbach2010}) describes gene expression dynamics by the 
-combinatorial regulation of upstream transcription factors. We constructed 
-\emph{in silico} network models (Figure 2a) with a predefined topology from 
-transcriptional regulatory networks in the \emph{E. coli} RegulonDB 
-(\citealp{Gama-Castro2008}) 
-and \emph{S. cerevisiae} (\citealp{Balaji2006}) or otherwise from a random,
-uniform, small-world, scale-free or bow-tie network. Network dynamics was simulated after 
-random 
-multi-factorial perturbations from the steady state. Afterwards, the response 
-strengths of individual genes are quantified by means of multidimensional 
-scaling (\ref{sec:response_strength}). 
-This workflow enables us to investigate how the dynamic
-response pattern of a network relates to its topology. 
-
 To first gain insight into the role that network topology plays, we compared
 the different network responses after change of topology and change of model
 parameters in an ensemble of \emph{E. coli} networks.
 In the case of rewiring, we permutated the order of target nodes while keeping
 the number of connections and kinetics parameters such as synthesis and 
 degradation rates constant. Pearson correlation coefficients of the response
-strengths before and after rewiring decrease slightly with the network size. 
+strengths before and after rewiring decrease slightly with the network size 
+(\ref{fig:system_size}). 
 In contrast, when we 
 change the model parameters without affecting the network topology (%
 \ref{fig:rewiring_scheme}), the Pearson correlation coefficients almost remains 
@@ -819,6 +831,11 @@ sizes.
 \label{fig:system_size}
 \end{figure}
 
+One has to keep in mind that when changing the parameters,
+the connection strengths of individual edges are also varied,
+and only the network connectivity remains the same. However,
+parameter change has in general a higher correlation coefficient
+and thus less effect than rewiring, which changes the connectivity.
 This result highlights the importance of network topology in
 determining the network dynamics, since rewiring decreases
 the correlation of network response more strongly than 
@@ -846,6 +863,31 @@ and its expression variance in the context of static disease models.
 Here, we aim to address whether this negative correlation also exists 
 between the network topology and its dynamic response.
 
+To this end, we characterized the dynamic gene response strengths from 
+various microarray studies of primary human keratinocytes, mouse skin
+cells, mouse erythrocyte progenitor cells, \emph{E. coli}, yeast and
+correlated them with the connectivity of
+%\emph{in silico} 
+%network models that are used to generate benchmark datasets for the DREAM 
+%(Dialogue for Reverse Engineering Assessments and Methods) challenge. 
+%The model (\citealp{Marbach2010}) describes gene expression dynamics by the 
+%combinatorial regulation of upstream transcription factors. We constructed 
+%\emph{in silico} network models (\ref{fig:degree_response_example}) with a predefined topology from 
+transcriptional regulatory networks, for example for \emph{E. coli} 
+(\citealp{Gama-Castro2008}) 
+and \emph{S. cerevisiae} (\citealp{Balaji2006}). In the case of human and
+mouse cells, no such comprehensive gene regulatory networks is available
+and we thus took the protein-protein interaction network from BioGRID~%
+\citep{Stark2006} as a first approximation. 
+We further investigate the same correlation in a random,
+uniform, small-world, scale-free or bow-tie network. Network dynamics was simulated after 
+random 
+multi-factorial perturbations from the steady state. Afterwards, the response 
+strengths of individual genes are quantified by means of multidimensional 
+scaling (\ref{sec:response_strength}). 
+This workflow enables us to investigate how the dynamic
+response pattern of a network relates to its topology. 
+
 \begin{figure}[!ht]
 \begin{center}
 \includegraphics[width=\textwidth]{degree_response-example.pdf}
@@ -853,6 +895,10 @@ between the network topology and its dynamic response.
 \caption[Anti-correlation between response and connectivity]{
 {\bf Anti-correlation between response and connectivity for biological and 
 \emph{in silico} networks.} 
+Shown are the correlations between topology and dynamic response for different
+biological networks (upper panel) and synthetic \emph{in silico} networks
+(lower panel). Blue dashed lines indicate the identity and red asterisks 
+represent the centers of mass for each 2-D point distribution.
 }
 \label{fig:degree_response_example}
 \end{figure}
@@ -864,11 +910,25 @@ between the network topology and its dynamic response.
 \caption[Comparison between biological and \emph{in silico} networks]{
 {\bf Centers of mass of the response-connectivity distribution for biological
 and \emph{in silico} networks.} 
+The point and error bars for \emph{in silico} networks indicate the mean
+and standard deviation of 1000 realizations of different networks respectively.
+Blue dashed line denotes the identity as in \ref{fig:degree_response_example}.
 }
 \label{fig:degree_response_summary}
 \end{figure}
 
-Our results demonstrated that genes with a high level of change in expression are more likely to be peripheral nodes (low connectivity) in the network, whereas hubs (nodes with higher connectivity) and superhubs (nodes that link hubs) tend to have a lower level of change in expression. 
+Our results demonstrated that genes in biological networks with a high level 
+of change in expression are more likely to be peripheral nodes 
+(low connectivity) in the network, whereas hubs (nodes with higher 
+connectivity) and superhubs (nodes that link hubs) tend to have a lower level 
+of change in expression. This anti-correlation is less pronounced in 
+\emph{in silico} networks to different extents. By characterizing the 
+anti-correlation using the center of mass for each point distribution, we
+can show that scale-free\footnote{Although this result should be interpreted 
+with caution according to \ref{sec:scale_free}.} and bow-tie networks are more closely related to
+biological networks, whereas random, uniform and small-world networks behave
+differently (\ref{fig:degree_response_summary}).
+
 The fact that strongly regulated genes always have a low degree and thus are
 located at the periphery of the network poses the question whether these genes
 mediate the computation of the whole network and then translate it into the 
@@ -876,15 +936,18 @@ phenotype. We therefore took the transcriptome data from the literature,
 where time-resolved response of \emph{E. coli} (\citealp{Jozefczuk2010}) and 
 \emph{S. cerevisiae} (\citealp{Spellman1998,Cho1998}) is 
 measured under different stimuli. We found a similar anti-correlation between
-network topology and response in the above datasets. Furthermore, we
+network topology and response in the above datasets (\ref{fig:ecoli_yeast_go} A,C). Furthermore, we
 carried out enrichment test of Gene Ontology (GO) terms in the significantly 
-strong responders identified from MDS (\ref{fig:ecoli_yeast_go}). 
+strong responders identified from MDS. 
 For \emph{E. coli} cells in response
-to different stress conditions, GO terms as metabolic processes, biosynthesis 
+to different stress conditions (\ref{fig:ecoli_yeast_go} D), GO terms such as 
+locomotion, flagella organization
 are over-represented in the strongly responding genes, which is in accordance
-to the fact that cells have to adjust their growth rates under stress conditions.
+to the fact that flagella motility requires a steep proton gradient between 
+the periplasmatic space and the cytoplasm, a change in cell motion could 
+indicate energy deficiency resulting from the environmental stress~\citep{Jozefczuk2010}. 
 On the other hand, for yeast cells in response to different synchronization
-treatments, GO terms like cell wall organization, cytokinesis are more 
+treatments (\ref{fig:ecoli_yeast_go} B), GO terms like cell cycle, cell division, cytokinesis are more 
 enriched than expected among strong responders, which is also in line with the
 phenotype of cell cycles. Taken together, we found strongly induced genes, 
 which are located at the periphery of gene regulatory networks, are nicely
@@ -921,8 +984,10 @@ Our results present an invariant feature of gene regulatory
 networks, namely strongly responding genes correlate with
 the phenotype and are sparsely connected peripheral nodes, 
 in contrast, densely connected hub genes are only moderately
-regulated and responsible for signal transduction. This 
-feature can be considered as an \emph{elephant in the room},
+regulated. Further GO term analysis reveals that metabolic
+function and transcriptional regulation are depleted in the
+strong responders (\ref{fig:ecoli_yeast_go_under}).
+This feature can be considered as an \emph{elephant in the room},
 things that people tend to overlook although quite obvious
 in the first place. People working with microarray data are
 usually interested in a ranked list of genes, sometimes as the 
@@ -941,7 +1006,7 @@ networks. Although sparsity has widely been assumed in the field
 of reverse engineering~\citep{Yeung2002,Gardner2003}, especially
 for solving linear ordinary differential equation models, it was
 not explicitly stated whether this assumption holds. From what
-we learned, if one starts to reconstruct the network consisting only of
+we learned so far, if one starts to reconstruct the network consisting only of
 differentially regulated genes, it is also highly likely that
 the network is sparse.
 
