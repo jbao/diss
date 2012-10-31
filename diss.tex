@@ -20,6 +20,13 @@
 \usepackage{datetime}
 \renewcommand{\dateseparator}{.}
 
+\usepackage{trackchanges}
+\addeditor{JB}
+\addeditor{DD}
+\addeditor{SD}
+\newcommand{\tnfa}{TNF-$\alpha$ }
+\newcommand{\sdfonea}{SDF-1$\alpha$ }
+
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{amssymb}
@@ -233,6 +240,8 @@ wirkungslos, Praxis ohne Theorie ist blind.
 
 \input{network/network.tex}
 
+%\input{flow/flow.tex}
+
 %\cleardoublepage{}
 %
 %\lhead[\fancyplain{}{}]{\fancyplain{}{Acknowledgments}}
@@ -250,7 +259,7 @@ wirkungslos, Praxis ohne Theorie ist blind.
 \rhead[\fancyplain{}{\leftmark}]{\fancyplain{}{}}
 
 \bibliographystyle{natbib}
-\bibliography{diss,network/network}
+\bibliography{diss,network/network,flow/flow}
 
 \cleardoublepage{}
 

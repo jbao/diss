@@ -1,0 +1,912 @@
+\chapter{Signal flow}
+
+\section*{Abstract}
+The hallmark of lung tumor development is \change[JB]{their}{its} early spread, 
+complicating the patient treatment and strongly impairing survival.
+Recent studies have shown the tumor-stroma interaction to be relevant to 
+tumor growth and spread, and therefore a possible target for
+novel, effective treatment. 
+\add[JB]{However,} 
+the details by which tumor and stroma cells communicate remain poorly 
+understood. In this article we present a study
+of the migration behavior of a non-small-cell lung 
+tumor cell line (H838) under the influence of endothelial (HPAEC) cells 
+in a coculture system.
+
+To obtain a holistic overview of the migratory processes, 
+we recorded the time-resolved changes in the transcriptome of tumor cells
+in scratch assays of aforementioned cocultures, and measured
+cytokine concentrations in the medium.
+H838 showed a significantly increased migration area after 24h in the 
+H838/HPAEC coculture compared to the H838/H838 coculture.
+TNF-$\alpha$ and SDF-1$\alpha$ directly induced migration, 
+and the transcripts of these two key factors were regulated only 
+in HPAEC cells.
+Gene set enrichment test identified coordinated regulation
+of transcription factors targets \add[JB]{downstream} of these cytokines
+that cause the transcriptome response in H838. 
+Mapping shortest paths from the cytokine receptors to the predicted
+transcription factors suggests that TNF-$\alpha$ receptors activate multiple
+downstream targets in a homogeneous fashion,
+whereas the shortest paths \change[JB]{between}{descending from} 
+the SDF-1$\alpha$ receptor
+have multiple characteristic path lengths. 
+We conclude that TNF-$\alpha$ induces \change[JB]{the sustained}{an unspecific} 
+activation 
+of various downstream transcription factors, 
+which is the \change[JB]{primary}{initial} response \remove[JB]{mechanism} 
+involved in the 
+migration of H838 cells. 
+At the same time, the delayed activation of SDF-1$\alpha$ induce\change[JB]{d}{s 
+specific} pathways 
+\add[JB]{that} could provide a fail-safe mechanism.
+
+% Please keep the Author Summary between 150 and 200 words
+% Use first person. PLoS ONE authors please skip this step. 
+% Author Summary not valid for PLoS ONE submissions.   
+\section*{Author Summary}
+
+\section*{Introduction}
+\add[SD]{Lung cancer with its predominant type non small cell lung carcinoma 
+(NSCLC) is the leading cause of cancer-related mortality worldwide.}
+The hallmark of lung cancer is its early spread, 
+making it particularly dangerous, with associated high rate of death 
+and short survival (CITE).
+Whether this is an inherent feature of the non-small \add[JB]{cell} 
+lung tumor cells or 
+due to their microenvironment is still unknown. 
+
+Ever since the formulation of \emph{seed and soil} theory by the English 
+surgeon Stephen Paget in 1889~\cite{Paget1889}, there has been increasing 
+interest in studying the tumor-stroma interactions. 
+It is now largely acknowledged that sites of metastasis are determined 
+not only by the characteristics of the tumor
+cells but also by the microenvironment of
+the host tissue~\cite{Fidler2003}. Tumor cells can generate a supportive
+microenvironment by producing stroma-modulating
+growth factors, which act in a
+paracrine manner to induce stromal reactions such as
+angiogenesis~\cite{Bergers2003}
+and inflammatory response~\cite{Coussens2002}. Stroma cells in turn can
+interact with primary tumor cells synergistically and facilitate their migration~%
+\cite{Wyckoff2004}.
+Stromal cells also make \change[SD]{ideal}{promising} drug targets, since they are not as 
+genetically
+unstable as cancer cells, and are therefore less likely to
+develop drug resistance~\cite{Kerbel1997}. To date, a number of drugs targeted
+at tumor microenvironment, i.e. endothelial cells, immune cells and components
+of the extracellular matrix, are at different stages of clinical 
+trials~\cite{Mueller2004}. However, side effects of such stroma-targeting drugs
+have also been observed, which raises the natural demand of a more detailed, 
+systematic understanding of the tumor-stroma interaction.
+
+While bearing in mind that tumor-stroma interactions can be mediated by direct cell-cell contact\remove[SD]{, soluble factors} or modification of the extracellular matrix
+components~\cite{Micke2004a}, most studies have focused on the tumor-stroma interaction through
+single soluble factors~\cite{Kryczek2007,Saijo2002i,Nakamura1997}. Zhong 
+\emph{et al.}~\cite{Zhong2008} identified cytokines that are crucial for the 
+tumor cell proliferation
+and stromal cell migration by screening the whole secretome from
+an adenocarcinoma/stromal murine lung cell coculture.
+Sato \emph{et al.}~\cite{Sato2004} studie\change[JB]{s}{d}
+the transcriptome homeostasis of pancreatic
+cancer cells and stromal fibroblasts,
+and singled out candidate genes that are
+differentially expressed in coculture.
+\add[SD]{One of the most important types of stromal cells are endothelial cells (EC), 
+the integral components of blood vessels. ECs not only promote the homeostasis of 
+vascular system, but play an important role in tumor progression as well. 
+It was shown that ECs influence different responses of cancer cells, such as 
+proliferation and invasiveness \emph{in vitro}, as well as the metastatic potential 
+of tumor cells \emph{in vivo}}.~\cite{Franses2011}\note[JB]{ref correct?}
+
+Here, we combine both of the previous approaches and
+study \emph{in vitro} the crosstalk between tumor and 
+endothelial cells in  a non-small-cell lung cancer model: namely,
+H838 lung cancer cells and HPAEC, i.e. human pulmonary artery endothelial cells,
+respectively.
+We found that the  migration of  H838 cells in a trans-well H838/HPAEC coculture
+was significantly enhanced when compared to monoculture.
+Gene set enrichment analysis of the dynamic transcriptome
+response of the H838 cells  revealed a coculture specific response 
+that correlated with enhanced migration.
+A cytokine array and subsequent single factor stimulation
+identified the cytokines \tnfa and \sdfonea
+to be the main factors enhancing H838 cell migration,
+being \emph{de novo} expressed and originating in the endothelial cells alone. 
+
+\change[JB]{Based on these cytokines, 
+we}{We further} 
+traced causes of the transcriptome response in the tumor cells back to the
+\tnfa and \sdfonea receptors. % via the transcription factors and upstream protein signaling.
+%We identified the dynamic regulation pattern of transcription factors. 
+Assuming that cellular signal \add[SD]{is} most likely \change[SD]{travels}{transmitted} through the shortest 
+path in a protein-protein interaction network, we 
+mapped the putative pathways linking cytokine receptors with the 
+transcription factors evoking the transcriptome response. 
+Based on \change[JB]{the above}{our results}, we hypothesize that \tnfa receptor family 
+members are likely associated with a wide spectrum of transcription factors, which
+renders the \tnfa-induced pathway an unspecific response in the first place.
+On the other hand, the \sdfonea receptor CXCR4 
+preferentially activates transcription factors such as 
+STAT3/6, LMO2, HSF1, IRF2, JUN/FOS, which are predominantly 
+enriched between 12 and 16 hours after coculture and represents a fine-tuned
+secondary activity leading to migration. \note[SD]{Should we mention the purpose of the paper in few sentences?}
+
+% We need some concluding sentence here wraping up teh biology
+
+
+% Results and Discussion can be combined.
+\section*{Results}
+
+\subsection*{H838 \change[SD]{mobility}{migration rate} is enhanced in a transfilter co-culture with HPAEC cells}
+
+To investigate the changes in migration behavior of lung tumor cells under the 
+influence of stromal cells we cultivated  
+H838 cells  together with either human pulmonary artery endothelial cells (HPAEC) or additional H838 cells in a trans-filter system (Fig.~\ref{fig:migration}A).
+The experimental setup of the homo- and heterogeneous cocultures ensured 
+similar physical and environmental conditions, thereby minimizing 
+experimental artifacts, e.g. due to different cell numbers per conditions. 
+
+Tumor cells on the bottom of the cell culture dish were scratched and the 
+closing of the cell-free area was observed using time-lapse microscopy, in both
+homo- and heterogenous cocultures (Fig.~\ref{fig:migration}B).
+In the heterogeneous cocultures, 
+H838 cells close on average $963.5\pm156.8\ \mu m^2$ 
+(mean $\pm$ standard deviation) within 24h, 
+against $702.8\pm104.0\ \mu m^2$ in the homogeneous cocultures 
+(Fig.~\ref{fig:migration}C). 
+% Note that we should put all these figures into one panel 
+The migration area of the heterogeneous cocultures is significantly higher, and
+a two-sided  $t$-test of the difference observed yields a $p$-value of 
+$2.82 \times 10^{-5}$.
+
+\note[SD]{Another chapter?
+If not, we should include transkriptom in the title of this passage.}
+To explore the mechanisms leading to the enhanced cell migration, we recorded the time-resolved transcriptome response of the tumor cells during migration.
+Illumina Human HT-12 Expression BeadChip was employed to compare the dynamic transcriptome response of scratched H838 cells in both homo- and heterogenous coculture conditions.
+We collected mRNA at $t=(0,0.5,1,2,3,4,5,10,15,24)h$ after scratching for microarrays,
+the data of which were quantile-normalized~\cite{Dunning2008a}.  
+Discarding lowly expressed probesets and those with low interquartile 
+variability between samples, we finally mapped the probes to 14922 EntrezID 
+annotated genes. 
+% Here we should show a time-resolved GO analysis or something similar (Fig. 2)
+% Also add the analysis in the materials and methods
+We analyzed the basal differential gene expression between homo- and
+heterogeneous coculture by linear model fitting and Bayesian variance estimation~%
+\cite{Smyth2004}, as well as the dynamic differential gene expression by fitting
+the time series with a full/reduced polynomial model~\cite{Mar2009}. At 0h, only 2
+genes are significantly down-regulated in the homogeneous coculture with respect
+to the heterogeneous coculture (Fig.~\ref{fig:transcriptome}A), 
+and their absolute log fold changes are less than 1. Over time, there are more
+genes classified as significantly up- and down-regulated by comparing the full and
+reduced model fitting (Fig.~\ref{fig:transcriptome}B). Nevertheless, none of genes
+has an absolute
+average log fold change that exceeds 1. Taken together, the majority of genes
+in H838 cells are not differentially expressed in the homo- and heterogeneous
+coculture conditions. In order to take a glance at what is the function of those
+differentially regulated genes, and to overcome the difficulty in detecting weak
+but simultaneous regulation, we analyzed the transcriptome data with gene set
+enrichment test~\cite{Luo2009}.
+The enhancement of cell migration correlates with the differential upregulation 
+of cancer and metastasis related gene sets at the basal level (Table 1). 
+There are more number of, but less specific downregulated gene sets, which range
+from metastasis, to aging and apoptosis (Table 2). 
+
+\subsection*{Supernatant  from different co-cultures show distinct cytokine composition}
+
+To identify the cytokines that mediate the communication between
+HPAEC and H838 cells and enhance the tumor cell migration,
+we quantified the cytokine composition
+of the  homo- and heterogeneous cocultures
+both before and 24h after onset of migration.
+We used a  fluorescent bead array based cytokine assay which detects fifty cytokines
+(see Materials and Methods and Table S3).
+A total of twenty-four different cytokines were present in detectable amounts,
+fifteen of which showed significant differential upregulation
+(Fig.~\ref{fig:cytokine}A).
+% Should add here an additional table with the quantification of all cytokines
+Gro-$\alpha$, MCP-3, IL-6, IL-8, IL-13, FGF basic, G-CSF, IP-10 and RANTES were
+upregulated in the heterogeneous coculture prior to cell migration \remove[JB]{and
+remained unchanged with respect to the unscratched control}.
+MIF, IL-12, IL-15, MCP-1 and TNF-$\alpha$ were also upregulated
+in the heterogeneous cocultures, \change[JB]{but}{and} this upregulation \change[SD]{increased}{was increasing}
+during tumor cell migration.
+Finally, SDF-1$\alpha$ was only found in the heterogeneous coculture,
+and was also upregulated after scratching. 
+
+% Need a better headline for the subsection here 
+\subsection*{Isolation of cytokines relevant to migration}
+
+Based on the previous analysis, 
+we selected seven cytokines that were differentially regulated  
+during tumor cell migration 
+% need some idea why we did not add MIF to the candidate list
+(TNF-$\alpha$, IL-6, RANTES, SDF-1$\alpha$, MCP-1, IL-8, Gro-$\alpha$).
+Furthermore, we added VEGF as cytokine candidate for its known involvement in
+angiogenesis and metastasis of tumor cells~\cite{Ferrara2003,Hiratsuka2002} 
+\remove[JB]{and 
+because the GSEA analysis revealed angiogenesis to be a
+differentially regulated gene function of migrating H838 cells in 
+coculture conditions}.
+
+To test the influence of the above factors on tumor cell migration,
+we analysed scratch assays of H838 monocultures under the influence of 
+individual or multiple of these cytokines. 
+Comparing migration areas after 24h, 
+we found that only IL-6, TNF-$\alpha$ and SDF-1$\alpha$ significantly 
+increase the migration of H838 cells (Fig.~\ref{fig:cytokine}B, two-sided $t$-test,
+$p < 0.05$). 
+To further corroborate this result, we neutralized 
+TNF-$\alpha$ and SDF-1$\alpha$ in heterogeneous cocultures  by adding neutralizing antibodys (cf. Material and Methodes)
+Inhibition of  either TNF-$\alpha$ or SDF-1$\alpha$ significantly reduced tumor cell migration (Fig.~\ref{fig:cytokine}C). 
+Simultaneous inhibition of TNF-$\alpha$ and SDF-1$\alpha$ did not result in an additive effect, yet increased the statistical significance of the migration 
+\add[JB]{inhibition} 
+(two-sided $t$-test, $p=1.6\times10^{-4}$).
+
+\subsection*{Cytokine genes are expressed differently in H838 and HPAEC}
+
+To elucidate the origin of the differential cytokine concentrations,
+we assumed an implicit correlation between gene expression and protein abundance.%
+\note[JB]{ref?}
+Under this hypothesis, it is to be expected that gene expression profiles of
+H838 cells will be such that 
+our previously identified cytokines of interest should be differentially 
+expressed between homo- and heterogenous coculture conditions.
+We compared the basal 
+expression levels of all genes with protein products
+annotated as cytokines in the KEGG cytokine-cytokine receptor interaction pathway. 
+However, none of the cytokine encoding genes 
+showed a differential basal regulation between the two coculture conditions 
+(Fig.~\ref{fig:transcriptome}A). Over time, IL6 and CXCL14 are significantly
+down-regulated, and CSF1 is significantly up-regulated. 
+(Fig.~\ref{fig:transcriptome}B).
+Both \tnfa and \sdfonea do
+not respond differentially during H838 migration (Fig.~\ref{fig:cytokine_dynamic}A)
+% maybe put this figure into the supplement
+\change[JB]{O}{Looking at the basal expression levels within each culture condition, o}nly five out of 162 cytokines (IL18, IL10, PDGFC, BMP7 and TNFSF12) 
+\remove[JB]{even} had a significantly high expression level in both conditions
+(Fig.~\ref{fig:cytokine_basal}), 
+and none of these could be directly related to the migration-enhancing 
+cell-cell communication.\note[JB]{too strong}
+
+We conclude that differential cytokine regulation in the supernatant 
+must originate primarily from the HPAEC cells.  
+A\add[JB]{n} RT\add[JB]{-}qPCR experiment confirmed an early and transient response of  
+TNF-$\alpha$ as well as a later and prolonged upregulation of 
+SDF-1$\alpha$ (Fig.~\ref{fig:cytokine_dynamic}B). 
+Fitting the time course with an impulse model, which measures \add[JB]{the peak 
+duration as} the 
+temporal difference between \change[JB]{two}{the} inflection points \add[JB]{of two
+sigmoidal curves} (cf. Materials and Methods), 
+% add this in materials and methods
+we obtain an activation duration of  8.3 hours and 1.6 hours for SDF-1$\alpha$
+and TNF-$\alpha$, respectively.
+
+\subsection*{Identification of putative transcription factors in the H838 gene expression}
+
+Admitting the cell-cell communication from HPAEC to H838 cells 
+via the  mobility factors TNF-$\alpha$ and SDF-1$\alpha$,
+we sought to explain how is the
+information transferred from the cytokine receptors to the gene expression. 
+THIS NEEDS REWRITING. THE CLAIM TO NONTRIVIALITY AND TIMESCALES SEEMS TO BE
+UNNECESSARY
+The answer, in the form of pathways downstream from these key  cytokines, is made non-trivial by the fact that
+transcriptome and secretome regulation changes have different time scales~\cite{Busch2008}. 
+For this we trace the cause of the transcriptome dynamics back to the above identified cytokines via putative transcription factors, protein-protein interaction
+and receptor activation. 
+
+We applied a gene set enrichment test for the gene expression at 
+the different time points using the transcription factor target gene sets~%
+\cite{msigdb}.
+The differential regulation of the gene sets was measured through
+a PCA-like projection. We divided the 24h measurement time window 
+into six intervals of four hours each,
+wherein  we tested the enrichment of different 
+transcription factor target genes. Within each time window, 
+genes were ranked according to their differential response
+kinetic between the homo- and heterogenous coculture responses. 
+THE FOLLOWING NEEDS REWRITING. I HAVE STRUCK THIS MULTIDIMENSIONAL SCALING
+BEFORE, AND IN ANY EVENT THIS LEVEL OF DETAIL SHOULD GO INTO THE METHODS
+As a rank measure, we fitted the 2D projection from the multidimensional 
+scaling~\cite{Strickert2009} and fit the resulting distribution with multivariate 
+skew 
+normal distribution to assign a p-value to each gene. % is this correct?
+A non-parametric Kolmogorov-Smirnov test is subsequently performed for each
+transcription factor target gene set within a certain time window compared to the 
+background set.
+
+Hierarchical clustering \add[JB]{of the enrichment score for different transcription 
+factor targets
+over time} identifies four  major clusters \remove[JB]{according to temporal 
+enrichment of transcription factor target genes}: cluster A contains aryl 
+hydrocarbon receptor (AHR) targets, which  are \add[JB]{significantly}
+overrepresented after 16h and remain outliers due to this distinct 
+enrichment pattern; 
+\change[JB]{genes}{targets} of the AP1 complex (JUN, FOS) are induced between 
+four and eight hours and
+are part of the cluster B; cluster C includes transcription factors 
+\change[JB]{that}{whose target genes} are mainly 
+active between 12 and 24h, such as the viral oncogene homolog MYC;
+\change[JB]{F}{f}urther transcription factors like  NFKB, STAT3/6, IRF2, 
+that are known to play a role in
+immune or cytokine response ~\cite{Hayden2008,Shuai2003,Wang2002} ,
+\change[JB]{are induced}{induce the expression of their target genes}  
+between twelve and sixteen hours. \add[JB]{Therefore, applying the gene set
+enrichment method on the time-resolved microarray data, we identified here the
+sequence of enriched transcription factor targets, which could also serve as
+a proxy for the temporal activity of transcription factors \emph{per se}.}
+
+% we need a concluding sentence here
+
+\subsection*{Data-mining the pathways from cytokine receptors to transcription factors and gene response}
+
+%\NOTE{THIS IS VERY QUESTIONABLE: After identifying the key cytokines as well as the transcriptional regulators  involved in the migration of H838 cells, it still remains largely unknown how the signal 
+% flows between the corresponding cytokine receptors and the transcription factors  inferred from the transcriptome data.  DID WE? HOW? HOW DO THESE ABOVE CORRELATE IN TIME TO THE QPCR PROFILES? ARE THEY BIOLOGICALLY RELEVANT? WHERE IS THIS INFORMATION? HOW DOES ONE INFER THAT THE RESULTS FROM THE MICROARRAY CORRELATE TO  MIGRATION? IF THEY DO, IS IT CAUSAL? IF SO, IN WHICH DIRECTION?} 
+
+To further bridge the gap between the transcription factors identified above and TNF-$\alpha$, SDF-1$\alpha$, or even other cytokines not investigated in this
+study, we mapped shortest paths from each cytokine receptor to all putative transcription factors, using a directed protein-protein
+interaction network~\cite{Vinayagam2011}.  Results are summarily  illustrated in Fig.~\ref{fig:shortest_path}.
+
+% How is the length measured? How do we quantify?
+% BY WHAT CRITERIA? HOW IS LENGTH MEASURED? HOW CAN LENGTH BE MEASURED, I.E. WHAT INFORMATION IS THERE ON THE NODES AND EDGES  DATABASE THAT CAN BE USED AS METRIC?
+
+\remove[JB]{For TNF-$\alpha$ receptors % Agree with Gustavo, which ones exactly ?, 
+we found several  pathways, of having similar shortest paths between the receptor and the putative TFs. 
+Some prominent  shortest paths include those to FOS, NFKB and STAT3.
+In contrast, the receptor for SDF-1$\alpha$, CXCR4 has a dominating  shortest path to only STAT3, 
+implying the SDF-1$\alpha$ signal can only be transduced downstream when STAT3 regulated targets are active, 
+which is between twelve and sixteen hours. 
+In addition, we observed similar shortest path length patterns for IL8 and IL6 receptors, where the former has a more
+uniform distribution of shortest path length and the latter is
+highly biased towards only one transcription factor.}
+% WHAT SIMILARITIES ARE TO BE OBSERVED, BETWEEN WHICH PLOTS IN THE FIGURE?}
+%\mbox{} \leaders\vrule height 2.5pt depth -1.5pt \hfill \null
+
+As depicted in Fig.~\ref{fig:shortest_path}A, 
+the average shortest path distances from the TNF receptor super family 
+members to the identified transcription factors have a dominant 
+unimodal distribution 
+(Hartigans' dip test~\cite{Hartigan1985}, $p=0.06073$) with a peak at 3.7, 
+implying that the signal from the TNF receptors traverses 
+the network in a homogeneous manner, through many equally likely paths
+with a length of 3.7 on average. On the other hand, the shortest path lengths 
+starting from the \sdfonea receptor,  CXCR4, have a significantly 
+multimodal distribution (Hartigans' dip test,  $p=0.0007187$), 
+or put differently, the signal downstream of CXCR4 prefers to travel 
+through heterogeneous routes with different characteristic path lengths.
+
+\change[JB]{Hierarchical clustering}{Principal component analysis and $k$-means 
+clustering} of all the shortest path lengths between receptors
+and transcription factors gives a systematic overview of the signal flow
+pattern (Fig.~\ref{fig:shortest_path}B).
+\change[JB]{A total of 3 clusters of receptors can be identified. 
+THIS IS INFORMATION THAT SHOULD BE AT THE FIGURE'S CAPTION, AT LEAST SOME OF IT,
+OR IN THE FIGURE ITSELF.
+Five cytokine receptors,
+CCR9, XCR1, IL22RA1/2 and IL11RA, have in general a large distance to all
+putative transcription factors, and are thus less likely to transmit the cytokine
+signal and determine the migration decision of H838 in our set-up.
+CXCR4 belongs to the cluster with 3 separable vertical gray-scale  strips,
+which is in line with the multimodality of CXCR4-originated path lengths.
+Lastly,  TNFR is classified into the third cluster with more homogeneous
+distance (color) pattern, which corresponds to the unimodality of TNFR-originated
+path lengths.}{Different receptors are clustered in the space spanned by the first
+and second principal components, which explain 76.7\% and 6.1\% of the total 
+variance respectively. At a given resolution, TNFR and CXCR4 can be grouped into
+different clusters, which corresponds to the uni- and multimodality of their shortest
+path length distributions. In summary, the TNF-$\alpha$ and SDF-1$\alpha$ 
+receptors transmit
+information in a homo- and heterogeneous manner respectively, which could
+possibly be generalized to other cytokine receptors.}
+
+\section*{Discussion}
+
+% THis needs to be filled with the ideas.
+
+\remove[JB]{Taken together, we
+hypothesize that there are at least two kinds of signal flows from the receptors
+within the H838 cells in response to migration signals, a focalized and a fan-out 
+activation of downstream transcription factors.}
+
+\add[SD]{The key medical problem in lung cancer and its predominant type non-small 
+cell lung carcinoma (NSCLC) is an early systemic metastatic spread of tumor cells 
+independent of tumor size, which leads to high mortality rate. Tumor progression 
+and metastasis is regulated by many different processes, inter alia by interactions 
+via soluble factors between tumor cells and cells of tumor microenvironment, such as 
+endothelial cells. In this study, we analyzed the interactions between NSCLC cells 
+and endothelial cells and their influence on NSCLC cell migration. We identified 
+two key cytokines, TNF-$\alpha$ and SDF-1$\alpha$, that are expressed by the 
+endothelial cells and promote the migration of NSCLC cells.}
+
+\add[JB]{In this study, we verified that TNF-$\alpha$ and SDF-1$\alpha$ are two
+key cytokines that are expressed by the endothelial cells and promote the migration
+of tumor cells. We proposed a two-step approach to link the transcriptome response
+with the causal signal flow in the protein interaction network. First, gene set
+enrichment analysis was applied to infer the sequence of transcription factor
+activation that results in the gene expression. Second, we concluded from the 
+shortest path in the interactome that 
+TNF-$\alpha$ and SDF-1$\alpha$ receptors have different downstream signal flow 
+pattern. We hypothesize that transient expression by endothelial cells initiates
+an unspecific tumor cell response that transduces the signal along multiple
+similar paths, whereas the delayed and prolonged expression of SDF-1$\alpha$ drives
+the tumor cells to a more specific response that eventually determines the 
+migration phenotype.}
+
+Some ideas:\note[SD]{As next I would tell a few words about endothelial cell-tumor cell communication, what is known and what we found at transcription and protein level.
+Then about the role of TNFa and SDF1a in tumors and lung tumors.
+And finaly system biology}
+
+\begin{itemize}
+\item Discuss the contribution of proliferation/migration in scratch assay?\note[SD]{I would let it out. Normally mitomycin is given to migration assays to prevent proliferation. Dennis tested this, but found no difference in migration rate with or without mitomycin. Thats why he made his experiments without any proliferation inhibitors. If you think its important, we can include it in material and methods.}
+The \emph{in vitro} scratch assay is a well established method
+to study cell migration~\cite{Busch2008,Liang2007}, especially
+in our experimental setting, the coculture of tumor and 
+endothelial cells has no influence on the cell proliferation~%
+\cite{Dauscher2012} and thus our results can be interpreted
+as the net effect of tumor cell migration.
+
+\item Discuss the non-autonomous regulation of H838 migration. It is very strange that only the endothelial cells do respond 
+and secrete cytokines.
+
+Nur die EC sezernieren ja nicht die Cytokine, sie werden ja auch von H838 sezerniert nur eben in geringeren Maßen. 
+\note[JB]{ref?}\note[SD]{Of course the tumor cells are secreting different cytokines to attract different stromal cells. But in this case not so much of SDF1 and TNFa}	
+
+\item IS this related to early spread and metastasis in lung cancer? 
+
+\item What do we know about Tnfa and SDFa with respect to cell migration?\\
+\tnfa was first identified as an anti-tumor cytokine that is involved in the killing
+of certain kinds of tumors, however, it is appreciated recently that \tnfa can also 
+act as a tumor-promoting factor and enhance tumor growth and metastasis%
+~\cite{Wu2010}. It has also been shown in the ovarian cancer cells cocultured with
+macrophages that \tnfa can induce the up-regulation of 
+CXCR4 mRNA, which is the receptor of \sdfonea. This response to \tnfa involves both
+AP-1 and NF-$\kappa$B related pathways~\cite{Kulbe2005}. Blocking the \tnfa receptor
+in mouse Lewis lung carcinoma cell cultures decreases the gene expression of CXCR4~%
+\cite{Sasi2011}.
+
+It has been shown that the \sdfonea/CXCR4 pathway has pleiotropic activities and it 
+promotes tumor growth and malignancy, enhances tumor angiogenesis, participates in tumor metastasis, and contributes to immunosuppressive networks within the tumor microenvironment~\cite{Kryczek2007}. Both stroma and cancer cells can produce \sdfonea, 
+although in our system it is mainly expressed by the endothelial cells. In the presence of neutralizing \sdfonea antibodies, NSCLC tumor metastases were also significantly reduced~\cite{Phillips2003}.
+
+The identification of \tnfa as a key stroma-originating factor that promotes 
+tumor cell migration is of great interest, since its release is a general response to chemotherapy in different stromal cell types~\cite{Acharyya2012}. Together with
+other cytokines, such as HGF, that contribute to the drug resistance of cancer
+treatment~\cite{Straussman2012}, these soluble factors in the tumor microenvironment
+might be the key to the cancer therapy and the potential target of intervention.
+
+
+\item What is new and what is known in the literature
+
+\item What is new in our methods?\\
+The advantage of our two-step approach to identifying signal flow in the protein 
+interaction
+network and relevant transcription factors that lead to the transcriptome response
+is at least two-fold: first, we apply gene set enrichment test to avoid the hard 
+significance cutoff in the conventional hypergeometric test and at the same time
+to detect weak but coordinated regulation of transcription factor targets. This is 
+necessary since the tumor cell transcriptome does not show significantly
+differential regulation between the homo- and heterogeneous coculture 
+(Fig.~\ref{fig:transcriptome}), which 
+hints at a lack of correlation between the mRNA expression level and the protein 
+activity. This in turn underlines the rationale behind the time-scale separation
+in our approach. Second, due to the decoupling between the mRNA and protein
+activities, it is vital to consider signaling pathways not directly represented
+in the transcriptome data, but rather embedded in the protein interaction network
+instead. In order to infer the signal flow from the membrane receptors to 
+transcription factors, we simply assume that the signal traverses the shortest
+path connecting a certain pair of receptor and transcription factor.
+
+\item What new  biology do we find?\\
+Based on our time-resolved qPCR results, we conclude that \tnfa in the endothelial 
+cells is 
+transiently expressed and peaks earlier than \sdfonea, whereas the latter has
+a longer activation time window. These results are in line with the hypothesis 
+that \tnfa induces the CXCR4 expression in tumor cells, which can then respond
+to \sdfonea. Nevertheless, CXCR4 in the lung cancer cell line H838 is neither
+basal highly expressed (Benjamini-Hochberg corrected $p$-value = 0.7977245), nor differentially regulated over time (Benjamini-Hochberg
+corrected $p$-value = 0.893767) in the 
+heterogeneous coculture of tumor and endothelial cells, which indicates that
+cytokine receptors important for the communication with endothelial cells might
+only be regulated at the protein level.
+
+According to the transcription factor target enrichment analysis, target genes
+of AP-1 are more significantly upregulated between 4 and 8 hours, whereas those
+of NF-$\kappa$B are only activated between 12 and 16 hours, although both AP-1 and
+NF-$\kappa$B are known to be involved in the \tnfa induced response~%
+\cite{Kulbe2005}. Based on 
+the early expression peak of \tnfa in the endothelial cells, it seems
+in our particular coculture system of H838 and HPAEC cells, the initial 
+transcriptome response in the tumor cells might be mediated through the AP-1
+rather than the NF-$\kappa$B related pathway. It has also been
+shown that the CXCL12/CXCR4 activation of NSCLC cell lines 
+increased intracellular calcium mobilization and MAP kinase 
+activation with enhanced ERK1/2 phosphorylation~%
+\cite{Belperio2004}, which is 
+known to be upstream of the AP-1 transcription complex.
+Therefore, all evidence points to the important role of the
+AP-1 complex in the tumor cells to convey the information of  
+the \sdfonea/CXCR4 activation from the microenvironment.
+
+By analyzing the shortest paths between receptors and transcription factors, 
+we classified \tnfa and \sdfonea related 
+pathways into the homogeneous and
+heterogeneous response pattern respectively. Taking into account the different
+expression dynamics of both cytokines in the endothelial cells, this implies a
+complementary role \tnfa and \sdfonea play in the enhancement of lung cancer
+cell migration. It could be that the transient expression of \tnfa by the 
+endothelial cells initiates a first but unspecific response in the tumor cells,
+while the secondary prolonged stimulation from \sdfonea leads to a signal that 
+propagates preferentially 
+on a more specific set of paths to the downstream transcription factors, which
+ultimately determines \emph{point of no return} of the enhanced migration phenotype 
+in the tumor cells.
+
+\end{itemize}
+
+
+
+% You may title this section "Methods" or "Models". 
+% "Models" is not a valid title for PLoS ONE authors. However, PLoS ONE
+% authors may use "Analysis" 
+\section*{Materials and Methods}
+\label{sec:methods}
+
+\subsection*{Cell culture} 
+The human NSCLC cell line H838 and the primary human endothelial cell  line HPAEC were purchased from Promocell. 
+H838 was propagated in DMEM (Lonza) with 10\% fetal calf  serum (Invitrogen) and 50,000 U/ml Penicillin/Streptomycin (Biochrom AG). 
+HPAEC was propagated in Endothelial cell growth medium 2 (Promocell)  including 2\% fetal calf serum with supplements EGF 5ng/ml, 
+bFGF 10ng/ml, Long R3 IGF 20ng/ml, VEGF 0.5ng/ml,  ascorbic acid 1$\mu$g/ml, heparin 22.5$\mu$g/ml and hydrocortisone 0.2$\mu$/ml 
+(all Promocell).  Cells were passaged at a split ratio of 1:10,  routinely tested for mycoplasma contamination as  described in~\cite{Stacey1997a} 
+and always found to be negative. 
+
+\subsection*{Transfilter coculture system}
+Monocultures of H838 cells were \change[SD]{applied}{seeded} in 6-well plates at a density of $2.5\times10^5$ cells/well. 
+Next, H838 and HPAEC cells were \change[SD]{applied}{seeded} to polycarbonate transwell 
+culture inserts (35.5mm diameter with 0.4$\mu$m pore size, Greiner bio-one), 
+at densities of $2.0\times10^5$ and $4.5\times10^5$ cells/filter,
+respectively.
+Six hours after cell seeding, the filters were placed to the corresponding well plates and allowed to
+propagate until confluence was reached. The whole procedure was performed in the medium as specified for the HPAEC cells,
+see previous header.
+
+\subsection*{Migration assay in transfilter cocultures}
+Confluent H838 monolayers of systems as describe above were scratched multiple times. %scratch width? Yellow pipette tip?
+ Ten different regions per well were documented, using a  Leica Microscope with a connected digital camera, at 0h and 24h after scratching.
+Recovered area assessment was done with Adobe Photoshop. The ten values of each well were averaged and the significance of differential migration area between  heterogeneous H838/HPAEC and homogeneous H838/H838 coculture was determined by two-sided $t$-test.
+% Which ones?  How was the t-test applied to the data?
+These experiments were performed in duplicates and repeated three times. 
+
+\subsection*{mRNA isolation and microarray}
+Heterogenious and Homogenious were cultivated as previously described. H838 cells of heterogenious or homogenious oft he well were lysed at 0, 0.5, 1, 2, 3, 4, 5, 10, 15 and 24h after scratching using a lysis buffer of Roche (Mannheim, Germany) Duplicate samples were taken at 0 and 24h.
+RNA was extracted under RNase-free conditions 
+with the RNeasy plus Kit (Roche, Mannheim, Germany). 
+\note[JB]{obsolete?}\emph{
+$480 \mu g$ 
+of total RNA from each preparation were used for 
+subsequent gene array experiments.
+RNA quality was confirmed by a median RNA integrity number of 
+10 (range, 9.6-10; Agilent 2100 Bioanalyzer; Agilent). 
+RNAs were processed with the Ambion WT Expression kit (Ambion, Austin Tx, USA) 
+as described by the manufacturer. 
+The resulting cDNAs were fragmented and then 
+labeled using 
+the Affymetrix Terminal Labeling kit. 
+Labeled fragments were hybridized to 
+Affymetrix WT Mouse Gene ST 1.0 arrays for 16h at 45C with 60 rpm 
+in an Affymetrix Hybridization oven 645. 
+After washing and staining, 
+the arrays were scanned with the Affymetrix GeneChip Scanner 3000 7G. 
+CEL-files were produced from the raw data with Affymetrix GeneChip 
+Command Console Software Version 3.0.}
+
+A total of $250 ng$ RNA was used for complementary DNA (cDNA) 
+synthesis, followed by an amplification/labeling step 
+(in vitro transcription) to synthesize biotin-labeled cRNA, according 
+to the MessageAmp II aRNA Amplification kit (Ambion, Inc., Austin, TX). 
+Biotin-16-UTP was purchased from Roche Applied Science, Penzberg, Germany. 
+The cRNA was column purified according to TotalPrep RNA Amplification Kit, 
+and eluted in $60 \mu L$ of water. 
+Quality of cRNA was controlled using the RNA Nano Chip Assay on an 
+Agilent 2100 Bioanalyzer and spectrophotometrically quantified (NanoDrop). 
+Hybridization was performed at 58$^\circ$C, in GEX-HCB buffer (Illumina Inc.) 
+at a concentration of $100 ng$ $cRNA/\mu l$, 
+unsealed in a wet chamber for 20h. 
+Spike-in controls for low, medium and highly abundant RNAs were added, 
+as well as mismatch control and biotinylation control oligonucleotides. 
+Microarrays were washed twice in E1BC buffer (Illumina Inc.) at 
+room temperature for 5 minutes. 
+After blocking for 5 min in 4 ml of 1\% (wt/vol) Blocker Casein in phosphate 
+buffered saline Hammarsten grade (Pierce Biotechnology, Inc., Rockford, IL), 
+array signals were developed by a 10-min incubation in 2 ml 
+of $1 \mu g/ml$ Cy3-streptavidin (Amersham Biosciences, Buckinghamshire, UK) 
+solution and 1\% blocking solution. 
+After a final wash in E1BC, the arrays were dried and scanned.
+Microarray scanning was done using a Beadstation array scanner, 
+setting adjusted to a scaling factor of 1 and PMT settings at 430. 
+Data extraction was done for all beads individually, and outliers were 
+removed when $>$ 2.5 MAD\note[JB]{correct?} \note[DD]{Das wurde alles in der corefacility gemacht. Kann Dirt also nocht sage, ob es richtig ist}
+(median absolute deviation). 
+All remaining data points were used for the calculation of the mean average 
+signal for a given probe, and standard deviation for each probe was calculated. 
+Microarray time series data were first quantile normalized without background
+subtraction, where the duplicates at 0 and 24h were averaged; ratios (fold change) with respect to the mean gene expression at 0h were computed from normalized values and subsequently $\log_2$-transformed. 
+Furthermore, six consecutive time windows of the microarray time series, 0--4h, 
+4--8h,  8--12h, 12--16h, 16--20h, 20--24h,  are considered in the enrichment 
+analysis of transcription factor targets.
+
+% we need to add here
+Microarray data have been deposited in the Gene expression omnibus database 
+under the acession number XXX.
+
+\subsection*{Media collection and quantification of cytokines during migration assay}
+Media from migration assays of heterogenious and homogenious cocultures were sampled at 0h in unscratched conditions, whiche served as the control and 24h after scratching
+. The conditioned media was analyzed with 
+a fluorescent bead array based multiparameter assay  from Bio-Rad multimetrix  (Bio-Rad, M\"unchen, Deutschland).
+
+The quantification of fifty different analytes was performed and evaluated in a  fully automated 96-well format Luminex analysis system (Multimetrix, Regensburg,  Germany). Sample preparation, Multimetrix machine performance and determination of 
+exact protein concentration were done by the specialized core facility of German  cancer research center in Heidelberg with the Software Bio-Plex Manager (Bio-Rad,  M\"unchen Deutschland). 
+Twenty-four of the fifty cytokine concentration values measured  in the procedure describe\add[SD]{d} under the ``Quantification of cytokines'' header 
+were above the threshold of $1pg$. 
+Concentrations of positively detected analytes in the 
+scratched conditioned media were then  normalized to the concentration in the unscratched conditioned media:
+\[
+[Cytokine_i]^{normalized} = \frac{[Cytokine_i]^{scratched}}{[Cytokine_i]^{unscratched}}
+\]
+
+\subsection*{Treatment of monocultures with recombinant proteins and  neutralizing antibodies}
+
+Sixteen monocultures of H838 cells were plated as described previously under 
+the ``Transfilter coculture''  header. The confluent monolayer was starved without FCS and supplements 
+for 24 hours, and each of the eight candidate cytokines was added to one monoculture, in a concentration of $10 ng/ml$.
+As for the eight remaining monocultures, we added the same cytokines in groups of four, one group with TNF$\alpha$,  VEGF, RANTES and IL-6, 
+and the other with MCP-1, Gro-$\alpha$, IL-8, SDF-1$\alpha$:  we made four samples with all cytokines of each of these groups,
+in a concentration of 10ng/ml each.  To each of the eight samples containing multiple cytokines, we added neutralizing antibodies specific to one cytokine added to it,  at a concentration of 2 $\mu$g/ml. Quantification of the migration area was done using the same procedure as described under the preceding ``Migration assay'' header. All cytokines and antibodies were purchased from R\&D, Heidelberg,  Germany.  All experiments were performed in duplicates and repeated three times.
+
+
+\subsection*{Treatment of heterogeneous cocultures with \change[SD]{blocking antibodies}{antibodies against TNF-$\alpha$ and SDF-1$\alpha$}}
+
+Assays as previously described under the ``Migration assay'' header  were repeated, with four heterogeneous 
+cocultures only: directly after scratching these were treated with blocking  antibodies against TNF-$\alpha$ and SDF-1$\alpha$, 
+obtained from R\&D, Heidelberg, Germany, at a final concentration of 2$\mu$g/ml each. 
+Two samples were treated with one antibody, one with both: the fourth sample, treated with the same volume of PBS, was used as control.
+The whole procedure was performed in the medium  as specified for the HPAEC cells under the ``Cell culture'' header.
+Quantification of the migration area was done using the same procedure as described under the preceding ``Migration assay'' header.
+All experiments were performed in duplicates and repeated three times.
+
+\subsection*{Impulse model}
+The qPCR time courses of \tnfa and \sdfonea measured in HPAEC cells are fitted with an impulse model~\cite{Chechik2009}, which is \remove[JB]{basically} composed of one rising and one falling sigmoidal curve, as defined by
+\[
+f(x) = \frac{1}{h_1} \cdot \left(h_0+\frac{h_1-h_0}{1+e^{-\beta_1(x-t_1)}}\right) \cdot
+\left(h_2+\frac{h_1-h_2}{1+e^{\beta_2(x-t_2)}}\right), 
+\]
+where the three amplitude (height) parameters determine the initial amplitude 
+($h_0$), the peak amplitude
+($h_1$), and the steady state amplitude ($h_2$). The onset time $t_1$ is the time of  first transition (inflection point) and the offset $t_2$ is the time of second  transition. Finally, the slope parameters $\beta_1$ and $\beta_2$ determine the slope of the first and second transition. Parameters are estimated using a  Levenberg-Marquardt non-linear least squares  algorithm as implemented in the R package \texttt{minpack.lm}.
+
+\subsection*{Calculating the significantly basal expressed genes}
+In order to robustly estimate differentially regulated genes at the basal level and to avoid the commonly encountered 
+presence of outliers and skewness~\cite{Marko2011}, we fitted 
+a skew-$t$  distribution~\cite{Azzalini2003} to the $\log_2$ raw intensities at 0h. 
+In addition to the regular $t$ distribution $f(x)$ with $v_{df}$ degrees of freedom, a skew-$t$ distribution,  $f_{skew}(x)$ has an additional 
+skewing parameter $\gamma$ such that  
+\[
+f_{skew}\left(\frac{x-\xi}{\omega}\right) = 
+\begin{cases}
+\frac{2\gamma}{\gamma^2+1} \cdot f\left(\gamma\frac{x-\xi}{\omega}\right) & x<0\\
+\frac{2\gamma}{\gamma^2+1} \cdot f\left(\frac{1}{\gamma}\frac{x-\xi}{\omega}\right) & x \geqslant 0\\
+\end{cases}
+\]
+where $\xi$  and  $\omega$ denote the location and scale of the distribution.  
+The basal level gene expression distribution was fitted using maximum likelihood 
+estimation for the 
+univariate skew-$t$ distribution, implemented in the R package \texttt{sn}.
+
+\subsection*{Gene set enrichment test}
+
+%We applied a gene set to elucidate the time-resolved function of differentially regulation genes ~\cite{Luo2009}, 
+%We took the transcription factor target gene sets from MSigDB~\cite{msigdb},
+%using  the target genes of mammalian transcriptional  regulatory motifs from TRANSFAC v7.4~\cite{Matys2003b} and from motifs highly  conserved among  five mammalian species~\cite{Xie2005e} as test sets.
+%Individual genes were  ranked according to their response strengths as derived from the 
+%multidimensional scaling of the normalized time series within  a specific time window. 
+%Transcription factor target sets are then tested for their over-representation relative to the whole transcriptome
+%by a Kolmogorov-Smirnov statistic.  
+
+We performed gene set enrichment tests, 
+using a modified implementation ~\cite{Luo2009} from
+the R/Bioconductor package \emph{gage}.
+To this end, we retrieved sets of genes regulated by 
+a common transcription factor from MSigDB v3.0~\cite{msigdb}. This database contains a compilation of  
+mammalian transcriptional regulatory motifs and the genes associated
+to them, as retrieved from other sources, see~TRANSFAC v7.4~\cite{Matys2003b}.
+
+Individual genes were  ranked according to their response strengths as derived from the 
+multidimensional scaling of the normalized time series within  a specific time window. 
+The gene sets from MSigDB were  then tested for their enrichment 
+ relative to the whole transcriptome by a Kolmogorov-Smirnov statistic. 
+
+\subsection*{Shortest paths within the signaling network}
+
+We use a directed human protein-protein interaction network from a previous study%
+~\cite{Vinayagam2011}, which contains \remove[JB]{Bayesian-inferred} edge directions
+\add[JB]{inferred by a naive Bayesian classifier}.
+For each cytokine receptor/transcription factor pair previously identified,
+we calculated the length of the shortest path between the two
+using the \change[JB]{Dijkstra}{unweighted breadth-first search} algorithm,
+as implemented in the R package \texttt{igraph}~\cite{Csardi2006}.
+We use these lengths as base metric for the probability 
+of signal actually flowing through the pathway.
+
+\section*{Figure Legends}
+
+\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=4in]{fig/fig-fig1.pdf}
+%\end{center}
+\caption{
+{\bf Migration of H838 cells in the homo- and heterogeneous coculture.} 
+(A) Trans-filter system. (B) Scratch assay of the homo- and heterogeneous coculture.
+(C) Migration area of H838 cells at 24h after scratch from multiple independent 
+experiments 
+plotted as 
+boxplots for the homogeneous (H838 + H838) and heterogeneous (H838 + HPAEC) 
+coculture.
+}
+\label{fig:migration}
+\end{figure}
+
+\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=4in]{fig/h838-cytokine.pdf}
+%\end{center}
+\caption{
+{\bf Differential basal and dynamic gene expression in homo- and heterogeneous 
+cocultures.} 
+(A) Volcano plot of the differential gene expression at 0h as determined by limma~%
+\cite{Smyth2004}, the red dashed line
+indicates the significance cutoff of $p = 0.05$.
+(B) Volcano plot of the differential gene expression over time as determined by the
+full/reduced model fitting~\cite{Mar2009}, the red dashed line
+indicates the significance cutoff of $p = 0.05$.
+}
+\label{fig:transcriptome}
+\end{figure}
+
+\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=4in]{fig/h838-cytokine.pdf}
+%\end{center}
+\caption{
+{\bf Identification of cytokines involved in the tumor cell migration.} 
+(A) $\log_2$ transformed ratios of cytokine expression in heterogeneous respective
+homogeneous coculture are shown. The black dashed line with a slope of 1 denotes 
+the identity and the blue dashed lines denote the zero $\log_2$ fold change
+or equal amount of cytokines between the scratched and unscratched conditioned 
+media.
+(B) Migration area of H838 cells at 24h after scratch in the H838 mono-culture 
+treated with the 8
+factors, the 2 factor groups and as in the control experiment.
+(C) Migration area of H838 cells at 24h after scratch in the heterogeneous 
+H838/HPAEC coculture 
+treated with the neutralizing antibodies against TNF-$\alpha$, SDF-1$\alpha$
+and both together. Asterisks in all plots denote that data are significantly 
+different from the control according to a two-sided $t$-test ($p < 0.05$).
+}
+\label{fig:cytokine}
+\end{figure}
+
+\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=4in]{fig/cytokine-ex.pdf}
+%\end{center}
+\caption{
+{\bf mRNA of TNF-$\alpha$ and SDF-1$\alpha$ is regulated in HPAEC instead of H838 
+cells.}
+(A) $\log_2$ fold expression of TNF-$\alpha$ and SDF-1$\alpha$ (CXCL12) in H838 
+cells plotted
+over time for the hetero- and homogeneous coculture respectively.
+(B) $\log_2$ fold expression of TNF-$\alpha$ and SDF-1$\alpha$ in HPAEC cells 
+from the qPCR
+experiment in the heterogeneous coculture plotted
+over time. Blue dashed lines denote the impulse model fit~\cite{Chechik2009}.
+}
+\label{fig:cytokine_dynamic}
+\end{figure}
+
+\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=4in]{fig/fig-plot_tfbs_modified.pdf}
+%\end{center}
+\caption{
+{\bf Enrichment of transcription factor binding motifs over time as inferred
+from the differential expression time course between hetero- and homogeneous
+coculture.}
+$-\log_{10}$ transformed $p-$values of the gene set enrichment test for 
+different transcription factor binding motifs at each time window. Binding
+motif names are the corresponding TRANSFAC matrix identifiers.
+In addition, motifs highly conserved among 
+five mammalian species~\cite{Xie2005e} are also included.  If the motif sequence 
+matched no transcription factor binding site from TRANSFAC v7.4, then the gene set
+is named as MOTIFSEQ\_UNKNOWN where MOTIFSEQ is the sequence of motif $m$.
+}
+\label{fig:gage}
+\end{figure}
+
+\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=4in]{fig/fig-sp_modified.pdf}
+%\end{center}
+\caption{{\bf Shortest paths between membrane receptors and transcription factors.}
+(A) Distribution of shortest path lengths from TNFR and CXCR4 (\sdfonea receptor) to 
+all predicted transcription factors. Ticks at the bottom indicate the actual data 
+points, with a jitter of $[-0.2,0.2]$ added to increase visibility.
+(B) PCA and $k$-means clustering of all cytokine 
+receptors in the KEGG 
+\emph{cytokine-cytokine receptor interaction pathway} based on their shortest paths
+to all identified 
+transcription factors in Fig.~\ref{fig:gage}.
+}
+\label{fig:shortest_path}
+\end{figure}
+
+\section*{Supporting Figure Legends}
+
+\setcounter{figure}{0}
+\makeatletter
+\renewcommand{\thefigure}{S\@arabic\c@figure}
+\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=4in]{fig/fig-basal_cytokine.pdf}
+%\end{center}
+\caption{
+{\bf Few cytokines highly expressed in H838 at 0h.}
+Comparison of $\log_2$ transformed basal mRNA intensities at 0h of all 
+cytokines annotated 
+in the KEGG \emph{cytokine-cytokine receptor interaction pathway} between
+the hetero- and homogeneous coculture. Blue dashed lines denote the significance
+level ($p=0.05$) after fitting the basal expression distribution with a skew-$t$ 
+distribution~\cite{Azzalini2003}. Only IL18, IL10, PDGFC,
+BMP7 and TNFSF12 are above this threshold in both conditions, 
+i.e. significantly up-regulated
+at 0h.
+}
+\label{fig:cytokine_basal}
+\end{figure}
+
+\makeatletter
+\renewcommand{\thetable}{S\@arabic\c@table}
+\section*{Tables}
+%\begin{table}[!ht]
+%\caption{
+%\bf{Enriched GO terms among genes with top VIP scores}}
+%\input{table_gage_up.tex}
+%\begin{flushleft}Genes with a VIP score $>$ 1 within each time window are
+%selected for the hypergeometric GO term enrichment test, and the top ranked
+%GO categories with the least $p$-values are listed.
+%\end{flushleft}
+%\label{tab:go}
+%\end{table}
+
+%\begin{table}[!ht]
+%\caption{
+%\bf{Enriched GO terms among genes with top VIP scores}}
+%\input{table_gage_down.tex}
+%\begin{flushleft}Genes with a VIP score $>$ 1 within each time window are
+%selected for the hypergeometric GO term enrichment test, and the top ranked
+%GO categories with the least $p$-values are listed.
+%\end{flushleft}
+%\label{tab:go}
+%\end{table}
+%\input{table_cytokine.tex}
+
+%\newpage \mbox{} \newpage
+%\includepdf[fitpaper=true]{fig/fig-migration.pdf}
+%\includepdf[fitpaper=true]{fig/fig-transcriptome.pdf}
+%\includepdf[fitpaper=true]{fig/fig-cytokine.pdf}
+%\includepdf[fitpaper=true]{fig/fig-cytokine_dynamic.pdf}
+%\includepdf[fitpaper=true]{fig/fig-plot_tfbs_modified.pdf}
+%\includepdf[fitpaper=true]{fig/fig-spl.pdf}
+%\includepdf[fitpaper=true]{fig/fig-basal_cytokine.pdf}
+
+
+
+
