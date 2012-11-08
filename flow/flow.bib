@@ -552,6 +552,70 @@
   url = {http://www.sciencedirect.com/science/article/pii/0003267086800289}
 }
 
+@ARTICLE{Ghazalpour2011,
+  author = {Anatole Ghazalpour and Brian Bennett and Vladislav A Petyuk and Luz
+	Orozco and Raffi Hagopian and Imran N Mungrue and Charles R Farber
+	and Janet Sinsheimer and Hyun M Kang and Nicholas Furlotte and Christopher
+	C Park and Ping-Zi Wen and Heather Brewer and Karl Weitz and David
+	G Camp and Calvin Pan and Roumyana Yordanova and Isaac Neuhaus and
+	Charles Tilford and Nathan Siemers and Peter Gargalovic and Eleazar
+	Eskin and Todd Kirchgessner and Desmond J Smith and Richard D Smith
+	and Aldons J Lusis},
+  title = {Comparative analysis of proteome and transcriptome variation in mouse.},
+  journal = {PLoS Genet},
+  year = {2011},
+  volume = {7},
+  pages = {e1001393},
+  number = {6},
+  month = {Jun},
+  abstract = {The relationships between the levels of transcripts and the levels
+	of the proteins they encode have not been examined comprehensively
+	in mammals, although previous work in plants and yeast suggest a
+	surprisingly modest correlation. We have examined this issue using
+	a genetic approach in which natural variations were used to perturb
+	both transcript levels and protein levels among inbred strains of
+	mice. We quantified over 5,000 peptides and over 22,000 transcripts
+	in livers of 97 inbred and recombinant inbred strains and focused
+	on the 7,185 most heritable transcripts and 486 most reliable proteins.
+	The transcript levels were quantified by microarray analysis in three
+	replicates and the proteins were quantified by Liquid Chromatography-Mass
+	Spectrometry using O(18)-reference-based isotope labeling approach.
+	We show that the levels of transcripts and proteins correlate significantly
+	for only about half of the genes tested, with an average correlation
+	of 0.27, and the correlations of transcripts and proteins varied
+	depending on the cellular location and biological function of the
+	gene. We examined technical and biological factors that could contribute
+	to the modest correlation. For example, differential splicing clearly
+	affects the analyses for certain genes; but, based on deep sequencing,
+	this does not substantially contribute to the overall estimate of
+	the correlation. We also employed genome-wide association analyses
+	to map loci controlling both transcript and protein levels. Surprisingly,
+	little overlap was observed between the protein- and transcript-mapped
+	loci. We have typed numerous clinically relevant traits among the
+	strains, including adiposity, lipoprotein levels, and tissue parameters.
+	Using correlation analysis, we found that a low number of clinical
+	trait relationships are preserved between the protein and mRNA gene
+	products and that the majority of such relationships are specific
+	to either the protein levels or transcript levels. Surprisingly,
+	transcript levels were more strongly correlated with clinical traits
+	than protein levels. In light of the widespread use of high-throughput
+	technologies in both clinical and basic research, the results presented
+	have practical as well as basic implications.},
+  doi = {10.1371/journal.pgen.1001393},
+  institution = {chool of Medicine, University of California Los Angeles, Los Angeles,
+	California, United States of America. aghazalp@ucla.edu},
+  keywords = {Alternative Splicing; Animals; Gene Expression Profiling; Genetic
+	Variation; Genome-Wide Association Study; Mice; Proteome, analysis/genetics;
+	Proteomics; RNA, Messenger, metabolism},
+  language = {eng},
+  medline-pst = {ppublish},
+  owner = {bao},
+  pii = {10-PLGE-RA-3635R2},
+  pmid = {21695224},
+  timestamp = {2012.11.06},
+  url = {http://dx.doi.org/10.1371/journal.pgen.1001393}
+}
+
 @ARTICLE{Green2009,
   author = {Chad E Green and Tiffany Liu and Valerie Montel and Gene Hsiao and
 	Robin D Lester and Shankar Subramaniam and Steven L Gonias and Richard
@@ -846,6 +910,97 @@
   timestamp = {2012.07.02},
   ty = {JOUR},
   url = {http://dx.doi.org/10.1038/36978}
+}
+
+@ARTICLE{Khatri2012,
+  author = {Khatri, , Purvesh AND Sirota, , Marina AND Butte, , Atul J.},
+  title = {Ten Years of Pathway Analysis: Current Approaches and Outstanding
+	Challenges},
+  journal = {PLoS Comput Biol},
+  year = {2012},
+  volume = {8},
+  pages = {e1002375},
+  number = {2},
+  month = {02},
+  abstract = {<p>Pathway analysis has become the first choice for gaining insight
+	into the underlying biology of differentially expressed genes and
+	proteins, as it reduces complexity and has increased explanatory
+	power. We discuss the evolution of knowledge base--driven pathway
+	analysis over its first decade, distinctly divided into three generations.
+	We also discuss the limitations that are specific to each generation,
+	and how they are addressed by successive generations of methods.
+	We identify a number of annotation challenges that must be addressed
+	to enable development of the next generation of pathway analysis
+	methods. Furthermore, we identify a number of methodological challenges
+	that the next generation of methods must tackle to take advantage
+	of the technological advances in genomics and proteomics in order
+	to improve specificity, sensitivity, and relevance of pathway analysis.</p>},
+  bdsk-url-1 = {http://dx.doi.org/10.1371/journal.pcbi.1002375},
+  doi = {10.1371/journal.pcbi.1002375},
+  file = {Khatri2012.pdf:Khatri2012.pdf:PDF},
+  owner = {bao},
+  publisher = {Public Library of Science},
+  review = {Limitation of ORA:
+	
+	 - the different statistics used by ORA (e.g., hypergeometric
+	
+	distribution, binomial distribution, chi-square distribution, etc.)
+	
+	are independent of the measured changes
+	
+	 - ORA typically uses only the most significant genes and
+	
+	discards the others
+	
+	 - ORA assumes that each
+	
+	gene is independent of the other genes.
+	
+	 - ORA assumes that each pathway is independent of other
+	
+	pathways,
+	
+	
+	FCS:
+	
+	 - a gene-level statistic is computed using the
+	
+	molecular measurements from an experiment
+	
+	 - the gene-level statistics for all genes in a pathway are
+	
+	aggregated into a single pathway-level statistic
+	
+	 - assessing the statistical significance of
+	
+	the pathway-level statistic.
+	
+	
+	Limitation:
+	
+	 - analyzes each pathway independently
+	
+	
+	Pathway Topology (PT)-Based
+	
+	Approaches:
+	
+	 - The key difference between the
+	
+	two is the use of pathway topology to compute gene-level statistics
+	
+	
+	any ORA method will assign higher
+	
+	significance (typically an order of magnitude lower p-value) to a
+	
+	pathway with more genes. Similarly, more genes in a pathway also
+	
+	increase the probability of a higher pathway-level statistic in FCS
+	
+	approaches, yielding higher significance for a given pathway.},
+  timestamp = {2012.02.24},
+  url = {http://dx.doi.org/10.1371%2Fjournal.pcbi.1002375}
 }
 
 @ARTICLE{Kryczek2007,
@@ -1622,6 +1777,50 @@
   url = {http://dx.doi.org/10.1385/0-89603-441-0:305}
 }
 
+@ARTICLE{Steffen2002,
+  author = {Martin Steffen and Allegra Petti and John Aach and Patrik D'haeseleer
+	and George Church},
+  title = {Automated modelling of signal transduction networks.},
+  journal = {BMC Bioinformatics},
+  year = {2002},
+  volume = {3},
+  pages = {34},
+  month = {Nov},
+  abstract = {Intracellular signal transduction is achieved by networks of proteins
+	and small molecules that transmit information from the cell surface
+	to the nucleus, where they ultimately effect transcriptional changes.
+	Understanding the mechanisms cells use to accomplish this important
+	process requires a detailed molecular description of the networks
+	involved.We have developed a computational approach for generating
+	static models of signal transduction networks which utilizes protein-interaction
+	maps generated from large-scale two-hybrid screens and expression
+	profiles from DNA microarrays. Networks are determined entirely by
+	integrating protein-protein interaction data with microarray expression
+	data, without prior knowledge of any pathway intermediates. In effect,
+	this is equivalent to extracting subnetworks of the protein interaction
+	dataset whose members have the most correlated expression profiles.We
+	show that our technique accurately reconstructs MAP Kinase signaling
+	networks in Saccharomyces cerevisiae. This approach should enhance
+	our ability to model signaling networks and to discover new components
+	of known networks. More generally, it provides a method for synthesizing
+	molecular data, either individual transcript abundance measurements
+	or pairwise protein interactions, into higher level structures, such
+	as pathways and networks.},
+  file = {Steffen2002.pdf:Steffen2002.pdf:PDF},
+  institution = {Dept of Genetics, Harvard Medical School, 200 Longwood Avenue, Boston,
+	Massachusetts, 02115, USA. steffen@rascal.med.harvard.edu},
+  keywords = {Computational Biology, methods/statistics /&/ numerical data; MAP
+	Kinase Signaling System, genetics; Models, Genetic; Protein Interaction
+	Mapping, statistics /&/ numerical data; Saccharomyces cerevisiae
+	Proteins, genetics; Saccharomyces cerevisiae, enzymology/genetics;
+	Signal Transduction, genetics},
+  language = {eng},
+  medline-pst = {epublish},
+  owner = {bao},
+  pmid = {12413400},
+  timestamp = {2012.06.12}
+}
+
 @ARTICLE{Straussman2012,
   author = {Ravid Straussman and Teppei Morikawa and Kevin Shee and Michal Barzily-Rokni
 	and Zhi Rong Qian and Jinyan Du and Ashli Davis and Margaret M Mongare
@@ -1725,6 +1924,144 @@
   keyword = {Computer Science},
   owner = {bao},
   timestamp = {2011.09.02}
+}
+
+@ARTICLE{Subramanian2005,
+  author = {Aravind Subramanian and Pablo Tamayo and Vamsi K Mootha and Sayan
+	Mukherjee and Benjamin L Ebert and Michael A Gillette and Amanda
+	Paulovich and Scott L Pomeroy and Todd R Golub and Eric S Lander
+	and Jill P Mesirov},
+  title = {Gene set enrichment analysis: a knowledge-based approach for interpreting
+	genome-wide expression profiles.},
+  journal = {Proc Natl Acad Sci U S A},
+  year = {2005},
+  volume = {102},
+  pages = {15545--15550},
+  number = {43},
+  month = {Oct},
+  abstract = {Although genomewide RNA expression analysis has become a routine tool
+	in biomedical research, extracting biological insight from such information
+	remains a major challenge. Here, we describe a powerful analytical
+	method called Gene Set Enrichment Analysis (GSEA) for interpreting
+	gene expression data. The method derives its power by focusing on
+	gene sets, that is, groups of genes that share common biological
+	function, chromosomal location, or regulation. We demonstrate how
+	GSEA yields insights into several cancer-related data sets, including
+	leukemia and lung cancer. Notably, where single-gene analysis finds
+	little similarity between two independent studies of patient survival
+	in lung cancer, GSEA reveals many biological pathways in common.
+	The GSEA method is embodied in a freely available software package,
+	together with an initial database of 1,325 biologically defined gene
+	sets.},
+  doi = {10.1073/pnas.0506580102},
+  file = {Subramanian2005.pdf:Subramanian2005.pdf:PDF},
+  institution = {Broad Institute of Massachusetts Institute of Technology and Harvard,
+	320 Charles Street, Cambridge, MA 02141, USA.},
+  keywords = {Cell Line, Tumor; Female; Gene Expression Profiling, methods; Genes,
+	p53, physiology; Genome; Humans; Leukemia, Myeloid, Acute, genetics;
+	Lung Neoplasms, genetics/mortality; Male; Oligonucleotide Array Sequence
+	Analysis; Precursor Cell Lymphoblastic Leukemia-Lymphoma, genetics},
+  language = {eng},
+  medline-pst = {ppublish},
+  owner = {bao},
+  pii = {0506580102},
+  pmid = {16199517},
+  timestamp = {2012.03.06},
+  url = {http://dx.doi.org/10.1073/pnas.0506580102}
+}
+
+@ARTICLE{Taniguchi2010,
+  author = {Yuichi Taniguchi and Paul J Choi and Gene-Wei Li and Huiyi Chen and
+	Mohan Babu and Jeremy Hearn and Andrew Emili and X. Sunney Xie},
+  title = {Quantifying \emph{E. coli} proteome and transcriptome with single-molecule
+	sensitivity in single cells.},
+  journal = {Science},
+  year = {2010},
+  volume = {329},
+  pages = {533--538},
+  number = {5991},
+  month = {Jul},
+  abstract = {Protein and messenger RNA (mRNA) copy numbers vary from cell to cell
+	in isogenic bacterial populations. However, these molecules often
+	exist in low copy numbers and are difficult to detect in single cells.
+	We carried out quantitative system-wide analyses of protein and mRNA
+	expression in individual cells with single-molecule sensitivity using
+	a newly constructed yellow fluorescent protein fusion library for
+	Escherichia coli. We found that almost all protein number distributions
+	can be described by the gamma distribution with two fitting parameters
+	which, at low expression levels, have clear physical interpretations
+	as the transcription rate and protein burst size. At high expression
+	levels, the distributions are dominated by extrinsic noise. We found
+	that a single cell's protein and mRNA copy numbers for any given
+	gene are uncorrelated.},
+  doi = {10.1126/science.1188308},
+  institution = {Department of Chemistry and Chemical Biology, Harvard University,
+	Cambridge, MA 02138, USA.},
+  keywords = {Escherichia coli Proteins, analysis/metabolism; Escherichia coli,
+	chemistry/genetics/metabolism; Gene Expression; Gene Expression Profiling;
+	Gene Library; In Situ Hybridization, Fluorescence; Luminescent Proteins;
+	Microfluidic Analytical Techniques; Microscopy, Fluorescence; Protein
+	Biosynthesis; Proteome, analysis; RNA Stability; RNA, Bacterial,
+	analysis/genetics/metabolism; RNA, Messenger, analysis/genetics;
+	Saccharomyces cerevisiae, chemistry/genetics/metabolism; Transcription,
+	Genetic},
+  language = {eng},
+  medline-pst = {ppublish},
+  owner = {bao},
+  pii = {329/5991/533},
+  pmid = {20671182},
+  timestamp = {2012.11.06},
+  url = {http://dx.doi.org/10.1126/science.1188308}
+}
+
+@ARTICLE{Tarca2009,
+  author = {Adi Laurentiu Tarca and Sorin Draghici and Purvesh Khatri and Sonia
+	S Hassan and Pooja Mittal and Jung-Sun Kim and Chong Jai Kim and
+	Juan Pedro Kusanovic and Roberto Romero},
+  title = {A novel signaling pathway impact analysis.},
+  journal = {Bioinformatics},
+  year = {2009},
+  volume = {25},
+  pages = {75--82},
+  number = {1},
+  month = {Jan},
+  abstract = {Gene expression class comparison studies may identify hundreds or
+	thousands of genes as differentially expressed (DE) between sample
+	groups. Gaining biological insight from the result of such experiments
+	can be approached, for instance, by identifying the signaling pathways
+	impacted by the observed changes. Most of the existing pathway analysis
+	methods focus on either the number of DE genes observed in a given
+	pathway (enrichment analysis methods), or on the correlation between
+	the pathway genes and the class of the samples (functional class
+	scoring methods). Both approaches treat the pathways as simple sets
+	of genes, disregarding the complex gene interactions that these pathways
+	are built to describe.We describe a novel signaling pathway impact
+	analysis (SPIA) that combines the evidence obtained from the classical
+	enrichment analysis with a novel type of evidence, which measures
+	the actual perturbation on a given pathway under a given condition.
+	A bootstrap procedure is used to assess the significance of the observed
+	total pathway perturbation. Using simulations we show that the evidence
+	derived from perturbations is independent of the pathway enrichment
+	evidence. This allows us to calculate a global pathway significance
+	P-value, which combines the enrichment and perturbation P-values.
+	We illustrate the capabilities of the novel method on four real datasets.
+	The results obtained on these data show that SPIA has better specificity
+	and more sensitivity than several widely used pathway analysis methods.SPIA
+	was implemented as an R package available at http://vortex.cs.wayne.edu/ontoexpress/},
+  doi = {10.1093/bioinformatics/btn577},
+  file = {Tarca2009.pdf:Tarca2009.pdf:PDF},
+  institution = {Department of Computer Science, Wayne State University, 431 State
+	Hall, Detroit, MI 48202, USA.},
+  keywords = {Colorectal Neoplasms, genetics; Computational Biology, methods; Databases,
+	Genetic; False Positive Reactions; Female; Humans; Labor, Obstetric,
+	genetics; Models, Genetic; Pregnancy; Signal Transduction, genetics},
+  language = {eng},
+  medline-pst = {ppublish},
+  owner = {bao},
+  pii = {btn577},
+  pmid = {18990722},
+  timestamp = {2012.02.24},
+  url = {http://dx.doi.org/10.1093/bioinformatics/btn577}
 }
 
 @ARTICLE{Vinayagam2011,

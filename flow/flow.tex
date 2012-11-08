@@ -1,6 +1,198 @@
 \chapter{Signal flow}
+From the previous chapter, we know that the cellular machinery of 
+transcriptional and metabolic regulation is under-represented in the strongly 
+regulated genes and thus hidden from the time-resolved transcriptome data. 
+Consequently, the investigation of strong responders only gives insights into
+the periphery of the gene regulatory network and functions directly related
+to the cellular phenotype. What is largely missing is a holistic picture of
+the signaling pathway activity, namely how the external stimulus is translated
+to the protein signaling events that propagate through the protein interaction
+network and ultimately lead to the measured gene regulation (\ref{fig:signal_flow}).
 
-\section*{Abstract}
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{signal_flow.pdf}
+\end{center}
+\caption[Signal flow]{{\bf Schematic view of signal flow from membrane 
+receptors to transcription factors in the cell.}
+}
+\label{fig:signal_flow}
+\end{figure}
+
+In the following, we first introduce several classical methods to infer the
+enrichment of pathways from the transcriptome data. We point out the drawback
+of their implicit assumptions and propose a two-step approach to identify the
+causal signal\footnote{We use \emph{signal} and \emph{information} interchangably.} 
+flow from membrane receptors to transcription factors. Finally,
+we apply this approach in the study of cell-cell communication in the lung
+cancer and skin.
+
+\section{Pathway enrichment analyses}
+Since the introduction of the microarray technology, pathway analysis has been 
+a heavy focus and first choice for gaining insight into the underlying biology 
+of differentially expressed genes. Over the past decade, we have seen at least 
+three generations of pathway analyses~\citep{Khatri2012}, here we discuss 
+their core features and limitations.
+
+\subsection{Over-representation test}
+Over-representation test is also called Fisher's exact test, it statistically 
+evaluates the fraction of genes in a particular pathway found among the set 
+of genes showing significant changes in expression. By constructing a
+$2 \times 2$ contingency table, a researcher first chooses genes that are 
+differentially over- or under-expressed in a given condition at a certain 
+threshold. Then, for each pathway, the number of genes that are part of the 
+pathway is counted. This process is repeated for an appropriate background 
+list of genes (e.g., all genes measured on a microarray). Next, every pathway 
+is tested for over- or under-representation based on this contingency table. 
+The most commonly used test is based on the hypergeometric distribution or
+the Fisher's exact test.
+
+One of the critics on Fisher's exact test is that it only considers a ranked
+list of differentially expressed genes and is thus independent of the 
+measured fold changes. Second, the generation of the contingency table
+requires setting a significance cutoff to count the number of differentially
+regulated genes. This procedure introduces a subjective criterion and 
+effectively treats the gene regulation as a black-white picture, namely only 
+genes above this threshold are considered differentially expressed and those
+below the threshold are then discarded.
+    
+\subsection{Gene set analysis}
+To avoid the arbitrary significance cutoff and to realize the fact that weaker 
+but coordinated changes in sets of functionally related genes (i.e., pathways) 
+can also have significant effects, gene set enrichment analysis was suggested~%
+\citep{Subramanian2005,Luo2009}. In general,
+a pathway-level (gene group level) statistic is calculated from the gene-level 
+statistic, and the statistical significance is assessed according to the 
+pathway-level statistic.
+
+By considering the coordinated changes in gene expression, gene set analyses 
+account for dependence between genes in a certain pathway or group, however,
+each pathway is still analyzed independently and thus crosstalks between
+pathways are disregarded.
+
+\subsection{Topology-based approach (SPIA)}
+Over-representation and gene set analyses only consider the number of genes 
+in a pathway to identify significant pathways, and ignore the additional 
+information available from various prior knowledge bases. Recently a signaling
+pathway impact analysis (SPIA) was proposed~%
+\citep{Tarca2009}. SPIA considers the structure and dynamics of an entire 
+pathway by incorporating changes in gene expression, types of interactions, 
+and the positions of genes in a pathway. 
+It calculates the pathway-level statistic from the combinatorial probability 
+of perturbation in gene expression and over-representation. One obvious problem 
+of the topology-based approach is that the true pathway topology is highly
+context-dependent and remains poorly understood and annotated.
+
+\subsection{NetSearch}
+\cite{Steffen2002} further built upon the idea of incorporating 
+prior knowledge about the pathway topology and suggested
+the inference of signal transduction networks with protein-interaction maps
+and expression profiles from DNA microarrays.
+It works by first enumerating all possible linear paths
+of a specified length through the interaction map starting
+at any membrane protein and ending on any DNA-binding
+transcription factors.
+Microarray expression data are then used
+to rank all paths according to the degree of similarity in
+the expression profiles of pathway members.
+Linear pathways
+that have common starting points and endpoints
+and of the highest ranks are then combined into the final
+model of the branched networks.
+
+Based on the gene expression data of pheromone response in the yeast, the 
+NetSearch algorithm accurately reconstructs the MAPK cascade, it also identifies a 
+network with other proteins necessary to execute the coordinated processes of 
+growth polarization and cell cycle arrest, and reflects the complex topology of 
+the interaction network in response to pheromone.
+
+\subsection{Drawback}
+All the above methods make the implicit assumption that the expression of genes
+and their corresponding protein products are correlated, or the signaling 
+pathway activity, which is largely determined by the member protein level, 
+can be inferred from the transcriptome data. There has been ongoing debate 
+about whether the transcriptome regulation correlates with the proteome
+in bacterial and mammalian cells~\citep{Taniguchi2010,Ghazalpour2011}. More
+often than not, the assumption of correlation either does not hold or is too 
+strong. Therefore, questions arise about the validity of inferring signaling 
+pathway activity based on the gene expression level.
+
+\section{Two-step approach to causal signal flow}
+We propose here a two-step approach to infer the activated protein signaling
+pathways from time-resolved microarray data. As a first step, we apply a
+gene set enrichemnt analysis to test the
+enrichment of transcription factor target genes, which acts as a proxy of
+the transcription factor activity \emph{per se}. Second, the upstream 
+signal flow from membrane receptors to transcription factors is predicted 
+based on the distance between both end nodes in the protein interaction
+network.
+
+\subsection{Identification of activated transcription factors}
+We performed gene set enrichment tests, 
+using a modified implementation~\citep{Luo2009}.
+To this end, we retrieved sets of genes regulated by 
+a common transcription factor from MSigDB v3.0 (The Molecular Signature Database). 
+This database contains two major data sources. The first one is mammalian 
+transcriptional regulatory motifs from the v7.4 public version of TRANSFAC 
+database~\citep{Matys2003b}. We then generated the motif gene sets consisting 
+of the inferred target genes for each motif. Every such set consists of human 
+genes whose promoters (defined as regions -2kb to +2kb around transcription 
+start site) contain at least one instance of the motif.
+The second data source for transcription factor targets in MSigDB is derived 
+from upstream motifs highly conserved among five mammalian species~%
+\citep{Xie2005e}. Each motif gene set consists of all human genes whose 
+promoters contained at least one conserved instance of the motif.
+
+Individual genes were  ranked according to their response strengths as derived from the 
+multidimensional scaling of the normalized time series 
+(\ref{sec:response_strength}). 
+The gene sets from MSigDB were  then tested for their enrichment 
+ relative to the whole transcriptome by a Kolmogorov-Smirnov statistic. 
+
+\subsection{Signal flow from membrane receptors}
+In order to infer how extracellular signal flows from the membrane receptors to 
+the transcription factors and subsequently induces gene regulation, it is 
+crucial to be able to measure the proximity between a given pair of receptor and
+transcription factor in the protein-protein interaction network. Here we 
+compare two distance metrics, one is the shortest path length, and the other
+being the mean first passage time based on the idea of random walk.
+
+\subsubsection{Shortest path length}
+If one assumes that information propagates in the network in a most parsimonious
+or efficient way,
+shortest path length between two nodes in the network is a classical way to
+assess the distance between these two nodes and thus possible route of signal flow
+(\ref{sec:shortest_path}).
+We use a directed human protein-protein interaction network from a previous study%
+~\citep{Vinayagam2011}, which contains edge directions
+inferred by a naive Bayesian classifier.
+For each cytokine receptor/transcription factor pair previously identified,
+we calculated the length of the shortest path between the two
+using the unweighted breadth-first search algorithm,
+as implemented in the R package \texttt{igraph}~\citep{Csardi2006}.
+We use these lengths as base metric for the probability 
+of signal actually flowing through the pathway.
+
+Intuitively, the shortest path is only the best scenario of all possible routes
+of information flow in the network. Therefore, it simply ignores the 
+neighborhood or global structure around the shortest path when calculating
+distances. Another limitation of the shortest path distance metric has to do
+with the small characteristic path lengths in a small-world networks~%
+\citep{Watts1998}, such that any nodes can be reached from any other nodes
+within only few hops when traveling on the shortest path and the shortest path
+metric loses its discriminative power. Since most biological
+and real-world networks demonstrate the small-world feature~%
+\citep{Barabasi2004}, this limitation
+has to be kept in mind when working with the shortest path.
+
+\subsubsection{Mean first passage time}
+The mean first passage time (MFPT) is defined as the average time/steps 
+necessary for 
+a random walker starting from a source node to reach a target node for the
+first time.
+
+\section{Application in tumor-stroma interaction}
+
 The hallmark of lung tumor development is \change[JB]{their}{its} early spread, 
 complicating the patient treatment and strongly impairing survival.
 Recent studies have shown the tumor-stroma interaction to be relevant to 
@@ -41,12 +233,7 @@ At the same time, the delayed activation of SDF-1$\alpha$ induce\change[JB]{d}{s
 specific} pathways 
 \add[JB]{that} could provide a fail-safe mechanism.
 
-% Please keep the Author Summary between 150 and 200 words
-% Use first person. PLoS ONE authors please skip this step. 
-% Author Summary not valid for PLoS ONE submissions.   
-\section*{Author Summary}
-
-\section*{Introduction}
+\subsection{Background}
 \add[SD]{Lung cancer with its predominant type non small cell lung carcinoma 
 (NSCLC) is the leading cause of cancer-related mortality worldwide.}
 The hallmark of lung cancer is its early spread, 
@@ -545,134 +732,6 @@ in the tumor cells.
 
 
 
-% You may title this section "Methods" or "Models". 
-% "Models" is not a valid title for PLoS ONE authors. However, PLoS ONE
-% authors may use "Analysis" 
-\section*{Materials and Methods}
-\label{sec:methods}
-
-\subsection*{Cell culture} 
-The human NSCLC cell line H838 and the primary human endothelial cell  line HPAEC were purchased from Promocell. 
-H838 was propagated in DMEM (Lonza) with 10\% fetal calf  serum (Invitrogen) and 50,000 U/ml Penicillin/Streptomycin (Biochrom AG). 
-HPAEC was propagated in Endothelial cell growth medium 2 (Promocell)  including 2\% fetal calf serum with supplements EGF 5ng/ml, 
-bFGF 10ng/ml, Long R3 IGF 20ng/ml, VEGF 0.5ng/ml,  ascorbic acid 1$\mu$g/ml, heparin 22.5$\mu$g/ml and hydrocortisone 0.2$\mu$/ml 
-(all Promocell).  Cells were passaged at a split ratio of 1:10,  routinely tested for mycoplasma contamination as  described in~\cite{Stacey1997a} 
-and always found to be negative. 
-
-\subsection*{Transfilter coculture system}
-Monocultures of H838 cells were \change[SD]{applied}{seeded} in 6-well plates at a density of $2.5\times10^5$ cells/well. 
-Next, H838 and HPAEC cells were \change[SD]{applied}{seeded} to polycarbonate transwell 
-culture inserts (35.5mm diameter with 0.4$\mu$m pore size, Greiner bio-one), 
-at densities of $2.0\times10^5$ and $4.5\times10^5$ cells/filter,
-respectively.
-Six hours after cell seeding, the filters were placed to the corresponding well plates and allowed to
-propagate until confluence was reached. The whole procedure was performed in the medium as specified for the HPAEC cells,
-see previous header.
-
-\subsection*{Migration assay in transfilter cocultures}
-Confluent H838 monolayers of systems as describe above were scratched multiple times. %scratch width? Yellow pipette tip?
- Ten different regions per well were documented, using a  Leica Microscope with a connected digital camera, at 0h and 24h after scratching.
-Recovered area assessment was done with Adobe Photoshop. The ten values of each well were averaged and the significance of differential migration area between  heterogeneous H838/HPAEC and homogeneous H838/H838 coculture was determined by two-sided $t$-test.
-% Which ones?  How was the t-test applied to the data?
-These experiments were performed in duplicates and repeated three times. 
-
-\subsection*{mRNA isolation and microarray}
-Heterogenious and Homogenious were cultivated as previously described. H838 cells of heterogenious or homogenious oft he well were lysed at 0, 0.5, 1, 2, 3, 4, 5, 10, 15 and 24h after scratching using a lysis buffer of Roche (Mannheim, Germany) Duplicate samples were taken at 0 and 24h.
-RNA was extracted under RNase-free conditions 
-with the RNeasy plus Kit (Roche, Mannheim, Germany). 
-\note[JB]{obsolete?}\emph{
-$480 \mu g$ 
-of total RNA from each preparation were used for 
-subsequent gene array experiments.
-RNA quality was confirmed by a median RNA integrity number of 
-10 (range, 9.6-10; Agilent 2100 Bioanalyzer; Agilent). 
-RNAs were processed with the Ambion WT Expression kit (Ambion, Austin Tx, USA) 
-as described by the manufacturer. 
-The resulting cDNAs were fragmented and then 
-labeled using 
-the Affymetrix Terminal Labeling kit. 
-Labeled fragments were hybridized to 
-Affymetrix WT Mouse Gene ST 1.0 arrays for 16h at 45C with 60 rpm 
-in an Affymetrix Hybridization oven 645. 
-After washing and staining, 
-the arrays were scanned with the Affymetrix GeneChip Scanner 3000 7G. 
-CEL-files were produced from the raw data with Affymetrix GeneChip 
-Command Console Software Version 3.0.}
-
-A total of $250 ng$ RNA was used for complementary DNA (cDNA) 
-synthesis, followed by an amplification/labeling step 
-(in vitro transcription) to synthesize biotin-labeled cRNA, according 
-to the MessageAmp II aRNA Amplification kit (Ambion, Inc., Austin, TX). 
-Biotin-16-UTP was purchased from Roche Applied Science, Penzberg, Germany. 
-The cRNA was column purified according to TotalPrep RNA Amplification Kit, 
-and eluted in $60 \mu L$ of water. 
-Quality of cRNA was controlled using the RNA Nano Chip Assay on an 
-Agilent 2100 Bioanalyzer and spectrophotometrically quantified (NanoDrop). 
-Hybridization was performed at 58$^\circ$C, in GEX-HCB buffer (Illumina Inc.) 
-at a concentration of $100 ng$ $cRNA/\mu l$, 
-unsealed in a wet chamber for 20h. 
-Spike-in controls for low, medium and highly abundant RNAs were added, 
-as well as mismatch control and biotinylation control oligonucleotides. 
-Microarrays were washed twice in E1BC buffer (Illumina Inc.) at 
-room temperature for 5 minutes. 
-After blocking for 5 min in 4 ml of 1\% (wt/vol) Blocker Casein in phosphate 
-buffered saline Hammarsten grade (Pierce Biotechnology, Inc., Rockford, IL), 
-array signals were developed by a 10-min incubation in 2 ml 
-of $1 \mu g/ml$ Cy3-streptavidin (Amersham Biosciences, Buckinghamshire, UK) 
-solution and 1\% blocking solution. 
-After a final wash in E1BC, the arrays were dried and scanned.
-Microarray scanning was done using a Beadstation array scanner, 
-setting adjusted to a scaling factor of 1 and PMT settings at 430. 
-Data extraction was done for all beads individually, and outliers were 
-removed when $>$ 2.5 MAD\note[JB]{correct?} \note[DD]{Das wurde alles in der corefacility gemacht. Kann Dirt also nocht sage, ob es richtig ist}
-(median absolute deviation). 
-All remaining data points were used for the calculation of the mean average 
-signal for a given probe, and standard deviation for each probe was calculated. 
-Microarray time series data were first quantile normalized without background
-subtraction, where the duplicates at 0 and 24h were averaged; ratios (fold change) with respect to the mean gene expression at 0h were computed from normalized values and subsequently $\log_2$-transformed. 
-Furthermore, six consecutive time windows of the microarray time series, 0--4h, 
-4--8h,  8--12h, 12--16h, 16--20h, 20--24h,  are considered in the enrichment 
-analysis of transcription factor targets.
-
-% we need to add here
-Microarray data have been deposited in the Gene expression omnibus database 
-under the acession number XXX.
-
-\subsection*{Media collection and quantification of cytokines during migration assay}
-Media from migration assays of heterogenious and homogenious cocultures were sampled at 0h in unscratched conditions, whiche served as the control and 24h after scratching
-. The conditioned media was analyzed with 
-a fluorescent bead array based multiparameter assay  from Bio-Rad multimetrix  (Bio-Rad, M\"unchen, Deutschland).
-
-The quantification of fifty different analytes was performed and evaluated in a  fully automated 96-well format Luminex analysis system (Multimetrix, Regensburg,  Germany). Sample preparation, Multimetrix machine performance and determination of 
-exact protein concentration were done by the specialized core facility of German  cancer research center in Heidelberg with the Software Bio-Plex Manager (Bio-Rad,  M\"unchen Deutschland). 
-Twenty-four of the fifty cytokine concentration values measured  in the procedure describe\add[SD]{d} under the ``Quantification of cytokines'' header 
-were above the threshold of $1pg$. 
-Concentrations of positively detected analytes in the 
-scratched conditioned media were then  normalized to the concentration in the unscratched conditioned media:
-\[
-[Cytokine_i]^{normalized} = \frac{[Cytokine_i]^{scratched}}{[Cytokine_i]^{unscratched}}
-\]
-
-\subsection*{Treatment of monocultures with recombinant proteins and  neutralizing antibodies}
-
-Sixteen monocultures of H838 cells were plated as described previously under 
-the ``Transfilter coculture''  header. The confluent monolayer was starved without FCS and supplements 
-for 24 hours, and each of the eight candidate cytokines was added to one monoculture, in a concentration of $10 ng/ml$.
-As for the eight remaining monocultures, we added the same cytokines in groups of four, one group with TNF$\alpha$,  VEGF, RANTES and IL-6, 
-and the other with MCP-1, Gro-$\alpha$, IL-8, SDF-1$\alpha$:  we made four samples with all cytokines of each of these groups,
-in a concentration of 10ng/ml each.  To each of the eight samples containing multiple cytokines, we added neutralizing antibodies specific to one cytokine added to it,  at a concentration of 2 $\mu$g/ml. Quantification of the migration area was done using the same procedure as described under the preceding ``Migration assay'' header. All cytokines and antibodies were purchased from R\&D, Heidelberg,  Germany.  All experiments were performed in duplicates and repeated three times.
-
-
-\subsection*{Treatment of heterogeneous cocultures with \change[SD]{blocking antibodies}{antibodies against TNF-$\alpha$ and SDF-1$\alpha$}}
-
-Assays as previously described under the ``Migration assay'' header  were repeated, with four heterogeneous 
-cocultures only: directly after scratching these were treated with blocking  antibodies against TNF-$\alpha$ and SDF-1$\alpha$, 
-obtained from R\&D, Heidelberg, Germany, at a final concentration of 2$\mu$g/ml each. 
-Two samples were treated with one antibody, one with both: the fourth sample, treated with the same volume of PBS, was used as control.
-The whole procedure was performed in the medium  as specified for the HPAEC cells under the ``Cell culture'' header.
-Quantification of the migration area was done using the same procedure as described under the preceding ``Migration assay'' header.
-All experiments were performed in duplicates and repeated three times.
-
 \subsection*{Impulse model}
 The qPCR time courses of \tnfa and \sdfonea measured in HPAEC cells are fitted with an impulse model~\cite{Chechik2009}, which is \remove[JB]{basically} composed of one rising and one falling sigmoidal curve, as defined by
 \[
@@ -700,41 +759,6 @@ where $\xi$  and  $\omega$ denote the location and scale of the distribution.
 The basal level gene expression distribution was fitted using maximum likelihood 
 estimation for the 
 univariate skew-$t$ distribution, implemented in the R package \texttt{sn}.
-
-\subsection*{Gene set enrichment test}
-
-%We applied a gene set to elucidate the time-resolved function of differentially regulation genes ~\cite{Luo2009}, 
-%We took the transcription factor target gene sets from MSigDB~\cite{msigdb},
-%using  the target genes of mammalian transcriptional  regulatory motifs from TRANSFAC v7.4~\cite{Matys2003b} and from motifs highly  conserved among  five mammalian species~\cite{Xie2005e} as test sets.
-%Individual genes were  ranked according to their response strengths as derived from the 
-%multidimensional scaling of the normalized time series within  a specific time window. 
-%Transcription factor target sets are then tested for their over-representation relative to the whole transcriptome
-%by a Kolmogorov-Smirnov statistic.  
-
-We performed gene set enrichment tests, 
-using a modified implementation ~\cite{Luo2009} from
-the R/Bioconductor package \emph{gage}.
-To this end, we retrieved sets of genes regulated by 
-a common transcription factor from MSigDB v3.0~\cite{msigdb}. This database contains a compilation of  
-mammalian transcriptional regulatory motifs and the genes associated
-to them, as retrieved from other sources, see~TRANSFAC v7.4~\cite{Matys2003b}.
-
-Individual genes were  ranked according to their response strengths as derived from the 
-multidimensional scaling of the normalized time series within  a specific time window. 
-The gene sets from MSigDB were  then tested for their enrichment 
- relative to the whole transcriptome by a Kolmogorov-Smirnov statistic. 
-
-\subsection*{Shortest paths within the signaling network}
-
-We use a directed human protein-protein interaction network from a previous study%
-~\cite{Vinayagam2011}, which contains \remove[JB]{Bayesian-inferred} edge directions
-\add[JB]{inferred by a naive Bayesian classifier}.
-For each cytokine receptor/transcription factor pair previously identified,
-we calculated the length of the shortest path between the two
-using the \change[JB]{Dijkstra}{unweighted breadth-first search} algorithm,
-as implemented in the R package \texttt{igraph}~\cite{Csardi2006}.
-We use these lengths as base metric for the probability 
-of signal actually flowing through the pathway.
 
 \section*{Figure Legends}
 
@@ -906,6 +930,8 @@ at 0h.
 %\includepdf[fitpaper=true]{fig/fig-plot_tfbs_modified.pdf}
 %\includepdf[fitpaper=true]{fig/fig-spl.pdf}
 %\includepdf[fitpaper=true]{fig/fig-basal_cytokine.pdf}
+
+\section{Application in skin cell communication}
 
 
 
