@@ -160,7 +160,7 @@ being the mean first passage time based on the idea of random walk.
 \subsubsection{Shortest path length}
 If one assumes that information propagates in the network in a most parsimonious
 or efficient way,
-shortest path length between two nodes in the network is a classical way to
+shortest path (SP) length between two nodes in the network is a classical way to
 assess the distance between these two nodes and thus possible route of signal flow
 (\ref{sec:shortest_path}).
 We use a directed human protein-protein interaction network from a previous study%
@@ -189,19 +189,134 @@ has to be kept in mind when working with the shortest path.
 The mean first passage time (MFPT) is defined as the average time/steps 
 necessary for 
 a random walker starting from a source node to reach a target node for the
-first time.
+first time. It has been shown that MFPT can be used to detect community
+structures in the protein interaction network of yeast~\citep{Zhou2003}. 
+Recently, a random walk with restart approach was applied to associate
+target gene sets to reference datasets as an alternative to 
+over-representation-based enrichement analyses~\citep{Glaab2012}. Furthermore,
+the usefulness of MFPT became evident by the fact that the pairwise MFPT 
+matrix is sufficient to reconstruct the full network topology~%
+\citep{Wittmann2009}.
 
-\section{Application in tumor-stroma interaction}
+MFPT can be calculated analytically by solving a linear equation system~%
+\citep{Kampen2007}. Consider the special case of a linear chain 
+(\ref{fig:mfpt_calculation}) and suppose the random walker starts from node 
+$x$ at a certain time $t$, with the probability of jumping to adjacent nodes
+being equal, we have
+\begin{equation}
+\tau(x,y) - 1 = \frac{1}{2}\tau(x-1,y) + \frac{1}{2}\tau(x+1,y)
+\label{eq:mfpt}
+\end{equation}
+where $\tau(x,y)$ denotes the mean first passage time of reaching $y$ and 
+starting at $x$, which can be decomposed of 1 time unit needed to reach the
+next time step $t+1$ and the travel time to the target node $y$ at $t+1$.
+Since the random walker can be at either node $x-1$ or $x+1$ at $t+1$, each
+with equal probability, we express the mean first passage time to $y$ at
+time step $t+1$ as the right-hand-side of \ref{eq:mfpt}.
 
-The hallmark of lung tumor development is \change[JB]{their}{its} early spread, 
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{mfpt_calculation.pdf}
+\end{center}
+\caption[MFPT calculation]{
+{\bf The calculation of MFPT on a linear chain.}
+The same linear chain consisting of 4 nodes is depicted in different time 
+slices ($t,t+1,\ldots$), 
+a random walker starting from node $x$ at time $t$ can jump to either $x-1$ 
+or $x+1$ at time $t+1$.
+}
+\label{fig:mfpt_calculation}
+\end{figure}
+
+\ref{eq:mfpt} can be rewritten and generalized to an arbitrary graph, i.e.
+the mean first passage time from all possible nodes to a target node $y$
+can be expressed as a linear equation system
+\begin{equation}
+(\tilde{\mathbf{L}}-\boldsymbol{\beta}^y) 
+\begin{pmatrix}
+\tau(1,y)\\
+\tau(2,y)\\
+\vdots\\
+\tau(N,y)
+\end{pmatrix}
+= \boldsymbol{\delta}
+\label{eq:mfpt_system}
+\end{equation}
+where 
+\begin{equation}
+\delta_i=
+\begin{cases}
+0 & i=y\\
+1 & \textnormal{otherwise}
+\end{cases}
+\end{equation}
+and $\tilde{\mathbf{L}}$ is the normalized graph Laplacian and
+\begin{equation}
+\tilde{L}_{ij}=
+\begin{cases}
+1 & i=j\\
+-1/deg(i) & i \neq j \ \textnormal{and}\ i \ \textnormal{is adjacent to}\ j \\
+0 & \textnormal{otherwise}
+\end{cases}
+\end{equation}
+where $deg(i)$ is the degree of node $i$. $\boldsymbol{\beta^y}$ 
+is the boundary condition
+matrix that ensures $\tau(y,y)=0$, more specifically
+\begin{equation}
+\beta^y_{ij}=
+\begin{cases}
+\tilde{L}_{ij}-1 & i=j=y\\
+\tilde{L}_{ij} & i=y\\
+0 & \textnormal{otherwise}
+\end{cases}
+\end{equation}
+It is easy to see that $\tilde{\mathbf{L}}$ can be pre-calculated and then be 
+reused to estimate the
+MFPT for each target node $y$. Moreover, the calculations
+for different targets are independent and hence can be
+determined in parallel. As networks in biology are often
+sparse, the equation system in \ref{eq:mfpt_system}
+is suitably represented by a sparse matrix. The matrix
+is positive semi-definite and can be solved by the LGMRES algorithm~%
+\citep{Baker2005}.
+
+\ref{fig:mfpt_toy} compares the distance measure of shortest path (SP) length
+and mean first passage time (MFPT) on different toy networks. Network A, B and
+C are all composed of a linear chains as the backbone and different complex 
+global structures, the SP metric measures the length of the backbond and is 
+thus the same across all three topologies, whereas MFPT has a broader range
+and changes between 9 and 17.5. This demonstrates that SP does not take into
+account the global network topology. Furthermore, SP is also more susceptible
+than MFPT to the pruning of a critical link, which is illustrated in the 
+network C and D with only a single connection between $n1$ and $n2$ removed
+in D. Since this edge is part of the shortest path between $n0$ and $n3$, the
+SP distance changes dramatically by 33\%, while MFPT increase only moderately
+by 3\%.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{mfpt_toy.pdf}
+\end{center}
+\caption[Toy example of SP and MFPT on different topologies]{
+{\bf Comparison of shortest path (SP) length and mean first passage time 
+(MFPT) on different toy networks.}
+Shown are the distances between node $n0$ and $n3$ measured in shortest path 
+(SP) and mean first passage time (MFPT) respectively.
+}
+\label{fig:mfpt_toy}
+\end{figure}
+
+\section{Application in tumor-stroma interaction of lung cancer}
+
+The hallmark of lung tumor development is its early spread, 
 complicating the patient treatment and strongly impairing survival.
 Recent studies have shown the tumor-stroma interaction to be relevant to 
 tumor growth and spread, and therefore a possible target for
 novel, effective treatment. 
-\add[JB]{However,} 
+However, 
 the details by which tumor and stroma cells communicate remain poorly 
-understood. In this article we present a study
-of the migration behavior of a non-small-cell lung 
+understood. In this section we present a study
+of the migration mechanisms of a non-small-cell lung 
 tumor cell line (H838) under the influence of endothelial (HPAEC) cells 
 in a coculture system.
 
@@ -211,86 +326,87 @@ in scratch assays of aforementioned cocultures, and measured
 cytokine concentrations in the medium.
 H838 showed a significantly increased migration area after 24h in the 
 H838/HPAEC coculture compared to the H838/H838 coculture.
-TNF-$\alpha$ and SDF-1$\alpha$ directly induced migration, 
+Two cytokines, TNF-$\alpha$ and SDF-1$\alpha$, were shown to directly 
+induce migration, 
 and the transcripts of these two key factors were regulated only 
 in HPAEC cells.
 Gene set enrichment test identified coordinated regulation
-of transcription factors targets \add[JB]{downstream} of these cytokines
+of transcription factors targets
 that cause the transcriptome response in H838. 
-Mapping shortest paths from the cytokine receptors to the predicted
-transcription factors suggests that TNF-$\alpha$ receptors activate multiple
-downstream targets in a homogeneous fashion,
-whereas the shortest paths \change[JB]{between}{descending from} 
-the SDF-1$\alpha$ receptor
-have multiple characteristic path lengths. 
-We conclude that TNF-$\alpha$ induces \change[JB]{the sustained}{an unspecific} 
-activation 
-of various downstream transcription factors, 
-which is the \change[JB]{primary}{initial} response \remove[JB]{mechanism} 
-involved in the 
-migration of H838 cells. 
-At the same time, the delayed activation of SDF-1$\alpha$ induce\change[JB]{d}{s 
-specific} pathways 
-\add[JB]{that} could provide a fail-safe mechanism.
+We compared distances from the cytokine receptors to the predicted
+transcription factors using both shortest path and mean first passage time.
+%suggests that TNF-$\alpha$ receptors activate multiple
+%downstream targets in a homogeneous fashion,
+%whereas the shortest paths \change[JB]{between}{descending from} 
+%the SDF-1$\alpha$ receptor
+%have multiple characteristic path lengths. 
+%We conclude that TNF-$\alpha$ induces \change[JB]{the sustained}{an unspecific} 
+%activation 
+%of various downstream transcription factors, 
+%which is the \change[JB]{primary}{initial} response \remove[JB]{mechanism} 
+%involved in the 
+%migration of H838 cells. 
+%At the same time, the delayed activation of SDF-1$\alpha$ induce\change[JB]{d}{s 
+%specific} pathways 
+%\add[JB]{that} could provide a fail-safe mechanism.
 
 \subsection{Background}
-\add[SD]{Lung cancer with its predominant type non small cell lung carcinoma 
-(NSCLC) is the leading cause of cancer-related mortality worldwide.}
+Lung cancer with its predominant type non small cell lung carcinoma 
+(NSCLC) is the leading cause of cancer-related mortality worldwide.
 The hallmark of lung cancer is its early spread, 
 making it particularly dangerous, with associated high rate of death 
-and short survival (CITE).
-Whether this is an inherent feature of the non-small \add[JB]{cell} 
+and short survival.
+Whether this is an inherent feature of the non-small cell 
 lung tumor cells or 
 due to their microenvironment is still unknown. 
 
 Ever since the formulation of \emph{seed and soil} theory by the English 
-surgeon Stephen Paget in 1889~\cite{Paget1889}, there has been increasing 
+surgeon Stephen Paget in 1889~\citep{Paget1889}, there has been increasing 
 interest in studying the tumor-stroma interactions. 
 It is now largely acknowledged that sites of metastasis are determined 
 not only by the characteristics of the tumor
 cells but also by the microenvironment of
-the host tissue~\cite{Fidler2003}. Tumor cells can generate a supportive
+the host tissue~\citep{Fidler2003}. Tumor cells can generate a supportive
 microenvironment by producing stroma-modulating
 growth factors, which act in a
 paracrine manner to induce stromal reactions such as
-angiogenesis~\cite{Bergers2003}
-and inflammatory response~\cite{Coussens2002}. Stroma cells in turn can
+angiogenesis~\citep{Bergers2003}
+and inflammatory response~\citep{Coussens2002}. Stroma cells in turn can
 interact with primary tumor cells synergistically and facilitate their migration~%
-\cite{Wyckoff2004}.
-Stromal cells also make \change[SD]{ideal}{promising} drug targets, since they are not as 
+\citep{Wyckoff2004}.
+Stromal cells also make promising drug targets, since they are not as 
 genetically
 unstable as cancer cells, and are therefore less likely to
-develop drug resistance~\cite{Kerbel1997}. To date, a number of drugs targeted
+develop drug resistance~\citep{Kerbel1997}. To date, a number of drugs targeted
 at tumor microenvironment, i.e. endothelial cells, immune cells and components
 of the extracellular matrix, are at different stages of clinical 
-trials~\cite{Mueller2004}. However, side effects of such stroma-targeting drugs
+trials~\citep{Mueller2004}. However, side effects of such stroma-targeting drugs
 have also been observed, which raises the natural demand of a more detailed, 
 systematic understanding of the tumor-stroma interaction.
 
-While bearing in mind that tumor-stroma interactions can be mediated by direct cell-cell contact\remove[SD]{, soluble factors} or modification of the extracellular matrix
-components~\cite{Micke2004a}, most studies have focused on the tumor-stroma interaction through
-single soluble factors~\cite{Kryczek2007,Saijo2002i,Nakamura1997}. Zhong 
-\emph{et al.}~\cite{Zhong2008} identified cytokines that are crucial for the 
+While bearing in mind that tumor-stroma interactions can be mediated by direct cell-cell contact or modification of the extracellular matrix
+components~\citep{Micke2004a}, most studies have focused on the tumor-stroma interaction through
+single soluble factors~\citep{Kryczek2007,Saijo2002i,Nakamura1997}. 
+\cite{Zhong2008} identified cytokines that are crucial for the 
 tumor cell proliferation
 and stromal cell migration by screening the whole secretome from
 an adenocarcinoma/stromal murine lung cell coculture.
-Sato \emph{et al.}~\cite{Sato2004} studie\change[JB]{s}{d}
+\cite{Sato2004} studied
 the transcriptome homeostasis of pancreatic
 cancer cells and stromal fibroblasts,
 and singled out candidate genes that are
 differentially expressed in coculture.
-\add[SD]{One of the most important types of stromal cells are endothelial cells (EC), 
+One of the most important types of stromal cells are endothelial cells (EC), 
 the integral components of blood vessels. ECs not only promote the homeostasis of 
 vascular system, but play an important role in tumor progression as well. 
 It was shown that ECs influence different responses of cancer cells, such as 
 proliferation and invasiveness \emph{in vitro}, as well as the metastatic potential 
-of tumor cells \emph{in vivo}}.~\cite{Franses2011}\note[JB]{ref correct?}
+of tumor cells \emph{in vivo}~\citep{Franses2011}.
 
-Here, we combine both of the previous approaches and
+Here, we combine the previous approaches and
 study \emph{in vitro} the crosstalk between tumor and 
 endothelial cells in  a non-small-cell lung cancer model: namely,
-H838 lung cancer cells and HPAEC, i.e. human pulmonary artery endothelial cells,
-respectively.
+H838 lung cancer cells and HPAEC, i.e. human pulmonary artery endothelial cells.
 We found that the  migration of  H838 cells in a trans-well H838/HPAEC coculture
 was significantly enhanced when compared to monoculture.
 Gene set enrichment analysis of the dynamic transcriptome
@@ -301,58 +417,72 @@ identified the cytokines \tnfa and \sdfonea
 to be the main factors enhancing H838 cell migration,
 being \emph{de novo} expressed and originating in the endothelial cells alone. 
 
-\change[JB]{Based on these cytokines, 
-we}{We further} 
+We further 
 traced causes of the transcriptome response in the tumor cells back to the
 \tnfa and \sdfonea receptors. % via the transcription factors and upstream protein signaling.
 %We identified the dynamic regulation pattern of transcription factors. 
-Assuming that cellular signal \add[SD]{is} most likely \change[SD]{travels}{transmitted} through the shortest 
+Assuming that cellular signal is most likely transmitted through the shortest 
 path in a protein-protein interaction network, we 
 mapped the putative pathways linking cytokine receptors with the 
 transcription factors evoking the transcriptome response. 
-Based on \change[JB]{the above}{our results}, we hypothesize that \tnfa receptor family 
-members are likely associated with a wide spectrum of transcription factors, which
-renders the \tnfa-induced pathway an unspecific response in the first place.
-On the other hand, the \sdfonea receptor CXCR4 
-preferentially activates transcription factors such as 
-STAT3/6, LMO2, HSF1, IRF2, JUN/FOS, which are predominantly 
-enriched between 12 and 16 hours after coculture and represents a fine-tuned
-secondary activity leading to migration. \note[SD]{Should we mention the purpose of the paper in few sentences?}
+%Based on \change[JB]{the above}{our results}, we hypothesize that \tnfa receptor family 
+%members are likely associated with a wide spectrum of transcription factors, which
+%renders the \tnfa-induced pathway an unspecific response in the first place.
+%On the other hand, the \sdfonea receptor CXCR4 
+%preferentially activates transcription factors such as 
+%STAT3/6, LMO2, HSF1, IRF2, JUN/FOS, which are predominantly 
+%enriched between 12 and 16 hours after coculture and represents a fine-tuned
+%secondary activity leading to migration. \note[SD]{Should we mention the purpose of the paper in few sentences?}
 
 % We need some concluding sentence here wraping up teh biology
 
 
 % Results and Discussion can be combined.
-\section*{Results}
+\subsection{Results}
 
-\subsection*{H838 \change[SD]{mobility}{migration rate} is enhanced in a transfilter co-culture with HPAEC cells}
+\subsubsection{H838 migration rate is enhanced in a transfilter co-culture with HPAEC cells}
 
 To investigate the changes in migration behavior of lung tumor cells under the 
 influence of stromal cells we cultivated  
-H838 cells  together with either human pulmonary artery endothelial cells (HPAEC) or additional H838 cells in a trans-filter system (Fig.~\ref{fig:migration}A).
+H838 cells  together with either human pulmonary artery endothelial cells (HPAEC) or additional H838 cells in a trans-filter system (\ref{fig:migration} A).
 The experimental setup of the homo- and heterogeneous cocultures ensured 
 similar physical and environmental conditions, thereby minimizing 
 experimental artifacts, e.g. due to different cell numbers per conditions. 
 
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{fig-migration.pdf}
+\end{center}
+\caption[H838 migration in homo- and heterogeneous coculture]{
+{\bf Migration of H838 cells in the homo- and heterogeneous coculture.} 
+(A) Trans-filter system. (B) Scratch assay of the homo- and heterogeneous coculture.
+(C) Migration area of H838 cells at 24h after scratch from multiple independent 
+experiments 
+plotted as 
+boxplots for the homogeneous (H838 + H838) and heterogeneous (H838 + HPAEC) 
+coculture.
+}
+\label{fig:migration}
+\end{figure}
+
 Tumor cells on the bottom of the cell culture dish were scratched and the 
 closing of the cell-free area was observed using time-lapse microscopy, in both
-homo- and heterogenous cocultures (Fig.~\ref{fig:migration}B).
+homo- and heterogenous cocultures (\ref{fig:migration} B).
 In the heterogeneous cocultures, 
 H838 cells close on average $963.5\pm156.8\ \mu m^2$ 
 (mean $\pm$ standard deviation) within 24h, 
 against $702.8\pm104.0\ \mu m^2$ in the homogeneous cocultures 
-(Fig.~\ref{fig:migration}C). 
+(\ref{fig:migration} C). 
 % Note that we should put all these figures into one panel 
 The migration area of the heterogeneous cocultures is significantly higher, and
 a two-sided  $t$-test of the difference observed yields a $p$-value of 
 $2.82 \times 10^{-5}$.
 
-\note[SD]{Another chapter?
-If not, we should include transkriptom in the title of this passage.}
+\subsubsection{Transcriptome response of H838 cells}
 To explore the mechanisms leading to the enhanced cell migration, we recorded the time-resolved transcriptome response of the tumor cells during migration.
 Illumina Human HT-12 Expression BeadChip was employed to compare the dynamic transcriptome response of scratched H838 cells in both homo- and heterogenous coculture conditions.
 We collected mRNA at $t=(0,0.5,1,2,3,4,5,10,15,24)h$ after scratching for microarrays,
-the data of which were quantile-normalized~\cite{Dunning2008a}.  
+the data of which were quantile-normalized~\citep{Dunning2008a}.  
 Discarding lowly expressed probesets and those with low interquartile 
 variability between samples, we finally mapped the probes to 14922 EntrezID 
 annotated genes. 
@@ -360,10 +490,10 @@ annotated genes.
 % Also add the analysis in the materials and methods
 We analyzed the basal differential gene expression between homo- and
 heterogeneous coculture by linear model fitting and Bayesian variance estimation~%
-\cite{Smyth2004}, as well as the dynamic differential gene expression by fitting
-the time series with a full/reduced polynomial model~\cite{Mar2009}. At 0h, only 2
+\citep{Smyth2004}, as well as the dynamic differential gene expression by fitting
+the time series with a full/reduced polynomial model~\citep{Mar2009}. At 0h, only 2
 genes are significantly down-regulated in the homogeneous coculture with respect
-to the heterogeneous coculture (Fig.~\ref{fig:transcriptome}A), 
+to the heterogeneous coculture (\ref{fig:transcriptome}A), 
 and their absolute log fold changes are less than 1. Over time, there are more
 genes classified as significantly up- and down-regulated by comparing the full and
 reduced model fitting (Fig.~\ref{fig:transcriptome}B). Nevertheless, none of genes
@@ -373,13 +503,13 @@ in H838 cells are not differentially expressed in the homo- and heterogeneous
 coculture conditions. In order to take a glance at what is the function of those
 differentially regulated genes, and to overcome the difficulty in detecting weak
 but simultaneous regulation, we analyzed the transcriptome data with gene set
-enrichment test~\cite{Luo2009}.
+enrichment test~\citep{Luo2009}.
 The enhancement of cell migration correlates with the differential upregulation 
 of cancer and metastasis related gene sets at the basal level (Table 1). 
 There are more number of, but less specific downregulated gene sets, which range
 from metastasis, to aging and apoptosis (Table 2). 
 
-\subsection*{Supernatant  from different co-cultures show distinct cytokine composition}
+\subsubsection{Supernatant  from different co-cultures show distinct cytokine composition}
 
 To identify the cytokines that mediate the communication between
 HPAEC and H838 cells and enhance the tumor cell migration,
@@ -390,7 +520,7 @@ We used a  fluorescent bead array based cytokine assay which detects fifty cytok
 (see Materials and Methods and Table S3).
 A total of twenty-four different cytokines were present in detectable amounts,
 fifteen of which showed significant differential upregulation
-(Fig.~\ref{fig:cytokine}A).
+(\ref{fig:cytokine} A).
 % Should add here an additional table with the quantification of all cytokines
 Gro-$\alpha$, MCP-3, IL-6, IL-8, IL-13, FGF basic, G-CSF, IP-10 and RANTES were
 upregulated in the heterogeneous coculture prior to cell migration \remove[JB]{and
@@ -759,24 +889,6 @@ where $\xi$  and  $\omega$ denote the location and scale of the distribution.
 The basal level gene expression distribution was fitted using maximum likelihood 
 estimation for the 
 univariate skew-$t$ distribution, implemented in the R package \texttt{sn}.
-
-\section*{Figure Legends}
-
-\begin{figure}[!ht]
-%\begin{center}
-%\includegraphics[width=4in]{fig/fig-fig1.pdf}
-%\end{center}
-\caption{
-{\bf Migration of H838 cells in the homo- and heterogeneous coculture.} 
-(A) Trans-filter system. (B) Scratch assay of the homo- and heterogeneous coculture.
-(C) Migration area of H838 cells at 24h after scratch from multiple independent 
-experiments 
-plotted as 
-boxplots for the homogeneous (H838 + H838) and heterogeneous (H838 + HPAEC) 
-coculture.
-}
-\label{fig:migration}
-\end{figure}
 
 \begin{figure}[!ht]
 %\begin{center}
