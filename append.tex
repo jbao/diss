@@ -1,0 +1,30 @@
+\chapter{Appendix}
+
+\section{Impulse model}
+The qPCR time courses of \tnfa and \sdfonea measured in HPAEC cells are fitted with an impulse model~\cite{Chechik2009}, which is composed of one rising and one falling sigmoidal curve, as defined by
+\[
+f(x) = \frac{1}{h_1} \cdot \left(h_0+\frac{h_1-h_0}{1+e^{-\beta_1(x-t_1)}}\right) \cdot
+\left(h_2+\frac{h_1-h_2}{1+e^{\beta_2(x-t_2)}}\right), 
+\]
+where the three amplitude (height) parameters determine the initial amplitude 
+($h_0$), the peak amplitude
+($h_1$), and the steady state amplitude ($h_2$). The onset time $t_1$ is the time of  first transition (inflection point) and the offset $t_2$ is the time of second  transition. Finally, the slope parameters $\beta_1$ and $\beta_2$ determine the slope of the first and second transition. Parameters are estimated using a  Levenberg-Marquardt non-linear least squares  algorithm as implemented in the R package \texttt{minpack.lm}.
+
+\section{Calculating the significantly basal expressed genes}
+In order to robustly estimate differentially regulated genes at the basal level and to avoid the commonly encountered 
+presence of outliers and skewness~\cite{Marko2011}, we fitted 
+a skew-$t$  distribution~\cite{Azzalini2003} to the $\log_2$ raw intensities at 0h. 
+In addition to the regular $t$ distribution $f(x)$ with $v_{df}$ degrees of freedom, a skew-$t$ distribution,  $f_{skew}(x)$ has an additional 
+skewing parameter $\gamma$ such that  
+\[
+f_{skew}\left(\frac{x-\xi}{\omega}\right) = 
+\begin{cases}
+\frac{2\gamma}{\gamma^2+1} \cdot f\left(\gamma\frac{x-\xi}{\omega}\right) & x<0\\
+\frac{2\gamma}{\gamma^2+1} \cdot f\left(\frac{1}{\gamma}\frac{x-\xi}{\omega}\right) & x \geqslant 0\\
+\end{cases}
+\]
+where $\xi$  and  $\omega$ denote the location and scale of the distribution.  
+The basal level gene expression distribution was fitted using maximum likelihood 
+estimation for the 
+univariate skew-$t$ distribution, implemented in the R package \texttt{sn}.
+
