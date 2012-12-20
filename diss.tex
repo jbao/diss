@@ -17,6 +17,9 @@
 
 \def\CC{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
 
+\usepackage{longtable}
+\usepackage{colortbl}
+\definecolor{Gray}{gray}{0.9}
 \usepackage{datetime}
 \renewcommand{\dateseparator}{.}
 
@@ -144,7 +147,7 @@ Prof. Dr. Ad Aertsen\bigskip{}
 \\
 \textbf{Promotionsvorsitzender}\smallskip{}
 \\
-Prof. Dr. Samuel Rossel\bigskip{}
+Prof. Dr. Stefan Rotter\bigskip{}
 \\
 \textbf{Betreuer der Arbeit}\smallskip{}
 \\
@@ -194,6 +197,8 @@ wirkungslos, Praxis ohne Theorie ist blind.
   \begin{itemize}
     \item signal flow: protein interaction network $\rightarrow$ transcriptome
     \item failure of biomarker
+    \item why predict dynamics of complex systems (Derek Ruths)
+    \item advantage of predictive analysis: time and labor-intensive lab work
     \item complexity can only be understood within the
       network context~\citep{Barabasi2012}, Understanding a complex network's 
       structure is beneficial to understanding its function
@@ -224,6 +229,7 @@ wirkungslos, Praxis ohne Theorie ist blind.
   \item discussion
   \begin{itemize}
     \item attractor 
+    \item reverse-engineering: topological constraint
   \end{itemize}
 \end{itemize}
 
@@ -231,11 +237,13 @@ wirkungslos, Praxis ohne Theorie ist blind.
 %
 %\include{Zusammenfassung}
 %
-%\cleardoublepage{}
-%
-%\pagestyle{fancy}\lhead[\fancyplain{}{\chaptername\;\thechapter}]{\fancyplain{}{\rightmark}}
-%
-%\include{chapter-1}
+\cleardoublepage{}
+
+\pagestyle{fancy}\lhead[\fancyplain{}{\chaptername\;\thechapter}]{\fancyplain{}{\rightmark}}
+
+\graphicspath{{intro/fig/}{network/fig/}{flow/fig/}}
+
+\input{intro/intro.tex}
 
 \input{network/network.tex}
 
