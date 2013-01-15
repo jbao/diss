@@ -68,7 +68,8 @@ pathways~\citep{Kholodenko2012}. Techniques as yeast two hybrid system
 and mass spectrometry based
 proteomics have greatly enhanced the ability to map the components of such 
 signal transduction networks. Despite the inherent large number of false
-positive hits from such high-throughput studies, efforts have been devoted
+positive hits from such high-throughput studies~\citep{Mering2002a}, 
+efforts have been devoted
 to collect different sources of protein-protein interaction 
 (PPI) data, such as BioGRID%
 ~\citep{Stark2006} and STRING~\citep{Szklarczyk2011}. Recently, the HIPPIE
@@ -253,7 +254,7 @@ that less than 1\% of all published cancer biomarkers ever
 enter clinical practice~\citep{Kern2012}. Among the various
 reasons of failure, it is the function and malfunction of signaling networks that are often closely linked to pathogenic mechanisms. Hence, cellular networks, instead of single
 molecules, may prove to be better suited as biomarkers~%
-\citep{Barabasi2011}.
+\citep{Barabasi2011,Chuang2007,Chu2008}.
 Similarly, consciousness cannot be reduced to a single 
 neuron. It is rather an emergent property that engages 
 billions of synapses. 
@@ -277,6 +278,23 @@ available recently with the advance of various technologies.
 %knowledge about the wiring diagram of the network,
 %and understanding a complex network's 
 %structure is beneficial to understanding its function.
+
+A variety of biological networks including protein-protein interaction, protein-DNA interaction, and RNA interaction networks are essential to cooperative biological activities~\citep{Zhu2007a}. These networks consist of nodes (vertices) which denote molecules, and links (edges) which denote interactions between them. Depending on the type of interaction, the corresponding edge might be directed or undirected. For example, a binding between two proteins is usually represented as an undirected edge while an interaction between a transcription factor and a gene whose expression is regulated by the given transcription factor is usually represented as a directed edge where the direction goes from the transcription factor to the gene.
+
+If cellular phenotype is indeed encoded in interaction 
+networks, one would expect that the development of 
+phenotype can be predicted by studying the cellular
+networks. By integrating a coexpression network, seeded with four well-known breast cancer
+associated genes, together with genetic and physical interactions, \cite{Pujana2007} yielded a breast cancer network model out of which candidate cancer susceptibility and modifier genes could be predicted.
+Perturbations of cellular networks, which can result in phenotypic variations,
+range from node removal at one end and edge-specific,
+\emph{edgetic} perturbations at the other~\citep{Zhong2009}. The
+consequences on network structure and function are expected
+to be radically dissimilar for node removal versus edgetic perturbation. Node removal not only disables the function of a node but
+also disables all the interactions of that node with other nodes,
+disrupting in some way the function of all of the neighboring nodes. An edgetic disruption, removing one or a few interactions
+but leaving the rest intact and functioning, has subtler effects
+on the network. 
 
 \section{Outline of the thesis}
 In this thesis, we intend to provide a global network

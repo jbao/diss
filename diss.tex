@@ -26,6 +26,9 @@
 \newcommand{\tnfa}{TNF-$\alpha$ }
 \newcommand{\sdfonea}{SDF-1$\alpha$ }
 
+\usepackage{caption}
+\DeclareCaptionLabelFormat{prepage}{#1~#2 (previous page)}
+
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{amssymb}
@@ -188,6 +191,7 @@ wirkungslos, Praxis ohne Theorie ist blind.
 
 \tableofcontents{}
 \listoffigures
+\listoftables
 
 \cleardoublepage{}
 
@@ -251,10 +255,6 @@ wirkungslos, Praxis ohne Theorie ist blind.
 \input{flow/flow.tex}
 
 \cleardoublepage{}
-
-\lhead[\fancyplain{}{}]{\fancyplain{}{Acknowledgments}}
-
-\rhead[\fancyplain{}{Acknowledgments}]{\fancyplain{}{}}
 
 \appendix
 \input{append.tex}

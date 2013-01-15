@@ -1,5 +1,225 @@
 \chapter{Appendix}
 
+\section{Modelling time series}
+An alternative method (as to \ref{sec:mds}) to determine 
+the dynamic response of a certain
+gene in the network is based on the work of \cite{Mar2009}. 
+Since statistical analyses of microarray time series data usually 
+suffers from the lack
+of replicates at each time point, classical statistical tests 
+cannot be directly applied. In order to 
+circumvent this problem and increase the statistical power,
+previous studies~\citep{Bar-Joseph2003,Storey2005} have taken into 
+account all data points at the
+same time by fitting the time series with a spline function and 
+performing likelihood ratio test to judge the significance of 
+differential expression.
+
+Our approach works in an analogous way.
+More specifically, we fitted cubic regression models to each 
+individual gene expression profile. A cubic model was chosen 
+because of the moderately large number of time points 
+available to fit a model with four to eight parameters. 
+For a single gene, both a full model and a reduced model are 
+fitted to its time-course expression profiles under the 
+stimulation and control condition. The full model specifies 
+a set of parameters that capture the time-dependent curvature
+of a gene's expression profile for each separate condition. 
+In this way, the full model assumes that the expression 
+profile is different across the two conditions, or
+\begin{eqnarray}
+\begin{pmatrix}
+Y_{control,1}\\
+\cdots\\
+Y_{control,N}\\
+Y_{stimulation,1}\\
+\cdots\\
+Y_{stimulation,N}
+\end{pmatrix}
+%
+&= \alpha_0 
+\begin{pmatrix}
+1\\
+\cdots\\
+1\\
+0\\
+\cdots\\
+0
+\end{pmatrix}
+%
++ \alpha_1 
+\begin{pmatrix}
+t_1\\
+\cdots\\
+t_N\\
+0\\
+\cdots\\
+0
+\end{pmatrix}
+%
++ \alpha_2 
+\begin{pmatrix}
+t_1^2\\
+\cdots\\
+t_N^2\\
+0\\
+\cdots\\
+0
+\end{pmatrix}
+%
++ \alpha_3
+\begin{pmatrix}
+t_1^3\\
+\cdots\\
+t_N^3\\
+0\\
+\cdots\\
+0
+\end{pmatrix}\notag \\
+%
+&+ \beta_0 
+\begin{pmatrix}
+0\\
+\cdots\\
+0\\
+1\\
+\cdots\\
+1
+\end{pmatrix}
+%
++ \beta_1
+\begin{pmatrix}
+0\\
+\cdots\\
+0\\
+t_1\\
+\cdots\\
+t_N
+\end{pmatrix}
+%
++ \beta_2
+\begin{pmatrix}
+0\\
+\cdots\\
+0\\
+t_1^2\\
+\cdots\\
+t_N^2
+\end{pmatrix}
+%
++ \beta_3
+\begin{pmatrix}
+0\\
+\cdots\\
+0\\
+t_1^3\\
+\cdots\\
+t_N^3
+\end{pmatrix}
+%
++ 
+\begin{pmatrix}
+\epsilon_1\\
+\epsilon_2\\
+\cdots\\
+\cdots\\
+\epsilon_{2N-1}\\
+\epsilon_{2N}
+\end{pmatrix}
+\end{eqnarray}
+where $t=(t_1,t_2,\dotsc,t_N)$ corresponds to the measured time points, and
+$\epsilon = (\epsilon_1,\epsilon_2,\dotsc,\epsilon_{2N})$ represents a random
+normal residual error term. The parameters $\alpha_0,\alpha_1,\alpha_2,
+\alpha_3$ and $\beta_0,\beta_1,\beta_2,\beta_3$ are the coefficients of the 
+time covariate in the model for the control and stimulation time series 
+respectively.
+
+The reduced model, in contrast, is a simpler model that assumes the expression
+profiles for different conditions need only be specified by one set of 
+parameters, or 
+\begin{align}
+\begin{pmatrix}
+Y_{control,1}\\
+\cdots\\
+Y_{control,N}\\
+Y_{stimulation,1}\\
+\cdots\\
+Y_{stimulation,N}
+\end{pmatrix}
+%
+&= \lambda_0 
+\begin{pmatrix}
+1\\
+\cdots\\
+1\\
+1\\
+\cdots\\
+1
+\end{pmatrix}
+%
++ \lambda_1 
+\begin{pmatrix}
+t_1\\
+\cdots\\
+t_N\\
+t_1\\
+\cdots\\
+t_N
+\end{pmatrix}
+%
++ \lambda_2 
+\begin{pmatrix}
+t_1^2\\
+\cdots\\
+t_N^2\\
+t_1^2\\
+\cdots\\
+t_N^2
+\end{pmatrix}
+%
++ \lambda_3
+\begin{pmatrix}
+t_1^3\\
+\cdots\\
+t_N^3\\
+t_1^3\\
+\cdots\\
+t_N^3
+\end{pmatrix}\notag \\
+%
+&+ 
+\begin{pmatrix}
+\epsilon_1\\
+\epsilon_2\\
+\cdots\\
+\cdots\\
+\epsilon_{2N-1}\\
+\epsilon_{2N}
+\end{pmatrix}
+\end{align}
+Fitting these two models to a single gene, is equivalent to
+proposing two hypotheses: one, that this gene is not differentially regulated 
+over time and is therefore defined by the reduced model, and two, this gene is 
+differentially regulated over time and is defined by the full model. To decide 
+which of these two hypotheses is more plausible given the available data, we 
+use the analysis of deviance test, which is an extension of the likelihood 
+ratio test (\ref{fig:full_reduced}).
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{hdf-fit_cebpd.pdf}
+\end{center}
+\caption[Full/reduced model fit of gene expression profile]{
+{\bf Full/reduced model fit of the expression profile of CEBPD in fibroblasts.}
+Shown are the microarray time series under the control and 
+keratinocyte-conditioned medium stimulation. Dashed lines indicate the full
+model which assumes the alternative hypothesis of differential expression
+between conditions; Dot-dashed line represent the reduced model of null 
+hypothesis.
+}
+\label{fig:full_reduced}
+\end{figure}
+
 \section{Impulse model}
 The qPCR time courses of \tnfa and \sdfonea measured in HPAEC cells are fitted with an impulse model~\cite{Chechik2009}, which is composed of one rising and one falling sigmoidal curve, as defined by
 \[
@@ -29,5 +249,6 @@ estimation for the
 univariate skew-$t$ distribution, implemented in the R package \texttt{sn}.
 
 \section{Gene set enrichment analysis}
+\label{sec:h838_gage_table}
 \input{flow/h838_table_gage_diff_up.tex}
 \input{flow/h838_table_gage_diff_down.tex}
