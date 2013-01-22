@@ -108,6 +108,8 @@ in bacterial and mammalian cells~\citep{Taniguchi2010,Ghazalpour2011}.
 
 More
 often than not, the assumption of correlation either does not hold or strongly depends on the context~\citep{Soufi2009}. 
+It has also been shown that the mRNA-protein expression correlation increases 
+with time~\citep{Fournier2010}.
 As one of the protein classes important in disease, 
 transcription factors (TF) remain largely decoupled at the 
 protein
@@ -516,6 +518,13 @@ coculture.
 \label{fig:migration}
 \end{figure}
 
+The \emph{in vitro} scratch assay is a well established method
+to study cell migration~\citep{Busch2008,Liang2007}, especially
+in our experimental setting, the coculture of tumor and 
+endothelial cells has no influence on the cell proliferation~%
+\citep{Dauscher2012} and thus our results can be interpreted
+as the net effect of tumor cell migration.
+
 \subsubsection{Transcriptome response of H838 cells}
 To explore the mechanisms leading to the enhanced cell migration, we recorded the time-resolved transcriptome response of the tumor cells during migration.
 Illumina Human HT-12 Expression BeadChip was employed to compare the dynamic transcriptome response of scratched H838 cells in both homo- and heterogenous coculture conditions.
@@ -594,13 +603,121 @@ In order to take a glance at what is the function of those
 differentially regulated genes, and to overcome the difficulty in detecting weak
 but simultaneous regulation, we analyzed the transcriptome data with gene set
 enrichment test~\citep{Luo2009}.
-The enhancement of cell migration in the coculture of H838
-and HPAEC cells correlates with the differential upregulation 
-of cancer and metastasis related gene sets in H838 cells 
-over time. 
-There are correspondingly a small number of, and less specific downregulated gene sets, which fits the hypothesis of 
-a specific transcriptional program underlying the phenotype
-(\ref{sec:h838_gage_table}). 
+The comparison between heteregeneous and homogeneous coculture yields 
+a mixture of experimentally determined gene sets, both for the basal level
+(\ref{fig:h838_basal_gage_msigdb})
+and the differential expression over time (\ref{fig:h838_dynamic_gage_msigdb}).
+In other words, the H838 cells in the heteregeneous and homogeneous coculture
+do not tend to have a qualitatively different phenotype and are migrating in
+both cases as is also observed in the scratch assay.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{h838_basal_gage_msigdb.pdf}
+\end{center}
+\caption[Basal gene set enrichment]{
+{\bf Basal gene set enrichment between heterogeneous and homogeneous cocultures.} 
+The fold changes between heterogeneous and homogeneous coculture expressions 
+for a certain gene set at 0h are compared with the background using $t$ test.
+The signicance level (negative log-transformed $p$-value) is color-coded, such
+that green means enrichment of a gene set and white means depletion. The size
+of the gene set is coded by the size of the circles.
+}
+\label{fig:h838_basal_gage_msigdb}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{h838_dynamic_gage_msigdb.pdf}
+\end{center}
+\caption[Dynamic gene set enrichment]{
+{\bf Dynamic gene set enrichment between heterogeneous and homogeneous 
+cocultures.} 
+The differential expression of each gene is first assessed by the full/reduced
+model (\ref{sec:full_reduced}), the mean differential score of a gene set
+is then compared with that of the background set using $t$ test.
+The signicance level (negative log-transformed $p$-value) is color-coded, such
+that green means enrichment of a gene set and white means depletion. The size
+of the gene set is coded by the size of the circles.
+}
+\label{fig:h838_dynamic_gage_msigdb}
+\end{figure}
+
+The functional association of the transcriptome response, however, can be
+decoded in a fine-tuned gene set enrichment test between the 0h unscratched
+sample and each of the other time points. In the heteregeneous coculture 
+(\ref{fig:h838_hetero_gage}),
+we see an initial enrichment of gene sets related to breast cancer, terms
+such as metastasis are over-represented between 1 and 2 hours, which are
+again followed by cell migration related gene sets at 4h. After 5 hours,
+the functions of enriched gene sets diverge and become less specific.
+In contrast, although the enriched gene sets of homogeneous coculture also 
+include cancer-related terms, there is no visible general trend that can
+be followed over time (\ref{fig:h838_homo_gage}). 
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{h838_HMEC_gage.pdf}
+\end{center}
+\caption[Dynamic gene set enrichment]{
+{\bf Dynamic gene set enrichment between heterogeneous and homogeneous 
+cocultures.} 
+The differential expression of each gene is first assessed by the full/reduced
+model (\ref{sec:full_reduced}), the mean differential score of a gene set
+is then compared with that of the background set using $t$ test.
+The signicance level (negative log-transformed $p$-value) is color-coded, such
+that green means enrichment of a gene set and white means depletion. The size
+of the gene set is coded by the size of the circles.
+}
+\label{fig:h838_hetero_gage}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{h838_Mono_gage.pdf}
+\end{center}
+\caption[Dynamic gene set enrichment]{
+{\bf Dynamic gene set enrichment between heterogeneous and homogeneous 
+cocultures.} 
+The differential expression of each gene is first assessed by the full/reduced
+model (\ref{sec:full_reduced}), the mean differential score of a gene set
+is then compared with that of the background set using $t$ test.
+The signicance level (negative log-transformed $p$-value) is color-coded, such
+that green means enrichment of a gene set and white means depletion. The size
+of the gene set is coded by the size of the circles.
+}
+\label{fig:h838_homo_gage}
+\end{figure}
+
+We further investigated
+the enrichment of KEGG pathways for both heterogeneous and homogeneous 
+coculture (\ref{fig:h838_gage_kegg}). By grouping the time points into 3 
+consecutive phases (early,
+intermediate, late), we can identify the MAPK signaling pathway as a prominent 
+candidate in the heteregeneous coculture. The MAPK pathway also shares 
+member proteins with other pathways, as indicated by the edges in 
+\ref{fig:h838_gage_kegg}, which hints at the possibility of the MAPK pathway
+crosslinking with other signaling pathways.\footnote{We also discuss this
+result later in detail.} On the other hand, a number of different pathways 
+are over-represented in the homogeneous coculture, whereas the MAPK
+pathway is absent.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{h838_gage_kegg.pdf}
+\end{center}
+\caption[Dynamic gene set enrichment]{
+{\bf Dynamic gene set enrichment between heterogeneous and homogeneous 
+cocultures.} 
+The differential expression of each gene is first assessed by the full/reduced
+model (\ref{sec:full_reduced}), the mean differential score of a gene set
+is then compared with that of the background set using $t$ test.
+The signicance level (negative log-transformed $p$-value) is color-coded, such
+that green means enrichment of a gene set and white means depletion. The size
+of the gene set is coded by the size of the circles.
+}
+\label{fig:h838_gage_kegg}
+\end{figure}
 
 \subsubsection{Identification of putative transcription factors in the H838 gene regulation}
 
@@ -639,20 +756,22 @@ enrichment method on the time-resolved microarray data, we identified here the
 sequence of putatively enriched transcription factor targets, which could also serve as
 a proxy for the temporal activity of transcription factors \emph{per se}.
 
+\begin{figure}[!ht]
+%\newpage
 \begin{center}
-\captionsetup{labelformat=prepage}
-\includegraphics[width=\textwidth]{h838-tf_heatmap.pdf}
-\newpage
-\captionof{figure}[Enrichment of transcription factors]{
+%\captionsetup{labelformat=prepage}
+\includegraphics[width=0.8\textwidth]{h838-tf_heatmap.pdf}
+\end{center}
+\caption[Enrichment of transcription factors]{
 {\bf Enrichment of transcription factor target genes in
 the H838 cells cocultured with HPAEC at each time point.} 
-Black squares indicate the over-representation of the  
+Black squares indicate the over-representation ($p<0.05$) of the  
 target genes regulated by a particular transcription factor
 at a given time point, while gray squares indicate the
 absence of such enrichment.
 }
 \label{fig:h838_tf}
-\end{center}
+\end{figure}
 
 \subsubsection{Data-mining the pathways from cytokine receptors to transcription factors and gene response}
 
@@ -953,54 +1072,48 @@ key cytokines that are expressed by the endothelial cells and promote the migrat
 of tumor cells. We proposed a two-step approach to link the transcriptome response
 with the causal signal flow in the protein interaction network. First, gene set
 enrichment analysis was applied to infer the sequence of transcription factor
-activation that results in the gene expression. Second, we concluded from the 
-shortest path in the interactome that 
-TNF-$\alpha$ and SDF-1$\alpha$ receptors have different downstream signal flow 
-pattern. We hypothesize that transient expression by endothelial cells initiates
-an unspecific tumor cell response that transduces the signal along multiple
-similar paths, whereas the delayed and prolonged expression of SDF-1$\alpha$ drives
-the tumor cells to a more specific response that eventually determines the 
-migration phenotype.
+activation that results in the gene expression. Second, we predicted several
+putative receptors that are most closely linked to the downstream transcription
+factors from the 
+shortest path in the interactome. Among all candidate receptors,
+TNF-$\alpha$ and SDF-1$\alpha$ receptors have a direct effect on the phenotype,
+and the inhibition of the respective ligands leads to reduced migration 
+activity. We further
+hint at endothelial cells as possible sources for \tnfa and \sdfonea.
 
-As next I would tell a few words about endothelial cell-tumor cell communication, what is known and what we found at transcription and protein level.
-Then about the role of TNFa and SDF1a in tumors and lung tumors.
-And finaly system biology
+We discuss next about endothelial cell-tumor cell communication, what is known and what we found at transcription and protein level.
+Then about the role of \tnfa and \sdfonea in tumors and especially lung tumors.
 
 \begin{itemize}
-\item The \emph{in vitro} scratch assay is a well established method
-to study cell migration~\cite{Busch2008,Liang2007}, especially
-in our experimental setting, the coculture of tumor and 
-endothelial cells has no influence on the cell proliferation~%
-\cite{Dauscher2012} and thus our results can be interpreted
-as the net effect of tumor cell migration.
+\item \textbf{What do we know about \tnfa and \sdfonea with respect to cell migration?}
 
-\item IS this related to early spread and metastasis in lung cancer? 
-
-\item What do we know about Tnfa and SDFa with respect to cell migration?
 \tnfa was first identified as an anti-tumor cytokine that is involved in the killing
 of certain kinds of tumors, however, it is appreciated recently that \tnfa can also 
 act as a tumor-promoting factor and enhance tumor growth and metastasis%
-~\cite{Wu2010}. It has also been shown in the ovarian cancer cells cocultured with
+~\citep{Wu2010}. It has also been shown in the ovarian cancer cells cocultured with
 macrophages that \tnfa can induce the up-regulation of 
 CXCR4 mRNA, which is the receptor of \sdfonea. This response to \tnfa involves both
-AP-1 and NF-$\kappa$B related pathways~\cite{Kulbe2005}. Blocking the \tnfa receptor
+AP-1 and NF-$\kappa$B related pathways~\citep{Kulbe2005}. Blocking the \tnfa receptor
 in mouse Lewis lung carcinoma cell cultures decreases the gene expression of CXCR4~%
-\cite{Sasi2011}.
+\citep{Sasi2011}.
 
 It has been shown that the \sdfonea/CXCR4 pathway has pleiotropic activities and it 
-promotes tumor growth and malignancy, enhances tumor angiogenesis, participates in tumor metastasis, and contributes to immunosuppressive networks within the tumor microenvironment~\cite{Kryczek2007}. Both stroma and cancer cells can produce \sdfonea, 
-although in our system it is mainly expressed by the endothelial cells. In the presence of neutralizing \sdfonea antibodies, NSCLC tumor metastases were also significantly reduced~\cite{Phillips2003}.
+promotes tumor growth and malignancy, enhances tumor angiogenesis, participates in tumor metastasis, and contributes to immunosuppressive networks within the tumor microenvironment~\citep{Kryczek2007}. 
+Recently, it has also been shown that a special NSCLC cell line expresses a
+high amount of CXCR4 and has cancer stem-like cell functions. The CXCR4-mediated
+signaling is likely relayed by STAT3~\citep{Jung2013}.
+Both stroma and cancer cells can produce \sdfonea, 
+although in our system it is mainly expressed by the endothelial cells. In the presence of neutralizing \sdfonea antibodies, NSCLC tumor metastases were also significantly reduced~\citep{Phillips2003}.
 
 The identification of \tnfa as a key stroma-originating factor that promotes 
-tumor cell migration is of great interest, since its release is a general response to chemotherapy in different stromal cell types~\cite{Acharyya2012}. Together with
+tumor cell migration is of great interest, since its release is a general response to chemotherapy in different stromal cell types~\citep{Acharyya2012}. Together with
 other cytokines, such as HGF, that contribute to the drug resistance of cancer
-treatment~\cite{Straussman2012}, these soluble factors in the tumor microenvironment
+treatment~\citep{Straussman2012}, these soluble factors in the tumor microenvironment
 might be the key to the cancer therapy and the potential target of intervention.
 
 
-\item What is new and what is known in the literature
+\item \textbf{What is new in our methods?}
 
-\item What is new in our methods?\\
 The advantage of our two-step approach to identifying signal flow in the protein 
 interaction
 network and relevant transcription factors that lead to the transcriptome response
@@ -1009,7 +1122,7 @@ significance cutoff in the conventional hypergeometric test and at the same time
 to detect weak but coordinated regulation of transcription factor targets. This is 
 necessary since the tumor cell transcriptome does not show significantly
 differential regulation between the homo- and heterogeneous coculture 
-(Fig.~\ref{fig:transcriptome}), which 
+(\ref{fig:h838_transcriptome}), which 
 hints at a lack of correlation between the mRNA expression level and the protein 
 activity. This in turn underlines the rationale behind the time-scale separation
 in our approach. Second, due to the decoupling between the mRNA and protein
@@ -1019,7 +1132,8 @@ instead. In order to infer the signal flow from the membrane receptors to
 transcription factors, we simply assume that the signal traverses the shortest
 path connecting a certain pair of receptor and transcription factor.
 
-\item What new  biology do we find?\\
+\item \textbf{What new  biology do we find?}
+
 Based on our time-resolved qPCR results, we conclude that \tnfa in the endothelial 
 cells is 
 transiently expressed and peaks earlier than \sdfonea, whereas the latter has
@@ -1033,36 +1147,46 @@ cytokine receptors important for the communication with endothelial cells might
 only be regulated at the protein level.
 
 According to the transcription factor target enrichment analysis, target genes
-of AP-1 are more significantly upregulated between 4 and 8 hours, whereas those
-of NF-$\kappa$B are only activated between 12 and 16 hours, although both AP-1 and
-NF-$\kappa$B are known to be involved in the \tnfa induced response~%
-\cite{Kulbe2005}. Based on 
+of AP-1 are more significantly upregulated within the first two hours. 
+%whereas those
+%of NF-$\kappa$B are only activated between 12 and 16 hours, although both AP-1 and
+%NF-$\kappa$B are known to be involved in the \tnfa induced response~%
+%\citep{Kulbe2005}. 
+Taking into account
 the early expression peak of \tnfa in the endothelial cells, it seems
 in our particular coculture system of H838 and HPAEC cells, the initial 
 transcriptome response in the tumor cells might be mediated through the AP-1
-rather than the NF-$\kappa$B related pathway. It has also been
+related pathway~\citep{Kulbe2005}. It has also been
 shown that the CXCL12/CXCR4 activation of NSCLC cell lines 
 increased intracellular calcium mobilization and MAP kinase 
 activation with enhanced ERK1/2 phosphorylation~%
-\cite{Belperio2004}, which is 
+\citep{Belperio2004}, which is 
 known to be upstream of the AP-1 transcription complex.
 Therefore, all evidence points to the important role of the
 AP-1 complex in the tumor cells to convey the information of  
-the \sdfonea/CXCR4 activation from the microenvironment.
+the \sdfonea/CXCR4 activation from the microenvironment and to initiate cell
+migration~\citep{Busch2008,Singh2012}.
 
-By analyzing the shortest paths between receptors and transcription factors, 
-we classified \tnfa and \sdfonea related 
-pathways into the homogeneous and
-heterogeneous response pattern respectively. Taking into account the different
-expression dynamics of both cytokines in the endothelial cells, this implies a
-complementary role \tnfa and \sdfonea play in the enhancement of lung cancer
-cell migration. It could be that the transient expression of \tnfa by the 
-endothelial cells initiates a first but unspecific response in the tumor cells,
-while the secondary prolonged stimulation from \sdfonea leads to a signal that 
-propagates preferentially 
-on a more specific set of paths to the downstream transcription factors, which
-ultimately determines \emph{point of no return} of the enhanced migration phenotype 
-in the tumor cells.
+Cell-cycle related transcription factors E2F has been linked with the chemokine
+receptor CXCR4 in neurons. The transcriptional activity of E2F is either 
+increased or decreased depending on the type of the CXCR4 ligand~\citep{Khan2003}.
+The identification of E2F family proteins as activated transcription factors 
+between 3 and 10 hours in the tumor cell also correlates with the expression of 
+the CXCR4 ligand \sdfonea by endothelial cells within the same time frame.
+
+%By analyzing the shortest paths between receptors and transcription factors, 
+%we classified \tnfa and \sdfonea related 
+%pathways into the homogeneous and
+%heterogeneous response pattern respectively. Taking into account the different
+%expression dynamics of both cytokines in the endothelial cells, this implies a
+%complementary role \tnfa and \sdfonea play in the enhancement of lung cancer
+%cell migration. It could be that the transient expression of \tnfa by the 
+%endothelial cells initiates a first but unspecific response in the tumor cells,
+%while the secondary prolonged stimulation from \sdfonea leads to a signal that 
+%propagates preferentially 
+%on a more specific set of paths to the downstream transcription factors, which
+%ultimately determines \emph{point of no return} of the enhanced migration phenotype 
+%in the tumor cells.
 
 \end{itemize}
 

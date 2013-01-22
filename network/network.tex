@@ -645,6 +645,7 @@ alone and the number of steady states and the possibility of
 oscillation can be deduced from the deficiency value~\citep{Conradi2005}.
 
 \subsection{Anti-correlation between dynamics and topology}
+\label{sec:anti-correlation}
 Previous studies~\citep{Lu2007a,Mar2011} have demonstrated a negative
 correlation between the connectivity of a gene in the regulatory network
 and its expression variance in the context of static disease models.
@@ -872,23 +873,31 @@ The functions of these genes all point to the regulation of cell shape and
 inflammation. 
 To verify the role these genes play in keratinocyte migration,
 we used either antibodies or siRNAs to perturb the products of these genes
-(\ref{fig:inhibition_method}). One example is shown in 
+(\ref{table:inhibition_method}). One example is shown in 
 \ref{fig:scratch_assay}, where keratinocytes treated with HGF and IL8 
 neutralizing antibodies were found to migrate slower within 12 hours 
 than those only treated with HGF.
 Indeed, the inhibition of FERMT2, IL8 and PTGER4 all have an effect on the 
 migratory phenotype of keratinocytes (\ref{fig:migration_prediction}).
 
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{inhibition_method.pdf}
-\end{center}
+\begin{longtable}{C{4cm}C{4cm}C{4cm}}
 \caption[Prediction of migration inhibition after perturbing key players]{
-{\bf Prediction of migration inhibition after perturbing key players identified
-from MDS.} To be converted to table!
-}
-\label{fig:inhibition_method}
-\end{figure}
+Prediction of migration inhibition after perturbing key players identified
+from MDS.} \\
+\hline
+Key players & Inhibition & Function \\
+& & (GO analysis) \\ \hline
+\rowcolor{Gray} PTGER4 &  L-162982 & immune response; G-protein coupled receptor signaling pathway \\
+PLAUR & neutralizing antibody \citep{Schnickmann2009} & chemotaxis \\
+\rowcolor{Gray} IL-8 & neutralizing antibody &  angiogenesis; inflammatory response \\
+PTGS2 & meloxicam \citep{Busch2008} & prostaglandin biosynthetic process  \\
+\rowcolor{Gray} FERMT2 &  siRNA &  cell adhesion; regulation of cell shape \\
+AKAP12 &  perturbation of protein kinase A \citep{Busch2008} &  positive regulation of protein kinase A signaling cascade  \\
+\rowcolor{Gray} CEACAM1 & siRNA \citep{Schnickmann2009} &  angiogenesis; integrin-mediated signaling pathway  \\
+\hline
+\label{table:inhibition_method}
+\end{longtable}
+%\newpage
 
 \begin{figure}[!ht]
 \begin{center}
