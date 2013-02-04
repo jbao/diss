@@ -134,7 +134,7 @@ network.
 We performed gene set enrichment tests, 
 using a modified implementation~\citep{Luo2009}.
 To this end, we retrieved sets of genes regulated by 
-a common transcription factor from MSigDB v3.0 (The Molecular Signature Database). 
+a common transcription factor from MSigDB v3.0 (The Molecular Signature Database, \cite{Liberzon2011}). 
 This database contains two major data sources. The first one is mammalian 
 transcriptional regulatory motifs from the v7.4 public version of TRANSFAC 
 database~\citep{Matys2003b}. We then generated the motif gene sets consisting 
@@ -196,7 +196,7 @@ has to be kept in mind when working with the shortest path.
 
 \subsubsection{Mean first passage time}
 Another category of distance metric in networks is the 
-so-called flow-based methods, which compute the fraction of flow going through each intermediate node/edge. In the case of current flow approach, the network is modeled to mimic the behavior of current in an electronic circuit, where each edge has an associated resistance. The current flow approach is
+so-called flow-based methods, which compute the fraction of flow going through each intermediate node/edge. In the case of current flow approach, the network is modeled to mimic the behavior of current in an electronic circuit, where each edge has an associated resistance~\citep{Missiuro2009}. The current flow approach is
 also shown to be equivalent to a random walk in the network~%
 \citep{Doyle2000}.
 
@@ -207,7 +207,10 @@ first time. It has been shown that MFPT can be used to detect community
 structures in the protein interaction network of yeast~\citep{Zhou2003}. 
 Recently, a random walk with restart approach was applied to associate
 target gene sets to reference datasets as an alternative to 
-over-representation-based enrichement analyses~\citep{Glaab2012}. Furthermore,
+over-representation-based enrichement analyses~\citep{Glaab2012}. 
+Further examples include a random walk-based software tool for functional
+analyses of cellular networks with genomic data integrated~\citep{Komurov2012a}.
+Moreover,
 the usefulness of MFPT became evident by the fact that the pairwise MFPT 
 matrix is sufficient to reconstruct the full network topology~%
 \citep{Wittmann2009}.
@@ -843,7 +846,7 @@ Interleukin and TNF receptors are two big families of
 membrane receptors. Most of the interleukin receptors have
 a significant AUC as measured by the inverse shortest path,
 whereas none of the TNF receptor super family members has
-a $p$-value less than 0.1. Therefore, neither of both 
+a $p$-value less than 0.05. Therefore, neither of both 
 classes provides a highly discriminative candidate receptor.
 Among the chemokine (C-X-C motif) receptors, CXCR4 stands
 out. In terms of the chemokine (C-C motif) receptors, 
@@ -885,20 +888,75 @@ bootstrapping. ***: $p<0.01$, **: $p<0.05$, *: $p<0.1$.
 \label{fig:h838_receptor_auc_mfpt}
 \end{figure}
 
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{mfpt_directed_toy.pdf}
+\end{center}
+\caption[Toy example of SP and MFPT on different directed networks]{
+{\bf Comparison of shortest path (SP) length and mean first passage time 
+(MFPT) on different directed toy networks.}
+Shown are the distances between node $n0$ and $n3$ measured in shortest path 
+(SP) and mean first passage time (MFPT) respectively.
+}
+\label{fig:mfpt_directed_toy}
+\end{figure}
+
+\subsubsection{Supernatant  from different co-cultures show distinct cytokine composition}
+
+If the receptors predicted in the previous section are indeed of functional
+relevance in the signal processing of tumor cells, we would also expect an
+enrichment of the corresponding ligands in the medium,
+which mediate the communication between
+HPAEC and H838 cells and enhance the tumor cell migration.
+To this end, we quantified the cytokine composition
+of the  homo- and heterogeneous cocultures
+both before and 24h after onset of migration.
+We used a  fluorescent bead array based cytokine assay which detects fifty cytokines (\ref{table:cytokine}).
+
+\begin{longtable}{ccccc}
+\caption{List of cytokines in the array.} \\ 
+\hline
+Eotaxin & IL-5 &   IP-10 &  HGF & MCP-3\\
+\rowcolor{Gray} FGF basic &  IL-6 &   MCP-1 &  ICAM-1 & M-CSF\\
+G-CSF &  IL-7 &   MIP-1$\alpha$ & IFN$\alpha$2 & MIF\\
+\rowcolor{Gray} GM-CSF & IL-8 &   MIP-1$\beta$ &  IL-1$\alpha$ & MIG\\
+IFN-$\gamma$ &  IL-9&    PDGF bb&  IL-11-R$\alpha$-lokus chemokine & SCF\\
+\rowcolor{Gray} IL-1b &  IL-10 &  RANTES & IL-12 (p40) & SCGF-$\beta$\\
+IL-1R$\alpha$ &  IL-12 (p70) &  TNF$\alpha$ &   IL-16 &  SDF-1$\alpha$\\
+\rowcolor{Gray} IL-2 &   IL-13 &  VEGF &   IL-18 &  TNF$\beta$\\
+IL-3 &   IL-15 &  $\beta$-NGF&  IL-2R-$\alpha$ &   TRAIL\\
+\rowcolor{Gray} IL-4 &   IL-17 &  GRO$\alpha$ &  LIF &VCAM-1\\
+\hline
+\label{table:cytokine}
+\end{longtable}
+\newpage
+
+A total of twenty-four different cytokines were present in detectable amounts,
+fifteen of which showed significant differential upregulation
+(\ref{fig:cytokine} A).
+% Should add here an additional table with the quantification of all cytokines
+Gro-$\alpha$, MCP-3, IL-6, IL-8, IL-13, FGF basic, G-CSF, IP-10 and RANTES were
+upregulated in the heterogeneous coculture prior to cell migration.
+MIF, IL-12, IL-15, MCP-1 and TNF-$\alpha$ were also upregulated
+in the heterogeneous cocultures, and this upregulation was increasing
+during tumor cell migration.
+Finally, SDF-1$\alpha$ was only found in the heterogeneous coculture,
+and was also upregulated after scratching. 
+
 % Need a better headline for the subsection here 
 \subsubsection{Isolation of cytokines relevant to migration}
 
-Based on the previous analysis, 
-we selected the cytokines that bind to the candidate
-receptors CXCR4, CCR5/1/2, which are receptors of \sdfonea,
-RANTES, MCP-1 respectively. We also included 3 
+Based on the previous results, 
+we found that the upregulated \sdfonea,
+RANTES, MCP-1 are the ligands for CXCR4, CCR5/1/2 respectively and thus agrees
+with the shortest path prediction very well. \tnfa and IL6/8 are
 representative cytokines from the interleukin and TNF
-family (\tnfa, IL-6/8), which are known to play a role
+family, which are also known to play a role
 in cell migration in general.
 % need some idea why we did not add MIF to the candidate list
 %(TNF-$\alpha$, IL-6, RANTES, SDF-1$\alpha$, MCP-1, IL-8, Gro-$\alpha$).
-Furthermore, we added VEGF for its known involvement in
-angiogenesis and metastasis of tumor cells~\citep{Ferrara2003,Hiratsuka2002} and GRO-$\alpha$ as a ligand for CXCR2.
+Furthermore, we added VEGF to the candidate list for its known involvement in
+angiogenesis and metastasis of tumor cells~\citep{Ferrara2003,Hiratsuka2002} and GRO-$\alpha$ as a ligand for CXCR2, which is also highly expressed in the medium.
 
 To test the influence of the above factors on tumor cell migration,
 we analysed scratch assays of H838 monocultures under the influence of 
@@ -940,67 +998,25 @@ different from the control according to a two-sided $t$-test ($p < 0.05$).
 %\end{center}
 \end{figure}
 
-\subsubsection{Supernatant  from different co-cultures show distinct cytokine composition}
-
-To identify the cytokines that mediate the communication between
-HPAEC and H838 cells and enhance the tumor cell migration,
-we quantified the cytokine composition
-of the  homo- and heterogeneous cocultures
-both before and 24h after onset of migration.
-We used a  fluorescent bead array based cytokine assay which detects fifty cytokines (\ref{table:cytokine}).
-
-\begin{longtable}{ccccc}
-\caption{List of cytokines in the array.} \\ 
-\hline
-Eotaxin & IL-5 &   IP-10 &  HGF & MCP-3\\
-\rowcolor{Gray} FGF basic &  IL-6 &   MCP-1 &  ICAM-1 & M-CSF\\
-G-CSF &  IL-7 &   MIP-1$\alpha$ & IFN$\alpha$2 & MIF\\
-\rowcolor{Gray} GM-CSF & IL-8 &   MIP-1$\beta$ &  IL-1$\alpha$ & MIG\\
-IFN-$\gamma$ &  IL-9&    PDGF bb&  IL-11-R$\alpha$-lokus chemokine & SCF\\
-\rowcolor{Gray} IL-1b &  IL-10 &  RANTES & IL-12 (p40) & SCGF-$\beta$\\
-IL-1R$\alpha$ &  IL-12 (p70) &  TNF$\alpha$ &   IL-16 &  SDF-1$\alpha$\\
-\rowcolor{Gray} IL-2 &   IL-13 &  VEGF &   IL-18 &  TNF$\beta$\\
-IL-3 &   IL-15 &  $\beta$-NGF&  IL-2R-$\alpha$ &   TRAIL\\
-\rowcolor{Gray} IL-4 &   IL-17 &  GRO$\alpha$ &  LIF &VCAM-1\\
-\hline
-\label{table:cytokine}
-\end{longtable}
-\newpage
-
-A total of twenty-four different cytokines were present in detectable amounts,
-fifteen of which showed significant differential upregulation
-(\ref{fig:cytokine} A).
-% Should add here an additional table with the quantification of all cytokines
-Gro-$\alpha$, MCP-3, IL-6, IL-8, IL-13, FGF basic, G-CSF, IP-10 and RANTES were
-upregulated in the heterogeneous coculture prior to cell migration.
-MIF, IL-12, IL-15, MCP-1 and TNF-$\alpha$ were also upregulated
-in the heterogeneous cocultures, and this upregulation was increasing
-during tumor cell migration.
-Finally, SDF-1$\alpha$ was only found in the heterogeneous coculture,
-and was also upregulated after scratching. 
-
 \subsubsection{Cytokine genes are expressed differently in H838 and HPAEC}
 
 To elucidate the origin of the differential cytokine concentrations,
-we assumed an implicit correlation between gene expression and protein abundance.
-Under this hypothesis, it is to be expected that gene expression profiles of
-H838 cells will be such that 
-our previously identified cytokines of interest should be differentially 
-expressed between homo- and heterogenous coculture conditions.
-We compared the basal 
-expression levels of all genes with protein products
-annotated as cytokines in the KEGG cytokine-cytokine receptor interaction pathway. 
-However, none of the cytokine encoding genes 
-showed a differential basal regulation between the two coculture conditions. Over time, IL6 and CXCL14 are significantly
-down-regulated, and CSF1 is significantly up-regulated. 
+we investigated the gene expression profiles of
+our previously identified cytokines of interest in H838 cells. 
+%We compared the basal 
+%expression levels of all genes with protein products
+%annotated as cytokines in the KEGG cytokine-cytokine receptor interaction pathway. 
+%However, none of the cytokine encoding genes 
+%showed a differential basal regulation between the two coculture conditions. Over time, IL6 and CXCL14 are significantly
+%down-regulated, and CSF1 is significantly up-regulated. 
 Both \tnfa and \sdfonea do
 not respond differentially during H838 migration (\ref{fig:cytokine_dynamic} A)
 % maybe put this figure into the supplement
-Looking at the basal expression levels within each culture condition, only five out of 162 cytokines (IL18, IL10, PDGFC, BMP7 and TNFSF12) 
-had a significantly high expression level in both conditions
-(\ref{fig:cytokine_basal}), 
-and none of these could be directly related to the migration-enhancing 
-cell-cell communication.
+%Looking at the basal expression levels within each culture condition, only five out of 162 cytokines (IL18, IL10, PDGFC, BMP7 and TNFSF12) 
+%had a significantly high expression level in both conditions
+%(\ref{fig:cytokine_basal}), 
+%and none of these could be directly related to the migration-enhancing 
+%cell-cell communication.
 
 %\begin{figure}[!ht]
 \begin{center}
@@ -1023,24 +1039,24 @@ over time. Blue dashed lines denote the impulse model fit~\cite{Chechik2009}.
 %\end{figure}
 \end{center}
 
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{fig-basal_cytokine.pdf}
-\end{center}
-\caption[Basal cytokine gene expression]{
-{\bf Few cytokines highly expressed in H838 at 0h.}
-Comparison of $\log_2$ transformed basal mRNA intensities at 0h of all 
-cytokines annotated 
-in the KEGG \emph{cytokine-cytokine receptor interaction pathway} between
-the hetero- and homogeneous coculture. Blue dashed lines denote the significance
-level ($p=0.05$) after fitting the basal expression distribution with a skew-$t$ 
-distribution~\cite{Azzalini2003}. Only IL18, IL10, PDGFC,
-BMP7 and TNFSF12 are above this threshold in both conditions, 
-i.e. significantly up-regulated
-at 0h.
-}
-\label{fig:cytokine_basal}
-\end{figure}
+%\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=\textwidth]{fig-basal_cytokine.pdf}
+%\end{center}
+%\caption[Basal cytokine gene expression]{
+%{\bf Few cytokines highly expressed in H838 at 0h.}
+%Comparison of $\log_2$ transformed basal mRNA intensities at 0h of all 
+%cytokines annotated 
+%in the KEGG \emph{cytokine-cytokine receptor interaction pathway} between
+%the hetero- and homogeneous coculture. Blue dashed lines denote the significance
+%level ($p=0.05$) after fitting the basal expression distribution with a skew-$t$ 
+%distribution~\cite{Azzalini2003}. Only IL18, IL10, PDGFC,
+%BMP7 and TNFSF12 are above this threshold in both conditions, 
+%i.e. significantly up-regulated
+%at 0h.
+%}
+%\label{fig:cytokine_basal}
+%\end{figure}
 
 We conclude that differential cytokine regulation in the supernatant 
 must originate primarily from the HPAEC cells.  
@@ -1187,6 +1203,30 @@ the CXCR4 ligand \sdfonea by endothelial cells within the same time frame.
 %on a more specific set of paths to the downstream transcription factors, which
 %ultimately determines \emph{point of no return} of the enhanced migration phenotype 
 %in the tumor cells.
+
+\begin{figure}[!ht]
+\hskip 0.5in A \hskip 2.5in B
+\begin{center}
+\includegraphics[width=0.45\textwidth]{mfpt-directed_bar.pdf}
+\includegraphics[width=0.45\textwidth]{sp-directed_bar.pdf}
+\end{center}
+\caption[Differential basal and dynamic gene expression]{
+{\bf Differential basal and dynamic gene expression in homo- and heterogeneous 
+cocultures.} 
+(A) Histogram of the differential gene expression at 0h as determined by limma~%
+\citep{Smyth2004}. 
+Basal differential expression is 
+represented as the negative log-transformed and multiple
+testing corrected $p$-value of the limma test.
+(B) Histogram of the differential gene expression over time as determined by the
+full/reduced model fitting~\citep{Mar2009}.
+Dynamical differential expression is 
+represented as the negative log-transformed and multiple
+testing corrected $p$-value of the full/reduced model
+likelihood ratio test.
+}
+\label{fig:mfpt_sp_bar}
+\end{figure}
 
 \end{itemize}
 

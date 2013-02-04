@@ -769,6 +769,30 @@ conditions.
 \label{fig:ecoli_yeast_go}
 \end{figure}
 
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{yeast_ecoli_go_under.pdf}
+\end{center}
+\caption[GO term depletion of strongly regulated genes]{
+{\bf Metabolic and transcriptional regulation is under-represented in 
+strongly regulated peripheral genes.}
+(A) Under-representation of GO
+terms in the strongly induced (response strength $> -\log_{10}0.05$) 
+peripheral genes of \emph{S. cerevisiae} from
+the dataset in \ref{fig:ecoli_yeast_go}. Shown 
+are $p$-values
+from Fisher's exact test in gray scale for different GO terms under different 
+conditions.
+(B) Under-representation of GO terms
+in the strongly induced (response strength $> -\log_{10}0.1$) peripheral genes 
+of \emph{E. coli} from the dataset 
+in \ref{fig:ecoli_yeast_go}. Shown are $p$-values
+from Fisher's exact test in gray scale for different GO terms under different 
+conditions. 
+}
+\label{fig:ecoli_yeast_go_under}
+\end{figure}
+
 Our results present an invariant feature of gene regulatory
 networks, namely strongly responding genes correlate with
 the phenotype and are sparsely connected peripheral nodes, 
@@ -799,29 +823,16 @@ we learned so far, if one starts to reconstruct the network consisting only of
 differentially regulated genes, it is also highly likely that
 the network is sparse.
 
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{yeast_ecoli_go_under.pdf}
-\end{center}
-\caption[GO term depletion of strongly regulated genes]{
-{\bf Metabolic and transcriptional regulation is under-represented in 
-strongly regulated peripheral genes.}
-(A) Under-representation of GO
-terms in the strongly induced (response strength $> -\log_{10}0.05$) 
-peripheral genes of \emph{S. cerevisiae} from
-the dataset in \ref{fig:ecoli_yeast_go}. Shown 
-are $p$-values
-from Fisher's exact test in gray scale for different GO terms under different 
-conditions.
-(B) Under-representation of GO terms
-in the strongly induced (response strength $> -\log_{10}0.1$) peripheral genes 
-of \emph{E. coli} from the dataset 
-in \ref{fig:ecoli_yeast_go}. Shown are $p$-values
-from Fisher's exact test in gray scale for different GO terms under different 
-conditions. 
-}
-\label{fig:ecoli_yeast_go_under}
-\end{figure}
+The importance of peripheral nodes in the networks has recently been addressed~%
+\citep{Sikic2011}, in which the authors developed a new epidemic centrality
+metric to assess the epidemic impact of each node in the disease spreading
+network. This metric takes into account both the structural and 
+the dynamic properties of the node. As a result,
+it has been shown that the epidemic centrality of structually peripheral nodes is 
+comparable to that of the central nodes with high degree, k-cores value or 
+betweenness. This study underlines the prominent role played by peripheral
+nodes, which, according to our results, can also be critical in the 
+development of cellular phenotypes.
 
 \section{Biological application}
 We further went on to verify our hypothesis that strongly regulated peripheral 
