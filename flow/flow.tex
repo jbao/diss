@@ -17,7 +17,7 @@ of their implicit assumptions and propose a two-step approach to identify the
 causal signal\footnote{We use \emph{signal} and \emph{information} interchangably.} 
 flow from membrane receptors to transcription factors. Finally,
 we apply this approach in the study of cell-cell communication in the lung
-cancer and skin.
+cancer.
 
 \section{Pathway enrichment analyses}
 Since the introduction of the microarray technology, pathway analysis has been 
@@ -29,15 +29,33 @@ their core features and limitations.
 \subsection{Over-representation test}
 Over-representation test is also called Fisher's exact test, it statistically 
 evaluates the fraction of genes in a particular pathway found among the set 
-of genes showing significant changes in expression. By constructing a
-$2 \times 2$ contingency table, a researcher first chooses genes that are 
+of genes showing significant changes in expression. 
+A researcher first chooses genes that are 
 differentially over- or under-expressed in a given condition at a certain 
-threshold. Then, for each pathway, the number of genes that are part of the 
+threshold (separate into columns in \ref{table:contigency_table}). Then, for each pathway, the number of genes that are part of the 
 pathway is counted. This process is repeated for an appropriate background 
-list of genes (e.g., all genes measured on a microarray). Next, every pathway 
-is tested for over- or under-representation based on this contingency table. 
-The most commonly used test is based on the hypergeometric distribution or
-the Fisher's exact test.
+list of genes (e.g., all genes measured on a microarray), 
+such that the column sums can be further divided. 
+Next, every pathway 
+is tested for over- or under-representation based on the frequencies in such 
+a $2 \times 2$ contingency table (\ref{table:contigency_table}). 
+Fisher has shown that the probability of obtaining any such set of values was 
+given by the hypergeometric distribution. To calculate the significance of the
+test, i.e. the total probability of observing data as extreme or more extreme 
+if the null hypothesis is true, one has to sum up the individual probability
+of observing the data and all those of observing more extreme frequencies.
+
+\begin{longtable}{cccc}
+\caption[Contingency table example]{
+An example of the contingency table used in the pathway enrichment analysis.} \\
+\hline
+& differentially regulated & not regulated & row sum \\
+\rowcolor{Gray} pathway & $a$ & $b$ & $a+b$\\
+background & $c$ & $d$ & $c+d$\\
+\rowcolor{Gray} column sum & $a+c$ & $b+d$ & $a+b+c+d(=n)$\\
+\hline
+\label{table:contigency_table}
+\end{longtable}
 
 One of the critics on Fisher's exact test is that it only considers a ranked
 list of differentially expressed genes and is thus independent of the 
@@ -45,8 +63,7 @@ measured fold changes. Second, the generation of the contingency table
 requires setting a significance cutoff to count the number of differentially
 regulated genes. This procedure introduces a subjective criterion and 
 effectively treats the gene regulation as a black-white picture, namely only 
-genes above this threshold are considered differentially expressed and those
-below the threshold are then discarded.
+genes above this threshold are considered differentially expressed.
     
 \subsection{Gene set analysis}
 To avoid the arbitrary significance cutoff and to realize the fact that weaker 
@@ -54,11 +71,15 @@ but coordinated changes in sets of functionally related genes (i.e., pathways)
 can also have significant effects, gene set enrichment analysis was suggested~%
 \citep{Subramanian2005,Luo2009}. In general,
 a pathway-level (gene group level) statistic is calculated from the gene-level 
-statistic, and the statistical significance is assessed according to the 
-pathway-level statistic.
+differential expression between two experimental conditions, and the 
+statistical significance is assessed according to the test of
+this pathway-level statistic between the pathway (group) of interest and a 
+background set.
 
 By considering the coordinated changes in gene expression, gene set analyses 
-account for dependence between genes in a certain pathway or group, however,
+account for dependence between genes in a certain pathway or group, without
+the need to set the artificial cutoff between the differentially and 
+non-differentially regulated genes. However,
 each pathway is still analyzed independently and thus crosstalks between
 pathways are disregarded.
 
@@ -71,8 +92,10 @@ pathway impact analysis (SPIA) was proposed~%
 pathway by incorporating changes in gene expression, types of interactions, 
 and the positions of genes in a pathway. 
 It calculates the pathway-level statistic from the combinatorial probability 
-of perturbation in gene expression and over-representation. One obvious problem 
-of the topology-based approach is that the true pathway topology is highly
+of perturbation in gene expression and over-representation. 
+
+Not unlike any other approaches based on prior knowledge,
+SPIA heavily depends on the true pathway topology, which is highly
 context-dependent and remains poorly understood and annotated.
 
 \subsection{NetSearch}
@@ -113,7 +136,8 @@ with time~\citep{Fournier2010}.
 As one of the protein classes important in disease, 
 transcription factors (TF) remain largely decoupled at the 
 protein
-and mRNA level. Many of the TFs that regulate physiological
+and mRNA level, which renders them a highly dynamic and efficient switch that 
+can fine-tune the gene expression. Indeed, many of the TFs that regulate physiological
     targets are constitutively present, and their activity is determined
     by posttranslational modifications such as phosphorylation%
     ~\citep{Messina2004}.
@@ -912,6 +936,7 @@ To this end, we quantified the cytokine composition
 of the  homo- and heterogeneous cocultures
 both before and 24h after onset of migration.
 We used a  fluorescent bead array based cytokine assay which detects fifty cytokines (\ref{table:cytokine}).
+The quantification of fifty different analytes was performed and evaluated in a  fully automated 96-well format Luminex analysis system (Multimetrix, Regensburg,  Germany). 
 
 \begin{longtable}{ccccc}
 \caption{List of cytokines in the array.} \\ 
@@ -1063,7 +1088,8 @@ must originate primarily from the HPAEC cells.
 An RT-qPCR experiment confirmed an early and transient response of  
 TNF-$\alpha$ as well as a later and prolonged upregulation of 
 SDF-1$\alpha$ (\ref{fig:cytokine_dynamic} B). 
-Fitting the time course with an impulse model, which measures the peak 
+Fitting the time course with an impulse model 
+(\ref{sec:impulse}), which measures the peak 
 duration as the 
 temporal difference between the inflection points of two
 sigmoidal curves, 
@@ -1098,7 +1124,7 @@ activity. We further
 hint at endothelial cells as possible sources for \tnfa and \sdfonea.
 
 We discuss next about endothelial cell-tumor cell communication, what is known and what we found at transcription and protein level.
-Then about the role of \tnfa and \sdfonea in tumors and especially lung tumors.
+We also speculate the role of \tnfa and \sdfonea in tumors and especially lung tumors.
 
 \begin{itemize}
 \item \textbf{What do we know about \tnfa and \sdfonea with respect to cell migration?}

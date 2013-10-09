@@ -82,13 +82,13 @@ individual nodes~\citep{Liu2011}.
 role in the transport and communication 
 within a network. Although highly efficient algorithm exists to perform
 route planning such as in Google Maps~\citep{Sanders2005}, common algorithms
-for calculating shortest paths are Dijkstra's algorithm for weighted networks
-and the breadth-first search for unweighted networks.
+for calculating shortest paths are Dijkstra's algorithm~\citep{Dijkstra1959} for weighted networks
+and the breadth-first search (ref!) for unweighted networks.
 
 An extension of the shortest path is a measure of the importance of a given 
 node defined by the sum of the fraction of all-pairs shortest paths that pass 
 through it, or the 
-\emph{betweenness} $b_i$ of a node $i$ is given by
+\emph{betweenness} $b_i$ of a node $i$~\citep{Freeman1977} is given by
 \begin{equation}
 b_i = \sum_{s,t \in N} \frac{\sigma(s,t|i)}{\sigma(s,t)},
 \end{equation}
@@ -397,7 +397,7 @@ $\alpha$-factor to study the cell cycle
 \end{figure}
 
 The response distributions do not fit well with any of the 
-Gaussian, power-law, exponential, log-normal or Weibull distribution, with the closet one being power-law or log-normal
+Gaussian, power-law, exponential, log-normal or Weibull distribution, with the closest one being power-law or log-normal
 distribution up to a certain range (\ref{fig:response_fit}). 
 Nevertheless, the response distributions from various 
 biological systems do share the same shape between each 
