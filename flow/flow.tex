@@ -161,8 +161,7 @@ To this end, we retrieved sets of genes regulated by
 a common transcription factor from MSigDB v3.0 (The Molecular Signature Database, \cite{Liberzon2011}). 
 This database contains two major data sources. The first one is mammalian 
 transcriptional regulatory motifs from the v7.4 public version of TRANSFAC 
-database~\citep{Matys2003b}. We then generated the motif gene sets consisting 
-of the inferred target genes for each motif. Every such set consists of human 
+database~\citep{Matys2003b}. Every such motif gene set consists of human 
 genes whose promoters (defined as regions -2kb to +2kb around transcription 
 start site) contain at least one instance of the motif.
 The second data source for transcription factor targets in MSigDB is derived 
@@ -170,15 +169,20 @@ from upstream motifs highly conserved among five mammalian species~%
 \citep{Xie2005e}. Each motif gene set consists of all human genes whose 
 promoters contained at least one conserved instance of the motif.
 
-Individual genes were  ranked according to their response strengths as derived from the 
+Individual genes were first ranked according to their response strengths as derived from the 
 multidimensional scaling of the normalized time series 
-(\ref{sec:response_strength}). 
-The gene sets from MSigDB were  then tested for their enrichment 
- relative to the whole transcriptome by a Kolmogorov-Smirnov statistic. 
+(\ref{sec:response_strength}). The difference in the response strength of both
+the transcription factor target gene set and  
+the whole transcriptome as a background is tested by a Kolmogorov-Smirnov statistic. 
+The transcription factors of the respective significantly differentially regulated
+gene sets are deemed active.
 
 \subsection{Signal flow from membrane receptors}
-In order to infer how extracellular signal flows from the membrane receptors to 
-the transcription factors and subsequently induces gene regulation, it is 
+The second step involves inferring how extracellular signal flows from the 
+membrane receptors to 
+the transcription factors and subsequently induces gene regulation. 
+To this end, we assume that the signal flows along the edges of a network 
+in a most efficient manner. Consequently, it is 
 crucial to be able to measure the proximity between a given pair of receptor and
 transcription factor in the protein-protein interaction network. Here we 
 compare two distance metrics, one is the shortest path length, and the other
@@ -191,15 +195,26 @@ shortest path (SP) length between two nodes in the network is a classical way to
 assess the distance between these two nodes and thus possible route of signal flow
 (\ref{sec:shortest_path}). Several variations of the 
 shortest path approach have been used in extracting 
-phenotype associated and previously unknown genes~%
+phenotype-associated and previously unknown genes~%
 \citep{Zhou2002,Managbanag2008}.
 
 When multiple target genes exist, the well-known graph-theoretical concept of a Steiner tree is often used in place of a set of shortest paths. Given a set of nodes to be connected, a Steiner tree is an acyclic subgraph (a tree) connecting all these nodes while using the minimum number of edges. In a Steiner tree, the individual path from the putative causal gene (the root of the tree) to each of the target genes does not need to be the shortest, but the size (i.e., the number of edges) of the whole tree is minimized. The Steiner tree approach has been used to find new functional associations for proteins~\citep{Huang2009,Bailly-Bechet2011}.
 
-We use a directed human protein-protein interaction network from a previous study
-\citep{Vinayagam2011}, which contains edge directions
+\cite{Vinayagam2011} used several features based on the shortest PPI path 
+information from membrane receptors to transcription factors to
+predict a directed human protein-protein interaction 
+network, which contains edge directions
 inferred by a naive Bayesian classifier.
-For each cytokine receptor/transcription factor pair previously identified,
+Based on this directed PPI together with time-resolved protein phosphorylation data,
+they were able to both reconstruct time-ordered events and
+predict novel players in the signal transduction of the activated epidermal growth factor and extracellular signal-regulated kinase (EGF/ERK) signaling cascade.
+
+In this work, we focus on a consolidated PPI network called HIPPIE 
+(\textbf{H}uman \textbf{I}ntegrated \textbf{P}rotein-\textbf{P}rotein 
+\textbf{I}nteraction r\textbf{E}ference), which has a confidence scoring 
+scheme that reflects the amount and quality of evidence for a given PPI. 
+We first determined an appropriate cutoff score to prune the network.
+Then for each cytokine receptor/transcription factor pair in question,
 we calculated the length of the shortest path between the two
 using the unweighted breadth-first search algorithm,
 as implemented in the R package \texttt{igraph}~\citep{Csardi2006}.
@@ -324,7 +339,7 @@ is positive semi-definite and can be solved by the LGMRES algorithm~%
 \ref{fig:mfpt_toy} compares the distance measure of shortest path (SP) length
 and mean first passage time (MFPT) on different toy networks. Network A, B and
 C are all composed of a linear chains as the backbone and different complex 
-global structures, the SP metric measures the length of the backbond and is 
+global structures, the SP metric measures the length of the backbone and is 
 thus the same across all three topologies, whereas MFPT has a broader range
 and changes between 9 and 17.5. This demonstrates that SP does not take into
 account the global network topology. Furthermore, SP is also more susceptible
@@ -351,7 +366,7 @@ Shown are the distances between node $n0$ and $n3$ measured in shortest path
 
 The hallmark of lung tumor development is its early spread, 
 complicating the patient treatment and strongly impairing survival.
-Recent studies have shown the tumor-stroma interaction to be relevant to 
+Recent studies~\citep{Mueller2004} have shown the tumor-stroma interaction to be relevant to 
 tumor growth and spread, and therefore a possible target for
 novel, effective treatment. 
 However, 
@@ -367,15 +382,16 @@ in scratch assays of aforementioned cocultures, and measured
 cytokine concentrations in the medium.
 H838 showed a significantly increased migration area after 24h in the 
 H838/HPAEC coculture compared to the H838/H838 coculture.
+Gene set enrichment test identified coordinated regulation
+of transcription factors targets
+that cause the transcriptome response in H838. 
+We inferred the cytokines involved in the signal flow based on the 
+PPI distances from the cytokine receptors to the predicted
+transcription factors using both shortest path and mean first passage time.
 Two cytokines, TNF-$\alpha$ and SDF-1$\alpha$, were shown to directly 
 induce migration, 
 and the transcripts of these two key factors were regulated only 
 in HPAEC cells.
-Gene set enrichment test identified coordinated regulation
-of transcription factors targets
-that cause the transcriptome response in H838. 
-We compared distances from the cytokine receptors to the predicted
-transcription factors using both shortest path and mean first passage time.
 %suggests that TNF-$\alpha$ receptors activate multiple
 %downstream targets in a homogeneous fashion,
 %whereas the shortest paths \change[JB]{between}{descending from} 
@@ -401,7 +417,7 @@ Whether this is an inherent feature of the non-small cell
 lung tumor cells or 
 due to their microenvironment is still unknown. 
 
-Ever since the formulation of \emph{seed and soil} theory by the English 
+Ever since the formulation of the \emph{seed and soil} theory by the English 
 surgeon Stephen Paget in 1889~\citep{Paget1889}, there has been increasing 
 interest in studying the tumor-stroma interactions. 
 It is now largely acknowledged that sites of metastasis are determined 
@@ -453,19 +469,21 @@ was significantly enhanced when compared to monoculture.
 Gene set enrichment analysis of the dynamic transcriptome
 response of the H838 cells  revealed a coculture specific response 
 that correlated with enhanced migration.
-A cytokine array and subsequent single factor stimulation
-identified the cytokines \tnfa and \sdfonea
-to be the main factors enhancing H838 cell migration,
-being \emph{de novo} expressed and originating in the endothelial cells alone. 
-
 We further 
-traced causes of the transcriptome response in the tumor cells back to the
-\tnfa and \sdfonea receptors. % via the transcription factors and upstream protein signaling.
-%We identified the dynamic regulation pattern of transcription factors. 
-Assuming that cellular signal is most likely transmitted through the shortest 
+traced causes of the transcriptome response in the tumor cells back to 
+a group of sequential transcription factors.
+Assuming that cellular signal is most likely transmitted through the most efficient 
 path in a protein-protein interaction network, we 
 mapped the putative pathways linking cytokine receptors with the 
 transcription factors evoking the transcriptome response. 
+
+Finally, a cytokine array and subsequent single factor stimulation
+confirmed the cytokines \tnfa and \sdfonea
+to be the main factors enhancing H838 cell migration,
+being \emph{de novo} expressed and originating in the endothelial cells alone. 
+
+%\tnfa and \sdfonea receptors. % via the transcription factors and upstream protein signaling.
+%We identified the dynamic regulation pattern of transcription factors. 
 %Based on \change[JB]{the above}{our results}, we hypothesize that \tnfa receptor family 
 %members are likely associated with a wide spectrum of transcription factors, which
 %renders the \tnfa-induced pathway an unspecific response in the first place.
@@ -582,7 +600,7 @@ log fold expression being 1.25 relative to 0h.
 Taken together, the majority of genes
 in H838 cells are not differentially expressed in the homo- and heterogeneous
 coculture conditions. We hypothesize that those 
-differentially regulated genes do undergo certain specific
+differentially regulated genes do contribute to certain specific
 phenotypic transformations, but the response of the H838
 transcriptome to heterogeneous coculture is rather weak.
 
@@ -614,14 +632,10 @@ likelihood ratio test.
 \begin{center}
 \includegraphics[width=\textwidth]{h838_ts_heatmap.pdf}
 \end{center}
-\caption[H838 migration in homo- and heterogeneous coculture]{
-{\bf Migration of H838 cells in the homo- and heterogeneous coculture.} 
-(A) Trans-filter system. (B) Scratch assay of the homo- and heterogeneous coculture.
-(C) Migration area of H838 cells at 24h after scratch from multiple independent 
-experiments 
-plotted as 
-boxplots for the homogeneous (H838 + H838) and heterogeneous (H838 + HPAEC) 
-coculture.
+\caption[Gene expression time course in the H838/HPAEC coculture]{
+{\bf Time course of significantly regulated genes in the H838/HPAEC heterogeneous coculture.} 
+Color code is the normalized log fold expression relative to 0h, a hierarchical
+clustering dendrogram of the time series is shown to the left.
 }
 \label{fig:h838_ts}
 \end{figure}
@@ -686,11 +700,11 @@ be followed over time (\ref{fig:h838_homo_gage}).
 \begin{center}
 \includegraphics[width=\textwidth]{h838_HMEC_gage.pdf}
 \end{center}
-\caption[Dynamic gene set enrichment]{
-{\bf Dynamic gene set enrichment between heterogeneous and homogeneous 
-cocultures.} 
-The differential expression of each gene is first assessed by the full/reduced
-model (\ref{sec:full_reduced}), the mean differential score of a gene set
+\caption[Gene set enrichment of the heterogeneous coculture]{
+{\bf Gene set enrichment between different time points and 0h in the heterogeneous 
+coculture.} 
+The differential expression of each gene is first assessed between time points, 
+the mean differential score of a gene set
 is then compared with that of the background set using $t$ test.
 The signicance level (negative log-transformed $p$-value) is color-coded, such
 that green means enrichment of a gene set and white means depletion. The size
@@ -703,11 +717,11 @@ of the gene set is coded by the size of the circles.
 \begin{center}
 \includegraphics[width=\textwidth]{h838_Mono_gage.pdf}
 \end{center}
-\caption[Dynamic gene set enrichment]{
-{\bf Dynamic gene set enrichment between heterogeneous and homogeneous 
-cocultures.} 
-The differential expression of each gene is first assessed by the full/reduced
-model (\ref{sec:full_reduced}), the mean differential score of a gene set
+\caption[Gene set enrichment of the homogeneous coculture]{
+{\bf Gene set enrichment between different time points and 0h in the homogeneous 
+coculture.} 
+The differential expression of each gene is first assessed between time points, 
+the mean differential score of a gene set
 is then compared with that of the background set using $t$ test.
 The signicance level (negative log-transformed $p$-value) is color-coded, such
 that green means enrichment of a gene set and white means depletion. The size
@@ -733,15 +747,15 @@ pathway is absent.
 \begin{center}
 \includegraphics[width=\textwidth]{h838_gage_kegg.pdf}
 \end{center}
-\caption[Dynamic gene set enrichment]{
-{\bf Dynamic gene set enrichment between heterogeneous and homogeneous 
-cocultures.} 
-The differential expression of each gene is first assessed by the full/reduced
-model (\ref{sec:full_reduced}), the mean differential score of a gene set
+\caption[KEGG pathway enrichment]{
+{\bf KEGG pathway enrichment of the heterogeneous and homogeneous 
+cocultures in three phases.} 
+The differential expression of each gene of different time phases is first 
+compared to 0h, the mean differential score of a KEGG pathway
 is then compared with that of the background set using $t$ test.
 The signicance level (negative log-transformed $p$-value) is color-coded, such
 that green means enrichment of a gene set and white means depletion. The size
-of the gene set is coded by the size of the circles.
+of the KEGG pathway is coded by the size of the circles.
 }
 \label{fig:h838_gage_kegg}
 \end{figure}
@@ -804,30 +818,28 @@ absence of such enrichment.
 
 To further bridge the gap between the transcription factors identified above and the membrane cytokine receptors that 
 transmit the external signal,
-we mapped shortest paths from each cytokine receptor to all putative transcription factors, using both a directed~%
-\citep{Vinayagam2011} and undirected~\citep{Schaefer2012} 
-protein-protein interaction network.  
+we mapped the most likely paths from each cytokine receptor to all putative 
+transcription factors, using the HIPPIE network~\citep{Schaefer2012} and a 
+distance metric based on random walk.
 
-As depicted in \ref{fig:h838_receptor_ts_ex}, the inverse
-mean first passage time (MFPT) and inverse shortest path 
-(SP) show totally different dynamics. We further use the
-area under the curve (AUC) of inverse distances as a 
-measure of proximity and thus functional relatedness between
-receptors and transcription factors (TF). 
-The larger the AUC is,
-the more likely, we hypothesize, that the signal is
-transmitted through this receptor downward to the 
-corresponding TFs. We also calculate the probability of
-obtaining a certain AUC by chance, which is the fraction
-of AUC between the receptor and bootstrapped TFs that are
-more extreme than the actual AUC 
-(\ref{fig:h838_receptor_pval_ex}).
+In order to justify the information in the PPI network, we want to prune the
+raw interaction network to a smaller
+high-quality one. At the same time, we also want to keep as 
+much information as possible. In Fig.~\ref{fig:h838_component}, we prune the 
+network with different cutoff values in the confidence score for a particular
+interaction. After pruning, the
+size of the largest connected component first stays constant with the increase 
+of the cutoff and then drops
+sharply at a cutoff value of 0.6. As a trade-off, we prune the PPI network
+to only have interactions with a confidence score $>0.6$ such that the data
+are reasonably reliable and the size of the network is also not too small to
+gain insights into the signal flow between receptors and transcription factors.
 
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=\textwidth]{h838-receptor_ts_ex_hppi.pdf}
+\includegraphics[width=0.7\textwidth]{h838-component.pdf}
 \end{center}
-\caption[Inverse distance over time]{
+\caption[Confidence score cutoff]{
 {\bf Inverse nodal distance from EGFR to enriched 
 transcription factors at each time point.} 
 Inverse distance is measured by mean first passage time
@@ -836,94 +848,125 @@ indicates the area under the curve (AUC) used to
 characterize the overall proximity between a given
 receptor and all enriched transcription factors.
 }
-\label{fig:h838_receptor_ts_ex}
+\label{fig:h838_component}
 \end{figure}
 
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{h838-receptor_pval_ex_hppi.pdf}
-\end{center}
-\caption[Significance of the inverse distance AUC]{
-{\bf Significance of the inverse distance AUC from EGFR to
-all enriched transcription factors.} 
-Shown is the distribution of the inverse distance AUC from
-EGFR to all enriched transcription factors (TF). 
-The distribution
-is determined by calculating the inverse distance between
-EGFR and randomly selected TFs.
-AUC is calculated for inverse MFPT and SP as in 
-\ref{fig:h838_receptor_ts_ex}. Dashed vertical line
-denotes the AUC from EGFR to the TFs identified from the
-data, shaded area is the region that the bootstrapped 
-AUC is more extreme than the actual value and is thus used
-to calculate the $p$-value.
-}
-\label{fig:h838_receptor_pval_ex}
-\end{figure}
-
-In summary, if we rank the receptors by their inverse
-shortest path AUC (\ref{fig:h838_receptor_auc_sp}), we
-can easily identify certain candidate receptors that
-are likely responsible for the signal flow from the external
-stimulus to the downstream transcription factors. 
-Interleukin and TNF receptors are two big families of 
-membrane receptors. Most of the interleukin receptors have
-a significant AUC as measured by the inverse shortest path,
-whereas none of the TNF receptor super family members has
-a $p$-value less than 0.05. Therefore, neither of both 
-classes provides a highly discriminative candidate receptor.
-Among the chemokine (C-X-C motif) receptors, CXCR4 stands
-out. In terms of the chemokine (C-C motif) receptors, 
-CCR5/1/2 are the hits that are most likely related to the
-signal flow. Yet other receptors can be identified that
-have both a high AUC and a significant $p$-value.
-In contrast, all receptors show a homogeneous distribution
-of both AUC and $p$-value when ranked according to the 
-inverse mean first passage time 
-(\ref{fig:h838_receptor_auc_mfpt}), which is thus of
-limited use in this specific case.
-
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{h838-receptor_auc_sp_hppi.pdf}
-\end{center}
-\caption[Receptor ranking by inverse SP]{
-{\bf Receptor ranking by the AUC of inverse shortest path.} 
-Receptors are grouped into 5 major categories and ranked
-according to their AUC of shortest path to all enriched TFs.
-Asterisks indicate the $p$-value of the AUC as determined by
-bootstrapping. ***: $p<0.01$, **: $p<0.05$, *: $p<0.1$.
-}
-\label{fig:h838_receptor_auc_sp}
-\end{figure}
-
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{h838-receptor_auc_mfpt_hppi.pdf}
-\end{center}
-\caption[Receptor ranking by inverse MFPT]{
-{\bf Receptor ranking by the AUC of inverse mean first 
-passage time.} 
-Receptors are grouped into 5 major categories and ranked
-according to their AUC of MFPT to all enriched TFs.
-Asterisks indicate the $p$-value of the AUC as determined by
-bootstrapping. ***: $p<0.01$, **: $p<0.05$, *: $p<0.1$.
-}
-\label{fig:h838_receptor_auc_mfpt}
-\end{figure}
-
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{mfpt_directed_toy.pdf}
-\end{center}
-\caption[Toy example of SP and MFPT on different directed networks]{
-{\bf Comparison of shortest path (SP) length and mean first passage time 
-(MFPT) on different directed toy networks.}
-Shown are the distances between node $n0$ and $n3$ measured in shortest path 
-(SP) and mean first passage time (MFPT) respectively.
-}
-\label{fig:mfpt_directed_toy}
-\end{figure}
+%As depicted in \ref{fig:h838_receptor_ts_ex}, the inverse
+%mean first passage time (MFPT) and inverse shortest path 
+%(SP) show totally different dynamics. We further use the
+%area under the curve (AUC) of inverse distances as a 
+%measure of proximity and thus functional relatedness between
+%receptors and transcription factors (TF). 
+%The larger the AUC is,
+%the more likely, we hypothesize, that the signal is
+%transmitted through this receptor downward to the 
+%corresponding TFs. We also calculate the probability of
+%obtaining a certain AUC by chance, which is the fraction
+%of AUC between the receptor and bootstrapped TFs that are
+%more extreme than the actual AUC 
+%(\ref{fig:h838_receptor_pval_ex}).
+%
+%\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=\textwidth]{h838-receptor_ts_ex_hppi.pdf}
+%\end{center}
+%\caption[Inverse distance over time]{
+%{\bf Inverse nodal distance from EGFR to enriched 
+%transcription factors at each time point.} 
+%Inverse distance is measured by mean first passage time
+%(MFPT) and shortest path (SP) respectively. Shaded area
+%indicates the area under the curve (AUC) used to 
+%characterize the overall proximity between a given
+%receptor and all enriched transcription factors.
+%}
+%\label{fig:h838_receptor_ts_ex}
+%\end{figure}
+%
+%\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=\textwidth]{h838-receptor_pval_ex_hppi.pdf}
+%\end{center}
+%\caption[Significance of the inverse distance AUC]{
+%{\bf Significance of the inverse distance AUC from EGFR to
+%all enriched transcription factors.} 
+%Shown is the distribution of the inverse distance AUC from
+%EGFR to all enriched transcription factors (TF). 
+%The distribution
+%is determined by calculating the inverse distance between
+%EGFR and randomly selected TFs.
+%AUC is calculated for inverse MFPT and SP as in 
+%\ref{fig:h838_receptor_ts_ex}. Dashed vertical line
+%denotes the AUC from EGFR to the TFs identified from the
+%data, shaded area is the region that the bootstrapped 
+%AUC is more extreme than the actual value and is thus used
+%to calculate the $p$-value.
+%}
+%\label{fig:h838_receptor_pval_ex}
+%\end{figure}
+%
+%In summary, if we rank the receptors by their inverse
+%shortest path AUC (\ref{fig:h838_receptor_auc_sp}), we
+%can easily identify certain candidate receptors that
+%are likely responsible for the signal flow from the external
+%stimulus to the downstream transcription factors. 
+%Interleukin and TNF receptors are two big families of 
+%membrane receptors. Most of the interleukin receptors have
+%a significant AUC as measured by the inverse shortest path,
+%whereas none of the TNF receptor super family members has
+%a $p$-value less than 0.05. Therefore, neither of both 
+%classes provides a highly discriminative candidate receptor.
+%Among the chemokine (C-X-C motif) receptors, CXCR4 stands
+%out. In terms of the chemokine (C-C motif) receptors, 
+%CCR5/1/2 are the hits that are most likely related to the
+%signal flow. Yet other receptors can be identified that
+%have both a high AUC and a significant $p$-value.
+%In contrast, all receptors show a homogeneous distribution
+%of both AUC and $p$-value when ranked according to the 
+%inverse mean first passage time 
+%(\ref{fig:h838_receptor_auc_mfpt}), which is thus of
+%limited use in this specific case.
+%
+%\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=\textwidth]{h838-receptor_auc_sp_hppi.pdf}
+%\end{center}
+%\caption[Receptor ranking by inverse SP]{
+%{\bf Receptor ranking by the AUC of inverse shortest path.} 
+%Receptors are grouped into 5 major categories and ranked
+%according to their AUC of shortest path to all enriched TFs.
+%Asterisks indicate the $p$-value of the AUC as determined by
+%bootstrapping. ***: $p<0.01$, **: $p<0.05$, *: $p<0.1$.
+%}
+%\label{fig:h838_receptor_auc_sp}
+%\end{figure}
+%
+%\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=\textwidth]{h838-receptor_auc_mfpt_hppi.pdf}
+%\end{center}
+%\caption[Receptor ranking by inverse MFPT]{
+%{\bf Receptor ranking by the AUC of inverse mean first 
+%passage time.} 
+%Receptors are grouped into 5 major categories and ranked
+%according to their AUC of MFPT to all enriched TFs.
+%Asterisks indicate the $p$-value of the AUC as determined by
+%bootstrapping. ***: $p<0.01$, **: $p<0.05$, *: $p<0.1$.
+%}
+%\label{fig:h838_receptor_auc_mfpt}
+%\end{figure}
+%
+%\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=\textwidth]{mfpt_directed_toy.pdf}
+%\end{center}
+%\caption[Toy example of SP and MFPT on different directed networks]{
+%{\bf Comparison of shortest path (SP) length and mean first passage time 
+%(MFPT) on different directed toy networks.}
+%Shown are the distances between node $n0$ and $n3$ measured in shortest path 
+%(SP) and mean first passage time (MFPT) respectively.
+%}
+%\label{fig:mfpt_directed_toy}
+%\end{figure}
 
 \subsubsection{Supernatant  from different co-cultures show distinct cytokine composition}
 
