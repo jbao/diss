@@ -825,12 +825,12 @@ distance metric based on random walk.
 In order to justify the information in the PPI network, we want to prune the
 raw interaction network to a smaller
 high-quality one. At the same time, we also want to keep as 
-much information as possible. In Fig.~\ref{fig:h838_component}, we prune the 
+much information as possible. In \ref{fig:h838_component}, we prune the 
 network with different cutoff values in the confidence score for a particular
 interaction. After pruning, the
 size of the largest connected component first stays constant with the increase 
 of the cutoff and then drops
-sharply at a cutoff value of 0.6. As a trade-off, we prune the PPI network
+sharply at a cutoff value of 0.6. As a trade-off, we choose to prune the PPI network
 to only have interactions with a confidence score $>0.6$ such that the data
 are reasonably reliable and the size of the network is also not too small to
 gain insights into the signal flow between receptors and transcription factors.
@@ -840,15 +840,105 @@ gain insights into the signal flow between receptors and transcription factors.
 \includegraphics[width=0.7\textwidth]{h838-component.pdf}
 \end{center}
 \caption[Confidence score cutoff]{
-{\bf Inverse nodal distance from EGFR to enriched 
-transcription factors at each time point.} 
-Inverse distance is measured by mean first passage time
-(MFPT) and shortest path (SP) respectively. Shaded area
-indicates the area under the curve (AUC) used to 
-characterize the overall proximity between a given
-receptor and all enriched transcription factors.
+{\bf Size of the largest connected component decreases with the confidence
+score cutoff.} 
+The size of the largest connected component in a pruned HIPPIE network decreases
+with the increase of the confidence score cutoff value.
 }
 \label{fig:h838_component}
+\end{figure}
+
+We further want to compare both shortest path length (SP) and mean first 
+passage time (MFPT) as a distance metric to infer the dynamic signal flow
+in the network from receptors to transcription factors. To this end, we
+first determined at eacj time point for each receptor its nearest transcription factor (with
+the shortest distance metric), this distance metric for a certain receptor
+$i$ is then $z$-transformed, such that both are comparable, or
+\[
+\tilde{D}_{i} = \frac{D_{i}-\mu(D)}{\sigma(D)}, 
+\]
+where $D \in \{SP,MFPT\}$ and $\mu$ and $\sigma$ are the population mean and 
+standard deviation respectively. In \ref{fig:h838_mfpt_sp}, we see the median
+statistics of both distance metrics are consistent over time. However, the 
+MFPT distributions are in general more skewed, have a larger dynamic range,
+whose bottom outliers represent candidate receptors with shortcuts to the
+downstream transcription factors and therefore likely crucial in the signal
+flow chain. On the other hand, the SP values are intrinsically discrete, as
+evident from the half-transparent blue dots. Since multiple receptors have
+the minimal SP distance, this metric is effectively less powerful in
+discriminating between receptors.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{h838-mfpt_sp_z.pdf}
+\end{center}
+\caption[MFPT and SP distribution]{
+{\bf Time-resolved distribution of MFPT and SP for receptors to the 
+nearest transcription factor.} 
+Shown are the boxplot of the standardized MFPT and SP distributions at 
+different time points. Individual data points are blue-shaded, jittered
+and superimposed on the boxplot.
+}
+\label{fig:h838_mfpt_sp}
+\end{figure}
+
+A hallmark of the eukaryotic genome is that individual genes are often 
+regulated by multiple transcription factors that combinatorially bind to 
+promoters of genes~\citep{Harbison2004}. Therefore, the activation of multiple transcription
+factors is vital to the regulatory machinery, which might also result
+in the signal flow from different membrane receptors.
+We selected all receptors with a significantly short MFPT distance (below the 5\% 
+quantile) to the transcription factor, and divided them into 5 different
+functional groups (\ref{fig:h838_mfpt_ts}), which all have distinct
+dynamics. Interleukin receptors in H838 cells are close to the transcription
+factors at an early stage, likely 
+transmitting the external stimulus signal from 0.5 to 10 hours after
+the scratch. C-X-C chemokine receptors and TGF-$\beta$ family receptors
+are likely responsible for the signal flow until 15h after scratch,
+whereas interferon receptors and TNF family receptors have short distances
+to the downstream transcription factors over the whole time span.
+We also fitted the raw data points with a local polynomial regression
+curve. It stands out that TNF family receptors both have a rich number
+of close-to-TF receptors over time, and have a narrow confidence region
+resulting from the fitting, which implies their robust role in the 
+cellular signal flow. Moreover, the closeness between TNF family receptors
+and TFs seems to be most prominent between 5 and 10 hours after the scratch.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{h838-mfpt_ts.pdf}
+\end{center}
+\caption[Time course of the MFPT distance]{
+{\bf Time course of the MFPT distance between the 5\% closest receptors
+to transcription factors.} 
+We plot the individual receptors (dots) and a LOESS (locally weighted 
+scatterplot smoothing) regression curve to monitor the receptor dynamics,
+the gray area is the 95\% confidence interval of the fit.
+}
+\label{fig:h838_mfpt_ts}
+\end{figure}
+
+As a more parsimonious ansatz, we also only look at the receptors with the 
+minimal MFPT distance for each time point (\ref{fig:h838_mfpt_top}).
+Under the assumption that only one receptor is responsible for the 
+signal transduction at one time point, the picture becomes even clearer.
+The interleukin and interferon receptors have the closest distances to
+TFs at the beginning and end of the experiment respectively. TGF-$\beta$
+and TNF family receptors drive the signal flow in turn, with TNF family
+receptors having a more pronounced time window between 2 and 5 hours
+after the scratch.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{h838-mfpt_top.pdf}
+\end{center}
+\caption[Receptors with the shortest MFPT at each time point]{
+{\bf The top-ranked receptors in terms of MFPT to TFs at each time point.} 
+We show the top receptors with the shortest MFPT to TFs at each time point,
+they consist of 4 groups, i.e. TNF family, TGF-$\beta$ family, interleukin and
+interferon receptors.
+}
+\label{fig:h838_mfpt_top}
 \end{figure}
 
 %As depicted in \ref{fig:h838_receptor_ts_ex}, the inverse
@@ -1014,21 +1104,25 @@ and was also upregulated after scratching.
 % Need a better headline for the subsection here 
 \subsubsection{Isolation of cytokines relevant to migration}
 
-Based on the previous results, 
-we found that the upregulated \sdfonea,
-RANTES, MCP-1 are the ligands for CXCR4, CCR5/1/2 respectively and thus agrees
-with the shortest path prediction very well. \tnfa and IL6/8 are
-representative cytokines from the interleukin and TNF
-family, which are also known to play a role
-in cell migration in general.
+Based on the cytokine array results and the receptor inference from random walk, 
+we found that 
+%the upregulated \sdfonea,
+%RANTES, MCP-1 are the ligands for CXCR4, CCR5/1/2 respectively and thus agrees
+%with the shortest path prediction very well. 
+\tnfa, \sdfonea and several interleukins have both enriched ligands in the medium and
+the corresponding receptors that are close to the downstream enriched 
+transcription factors.
+%representative cytokines from the interleukin and TNF
+%family, which are also known to play a role
+%in cell migration in general.
 % need some idea why we did not add MIF to the candidate list
 %(TNF-$\alpha$, IL-6, RANTES, SDF-1$\alpha$, MCP-1, IL-8, Gro-$\alpha$).
-Furthermore, we added VEGF to the candidate list for its known involvement in
-angiogenesis and metastasis of tumor cells~\citep{Ferrara2003,Hiratsuka2002} and GRO-$\alpha$ as a ligand for CXCR2, which is also highly expressed in the medium.
 
 To test the influence of the above factors on tumor cell migration,
 we analysed scratch assays of H838 monocultures under the influence of 
 individual or multiple of these cytokines. 
+Furthermore, we added VEGF to the candidate list for its known involvement in
+angiogenesis and metastasis of tumor cells~\citep{Ferrara2003,Hiratsuka2002} and GRO-$\alpha$ as a ligand for CXCR2, which is also highly expressed in the medium.
 Comparing migration areas after 24h, 
 we found that only IL-6, TNF-$\alpha$ and SDF-1$\alpha$ significantly 
 increase the migration of H838 cells (\ref{fig:cytokine} B, two-sided $t$-test,
@@ -1068,17 +1162,22 @@ different from the control according to a two-sided $t$-test ($p < 0.05$).
 
 \subsubsection{Cytokine genes are expressed differently in H838 and HPAEC}
 
-To elucidate the origin of the differential cytokine concentrations,
+To elucidate the origin of the cytokines that have an impact on the tumor
+cell migration,
 we investigated the gene expression profiles of
-our previously identified cytokines of interest in H838 cells. 
+our previously identified cytokines of interest in both H838 and HPAEC cells. 
 %We compared the basal 
 %expression levels of all genes with protein products
 %annotated as cytokines in the KEGG cytokine-cytokine receptor interaction pathway. 
 %However, none of the cytokine encoding genes 
 %showed a differential basal regulation between the two coculture conditions. Over time, IL6 and CXCL14 are significantly
 %down-regulated, and CSF1 is significantly up-regulated. 
-Both \tnfa and \sdfonea do
-not respond differentially during H838 migration (\ref{fig:cytokine_dynamic} A)
+Neither \tnfa nor \sdfonea in the H838 cells
+responds differentially during H838 migration (\ref{fig:cytokine_dynamic} A).
+However, 
+an RT-qPCR experiment confirmed an early and transient response of  
+TNF-$\alpha$ as well as a later and prolonged upregulation of 
+SDF-1$\alpha$ in the HPAEC cells (\ref{fig:cytokine_dynamic} B). 
 % maybe put this figure into the supplement
 %Looking at the basal expression levels within each culture condition, only five out of 162 cytokines (IL18, IL10, PDGFC, BMP7 and TNFSF12) 
 %had a significantly high expression level in both conditions
@@ -1126,12 +1225,11 @@ over time. Blue dashed lines denote the impulse model fit~\cite{Chechik2009}.
 %\label{fig:cytokine_basal}
 %\end{figure}
 
-We conclude that differential cytokine regulation in the supernatant 
+We conclude that the cytokines in the supernatant that can drive the migration
+phenotype
 must originate primarily from the HPAEC cells.  
-An RT-qPCR experiment confirmed an early and transient response of  
-TNF-$\alpha$ as well as a later and prolonged upregulation of 
-SDF-1$\alpha$ (\ref{fig:cytokine_dynamic} B). 
-Fitting the time course with an impulse model 
+\sdfonea is expressed in the HPAEC cells with both a delay and a longer peak duration.
+By fitting the qPCR time course with an impulse model 
 (\ref{sec:impulse}), which measures the peak 
 duration as the 
 temporal difference between the inflection points of two
@@ -1159,18 +1257,18 @@ with the causal signal flow in the protein interaction network. First, gene set
 enrichment analysis was applied to infer the sequence of transcription factor
 activation that results in the gene expression. Second, we predicted several
 putative receptors that are most closely linked to the downstream transcription
-factors from the 
-shortest path in the interactome. Among all candidate receptors,
+factors based on 
+a random walk approach in the interactome. Among all candidate receptors,
 TNF-$\alpha$ and SDF-1$\alpha$ receptors have a direct effect on the phenotype,
 and the inhibition of the respective ligands leads to reduced migration 
 activity. We further
 hint at endothelial cells as possible sources for \tnfa and \sdfonea.
 
-We discuss next about endothelial cell-tumor cell communication, what is known and what we found at transcription and protein level.
+We discuss next about endothelial cell-tumor cell communication, what is known and what we found at the transcription and protein level.
 We also speculate the role of \tnfa and \sdfonea in tumors and especially lung tumors.
 
 \begin{itemize}
-\item \textbf{What do we know about \tnfa and \sdfonea with respect to cell migration?}
+\item \textbf{What do we know about \tnfa and \sdfonea with respect to tumor cell migration?}
 
 \tnfa was first identified as an anti-tumor cytokine that is involved in the killing
 of certain kinds of tumors, however, it is appreciated recently that \tnfa can also 
@@ -1194,34 +1292,50 @@ The identification of \tnfa as a key stroma-originating factor that promotes
 tumor cell migration is of great interest, since its release is a general response to chemotherapy in different stromal cell types~\citep{Acharyya2012}. Together with
 other cytokines, such as HGF, that contribute to the drug resistance of cancer
 treatment~\citep{Straussman2012}, these soluble factors in the tumor microenvironment
-might be the key to the cancer therapy and the potential target of intervention.
+might be the key to the adverse effects in the cancer therapy and the potential target of intervention.
 
 
 \item \textbf{What is new in our methods?}
 
-The advantage of our two-step approach to identifying signal flow in the protein 
-interaction
-network and relevant transcription factors that lead to the transcriptome response
+The advantage of our two-step integrative approach to identifying 
+relevant transcription factors that lead to the transcriptome response
+and the signal flow in the protein interaction network 
 is at least two-fold: first, we apply gene set enrichment test to avoid the hard 
 significance cutoff in the conventional hypergeometric test and at the same time
 to detect weak but coordinated regulation of transcription factor targets. This is 
 necessary since the tumor cell transcriptome does not show significantly
 differential regulation between the homo- and heterogeneous coculture 
-(\ref{fig:h838_transcriptome}), which 
+(\ref{fig:h838_transcriptome}) although they differ in the phenotype, which 
 hints at a lack of correlation between the mRNA expression level and the protein 
 activity. This in turn underlines the rationale behind the time-scale separation
-in our approach. Second, due to the decoupling between the mRNA and protein
+in our approach. 
+
+Second, due to the decoupling between the mRNA and protein
 activities, it is vital to consider signaling pathways not directly represented
 in the transcriptome data, but rather embedded in the protein interaction network
 instead. In order to infer the signal flow from the membrane receptors to 
-transcription factors, we simply assume that the signal traverses the shortest
-path connecting a certain pair of receptor and transcription factor.
+transcription factors, we simply assume that the signal traverses the most efficient
+path connecting a certain pair of receptor and transcription factor, which is 
+defined by the mean first passage time of a random walker and takes into account
+the global topology of the protein interaction network.
 
-\item \textbf{What new  biology do we find?}
+\item \textbf{What new  biological insights do we gain?}
+
+The combination of the random walk approach, cytokine array and single factor
+stimulation together confirms the involvement of \tnfa and interleukins in the
+signal flow and phenotype development of the tumor cells. The fact that \sdfonea
+is only present in the tumor-endothelial cell heterogeneous coculture makes it
+also a candidate in the migration determination, which is also validated by the 
+single factor stimulation and neutralizing antibody experiments.
 
 Based on our time-resolved qPCR results, we conclude that \tnfa in the endothelial 
 cells is 
-transiently expressed and peaks earlier than \sdfonea, whereas the latter has
+transiently expressed and peaks earlier than \sdfonea, which is in line with
+the random walk prediction that TNF familiy receptors are strongly linked to
+the transcription factors between 2 and 5 hours after the scratch. This receptor
+wave in the H838 cells lags behind the ligand transcript level in the HPAEC cells,
+and is also more sustained, possibly due to certain positive feedback mechanisms.
+\sdfonea, in contrast, has
 a longer activation time window. These results are in line with the hypothesis 
 that \tnfa induces the CXCR4 expression in tumor cells, which can then respond
 to \sdfonea. Nevertheless, CXCR4 in the lung cancer cell line H838 is neither
@@ -1247,7 +1361,9 @@ increased intracellular calcium mobilization and MAP kinase
 activation with enhanced ERK1/2 phosphorylation~%
 \citep{Belperio2004}, which is 
 known to be upstream of the AP-1 transcription complex.
-Therefore, all evidence points to the important role of the
+Adding to the observation that the MAP kinase pathway genes are also enriched 
+in the tumor cells of the heterogeneous coculture, 
+all evidence points to the important role of the
 AP-1 complex in the tumor cells to convey the information of  
 the \sdfonea/CXCR4 activation from the microenvironment and to initiate cell
 migration~\citep{Busch2008,Singh2012}.
@@ -1273,29 +1389,29 @@ the CXCR4 ligand \sdfonea by endothelial cells within the same time frame.
 %ultimately determines \emph{point of no return} of the enhanced migration phenotype 
 %in the tumor cells.
 
-\begin{figure}[!ht]
-\hskip 0.5in A \hskip 2.5in B
-\begin{center}
-\includegraphics[width=0.45\textwidth]{mfpt-directed_bar.pdf}
-\includegraphics[width=0.45\textwidth]{sp-directed_bar.pdf}
-\end{center}
-\caption[Differential basal and dynamic gene expression]{
-{\bf Differential basal and dynamic gene expression in homo- and heterogeneous 
-cocultures.} 
-(A) Histogram of the differential gene expression at 0h as determined by limma~%
-\citep{Smyth2004}. 
-Basal differential expression is 
-represented as the negative log-transformed and multiple
-testing corrected $p$-value of the limma test.
-(B) Histogram of the differential gene expression over time as determined by the
-full/reduced model fitting~\citep{Mar2009}.
-Dynamical differential expression is 
-represented as the negative log-transformed and multiple
-testing corrected $p$-value of the full/reduced model
-likelihood ratio test.
-}
-\label{fig:mfpt_sp_bar}
-\end{figure}
+%\begin{figure}[!ht]
+%\hskip 0.5in A \hskip 2.5in B
+%\begin{center}
+%\includegraphics[width=0.45\textwidth]{mfpt-directed_bar.pdf}
+%\includegraphics[width=0.45\textwidth]{sp-directed_bar.pdf}
+%\end{center}
+%\caption[Differential basal and dynamic gene expression]{
+%{\bf Differential basal and dynamic gene expression in homo- and heterogeneous 
+%cocultures.} 
+%(A) Histogram of the differential gene expression at 0h as determined by limma~%
+%\citep{Smyth2004}. 
+%Basal differential expression is 
+%represented as the negative log-transformed and multiple
+%testing corrected $p$-value of the limma test.
+%(B) Histogram of the differential gene expression over time as determined by the
+%full/reduced model fitting~\citep{Mar2009}.
+%Dynamical differential expression is 
+%represented as the negative log-transformed and multiple
+%testing corrected $p$-value of the full/reduced model
+%likelihood ratio test.
+%}
+%\label{fig:mfpt_sp_bar}
+%\end{figure}
 
 \end{itemize}
 
