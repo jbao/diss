@@ -1269,6 +1269,46 @@
   url = {http://dx.doi.org/10.1038/onc.2012.37}
 }
 
+@ARTICLE{Kamburov2012,
+  author = {Atanas Kamburov and Ulrich Stelzl and Ralf Herwig},
+  title = {{IntScore}: a web tool for confidence scoring of biological interactions.},
+  journal = {Nucleic Acids Res},
+  year = {2012},
+  volume = {40},
+  pages = {W140--W146},
+  number = {Web Server issue},
+  month = {Jul},
+  abstract = {Knowledge of all molecular interactions that potentially take place
+	in the cell is a key for a detailed understanding of cellular processes.
+	Currently available interaction data, such as protein-protein interaction
+	maps, are known to contain false positives that inevitably diminish
+	the accuracy of network-based inferences. Interaction confidence
+	scoring is thus a crucial intermediate step after obtaining interaction
+	data and before using it in an interaction network-based inference
+	approach. It enables to weight individual interactions according
+	to the likelihood that they actually take place in the cell, and
+	can be used to filter out false positives. We describe a web tool
+	called IntScore which calculates confidence scores for user-specified
+	sets of interactions. IntScore provides six network topology- and
+	annotation-based confidence scoring methods. It also enables the
+	integration of scores calculated by the different methods into an
+	aggregate score using machine learning approaches. IntScore is user-friendly
+	and extensively documented. It is freely available at http://intscore.molgen.mpg.de.},
+  doi = {10.1093/nar/gks492},
+  institution = {Vertebrate Genomics Department and Otto-Warburg Laboratory, Max Planck
+	Institute for Molecular Genetics, Ihnestrasse 63-73, 14195 Berlin,
+	Germany. kamburov@molgen.mpg.de},
+  keywords = {Gene Regulatory Networks; Internet; Protein Interaction Mapping, methods;
+	Software},
+  language = {eng},
+  medline-pst = {ppublish},
+  owner = {bao},
+  pii = {gks492},
+  pmid = {22649056},
+  timestamp = {2013.10.19},
+  url = {http://dx.doi.org/10.1093/nar/gks492}
+}
+
 @ARTICLE{Kerbel1997,
   author = {Kerbel, Robert S.},
   title = {A cancer therapy resistant to resistance},
@@ -2151,6 +2191,39 @@
   url = {http://dx.doi.org/10.1164/rccm.200301-071OC}
 }
 
+@ARTICLE{Przytycka2010b,
+  author = {Teresa M Przytycka and Mona Singh and Donna K Slonim},
+  title = {Toward the dynamic interactome: it's about time.},
+  journal = {Brief Bioinform},
+  year = {2010},
+  volume = {11},
+  pages = {15--29},
+  number = {1},
+  month = {Jan},
+  abstract = {Dynamic molecular interactions play a central role in regulating the
+	functioning of cells and organisms. The availability of experimentally
+	determined large-scale cellular networks, along with other high-throughput
+	experimental data sets that provide snapshots of biological systems
+	at different times and conditions, is increasingly helpful in elucidating
+	interaction dynamics. Here we review the beginnings of a new subfield
+	within computational biology, one focused on the global inference
+	and analysis of the dynamic interactome. This burgeoning research
+	area, which entails a shift from static to dynamic network analysis,
+	promises to be a major step forward in our ability to model and reason
+	about cellular function and behavior.},
+  doi = {10.1093/bib/bbp057},
+  institution = {National Center of Biotechnology Information, NLM, NIH, 8000 Rockville
+	Pike, Bethesda MD 20814, USA. przytyck@ncbi.nlm.nih.gov},
+  keywords = {Proteins, chemistry; Systems Biology},
+  language = {eng},
+  medline-pst = {ppublish},
+  owner = {bao},
+  pii = {bbp057},
+  pmid = {20061351},
+  timestamp = {2013.10.18},
+  url = {http://dx.doi.org/10.1093/bib/bbp057}
+}
+
 @ARTICLE{Saijo2002i,
   author = {Yasuo Saijo and Masashi Tanaka and Makoto Miki and Kazuhiro Usui
 	and Takuji Suzuki and Makoto Maemondo and Xin Hong and Ryushi Tazawa
@@ -2311,6 +2384,64 @@
   pmid = {15466186},
   timestamp = {2012.07.02},
   url = {http://dx.doi.org/10.1158/0008-5472.CAN-04-0677}
+}
+
+@ARTICLE{Schaefer2013,
+  author = {Martin H Schaefer and Tiago J S Lopes and Nancy Mah and Jason E Shoemaker
+	and Yukiko Matsuoka and Jean-Fred Fontaine and Caroline Louis-Jeune
+	and Amie J Eisfeld and Gabriele Neumann and Carol Perez-Iratxeta
+	and Yoshihiro Kawaoka and Hiroaki Kitano and Miguel A Andrade-Navarro},
+  title = {Adding protein context to the human protein-protein interaction network
+	to reveal meaningful interactions.},
+  journal = {PLoS Comput Biol},
+  year = {2013},
+  volume = {9},
+  pages = {e1002860},
+  number = {1},
+  abstract = {Interactions of proteins regulate signaling, catalysis, gene expression
+	and many other cellular functions. Therefore, characterizing the
+	entire human interactome is a key effort in current proteomics research.
+	This challenge is complicated by the dynamic nature of protein-protein
+	interactions (PPIs), which are conditional on the cellular context:
+	both interacting proteins must be expressed in the same cell and
+	localized in the same organelle to meet. Additionally, interactions
+	underlie a delicate control of signaling pathways, e.g. by post-translational
+	modifications of the protein partners - hence, many diseases are
+	caused by the perturbation of these mechanisms. Despite the high
+	degree of cell-state specificity of PPIs, many interactions are measured
+	under artificial conditions (e.g. yeast cells are transfected with
+	human genes in yeast two-hybrid assays) or even if detected in a
+	physiological context, this information is missing from the common
+	PPI databases. To overcome these problems, we developed a method
+	that assigns context information to PPIs inferred from various attributes
+	of the interacting proteins: gene expression, functional and disease
+	annotations, and inferred pathways. We demonstrate that context consistency
+	correlates with the experimental reliability of PPIs, which allows
+	us to generate high-confidence tissue- and function-specific subnetworks.
+	We illustrate how these context-filtered networks are enriched in
+	bona fide pathways and disease proteins to prove the ability of context-filters
+	to highlight meaningful interactions with respect to various biological
+	questions. We use this approach to study the lung-specific pathways
+	used by the influenza virus, pointing to IRAK1, BHLHE40 and TOLLIP
+	as potential regulators of influenza virus pathogenicity, and to
+	study the signalling pathways that play a role in Alzheimer's disease,
+	identifying a pathway involving the altered phosphorylation of the
+	Tau protein. Finally, we provide the annotated human PPI network
+	via a web frontend that allows the construction of context-specific
+	networks in several ways.},
+  doi = {10.1371/journal.pcbi.1002860},
+  institution = {Computational Biology and Data Mining, Max Delbrück Center for Molecular
+	Medicine, Berlin, Germany.},
+  keywords = {Alzheimer Disease, metabolism; Biocatalysis; Humans; Phosphorylation;
+	Protein Binding; Proteins, metabolism; Proteome; Signal Transduction;
+	Viral Proteins, metabolism},
+  language = {eng},
+  medline-pst = {ppublish},
+  owner = {bao},
+  pii = {PCOMPBIOL-D-12-01075},
+  pmid = {23300433},
+  timestamp = {2013.10.19},
+  url = {http://dx.doi.org/10.1371/journal.pcbi.1002860}
 }
 
 @ARTICLE{Shuai2003,
