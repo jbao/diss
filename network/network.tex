@@ -22,7 +22,7 @@ topology in \emph{in silico} networks, finally we present a biological applicati
 \section{Complex networks in biology and beyond}
 Biological phenomena are described in the context of a network
 at all spatial and temporal scales, from food web~\citep{Williams2000}, 
-neuronal network~\citep{White1986}, gene regulatory networks~%
+neuronal network~\citep{White1986,Bullmore2009}, gene regulatory networks~%
 \citep{Kauffman1969,Gama-Castro2008,Abdulrehman2011},
 protein-protein interaction networks~\citep{Jeong2001,Stelzl2005}
 to metabolic network~\citep{Herrgaard2008}.
@@ -39,32 +39,46 @@ small-world network model~\citep{Watts1998} did people
 realize that there is a class of networks, which is neither
 purely random nor purely regular and can represent most of
 the real-world structures, ranging from Internet, power grid
-to collaboration graph of film actors, and also biological
-networks.
+to collaboration graph of film actors, and last but not least, 
+biological networks.
 
-Study of biological networks has been largely inspired by the theoretical 
+The study of biological networks has been largely inspired by the theoretical 
 analyses of other types of networks~\citep{Barabasi2004}. In recent years, 
 there is also increasing interest in the comparison between biological and
 other networks. For instance, the transcriptional regulatory network of 
 \emph{E. coli} is found to have a triangle-like hierarchical 
 structure, whereas the Linux kernel displays rather an inverse-triangle
-hierarchy, which again is due to different design principles of the two 
+hierarchy, which is believed to be due to different design principles of the two 
 systems: robustness for biological systems and cost effectiveness for 
 software systems~\citep{Yan2010}.
-Such findings highlight the hypothesis of \emph{form follows function}, or 
+Such findings highlight the hypothesis of \emph{function follows form}, or 
 the function of complex networks is reflected in their distinct structural 
 properties.
 
 \section{Network topology}
-There are a variety of measures that characterize the topology of networks,
-some capture local network topology, yet others are global topological measures.
+There are a variety of methods to determine the topology of biological
+networks. For gene regulatory/transcription factor binding networks,
+either the perturbation of individual components~\citep{Davidson2002} or
+the large-scale identification of transcription factor-binding sites 
+using chromatin immunoprecipitation followed by probing of genomic microarrays 
+(ChIP-chip)~\citep{Horak2002b} or DNA sequencing (ChIP-seq)~\citep{Johnson2007} 
+has been used to assemble networks.
+In the case of protein-protein interaction networks, either yeast two-hybrid~%
+\citep{Uetz2000,Ito2001}
+or affinity purification followed by mass spectrometry~\citep{Gavin2006} is applied to 
+generate large scale datasets. 
+Independent of the type of the data, the study of topology in biological networks
+can be assisted by
+a large number of graph-theoretic topological measures.
+The focus of a certain measure ranges from the local network topology to 
+global topological features.
 
 \subsection{Topological measures}
 
 \subsubsection{Degree and degree distribution}
 The \emph{degree} (or connectivity) $k_i$ of a node $i$ is the number of edges 
 connecting the node, in case of directed networks, one further distinguishes
-between incoming ($k_i^{in}$) and outgoing degree ($k_i^{out}$). Then the total 
+between the incoming ($k_i^{in}$) and outgoing degree ($k_i^{out}$). Then the total 
 degree is defined as $k_i = k_i^{out} + k_i^{in}$. A list of the node degrees 
 of a network is called the \emph{degree sequence}.
 
@@ -72,9 +86,9 @@ The \emph{degree distribution} $P(k)$, or the fraction of nodes in the graph
 $G$ having degree $k$, is probably the most basic topological 
 characterization of a graph. It has been shown that the degree distribution of
 a neuronal network determines its global oscillatory state~\citep{Roxin2011}, 
-and the number of driver nodes in a network is determined mainly by the 
-network's degree distribution, assuming linear dynamics at
-individual nodes~\citep{Liu2011}.
+and by assuming linear dynamics at the individual nodes, 
+the number of driver nodes in a network is determined mainly by the 
+network's degree distribution~\citep{Liu2011}.
 
 \subsubsection{Shortest path and betweenness}
 \label{sec:shortest_path}
@@ -83,7 +97,7 @@ role in the transport and communication
 within a network. Although highly efficient algorithm exists to perform
 route planning such as in Google Maps~\citep{Sanders2005}, common algorithms
 for calculating shortest paths are Dijkstra's algorithm~\citep{Dijkstra1959} for weighted networks
-and the breadth-first search (ref!) for unweighted networks.
+and the breadth-first search~\citep{West2000} for unweighted networks.
 
 An extension of the shortest path is a measure of the importance of a given 
 node defined by the sum of the fraction of all-pairs shortest paths that pass 
@@ -130,18 +144,21 @@ leads to the isolation of the communities. Most recently, \cite{Ahn2010b}
 suggested that each node in a network can in principle belong to more than 
 one functional group, they therefore reinvented the definition of communities 
 as groups of links rather than nodes and demonstrated this approach can uncover
-natural overlap while revealing hierarchical organization of the network.
+the natural overlap while revealing hierarchical organization of the network.
 
 \subsection{Scale-free networks}
 \label{sec:scale_free}
 Together with the small-world network model, the scale-free network model~%
 \citep{Barabasi1999} has
-also attracted much attention in the research community. The basic idea of 
+also attracted much attention in the research community.~% 
+\footnote{We think this topic deserves its own section and we also discuss
+the relevance of scale-free networks in our results later.}
+The basic idea of 
 how a scale-free network and its power-law degree distribution comes into
 existence is called preferential attachment. In other words, at each time
 step of a growing network, a new node is added to a certain node in the 
 network based on the probability that is proportional to the degree of the
-given node, i.e. strongly connected nodes will get more and more connections,
+given node, i.e. strongly connected nodes will get more and more connections, or
 popular nodes will be even more attractive. Such a model is able to reproduce
 the power-law degree distribution observed in scale-free networks.
 
@@ -166,7 +183,7 @@ interaction network~\citep{Deeds2006}.
 
 \section{Network dynamics}
 Imagine the scene of fireworks, the beauty lies exactly in the whole sequence 
-of explosive events. When you try to snap a shot, maybe you will end up with
+of explosive events. When you try to snap a shot, it is possible that you end up with
 a black sky. Even if you are able to capture the highlight, you still 
 effectively miss certain information, such as how the visual pattern developed,
 what is the interval between consecutive illuminations. 
@@ -174,7 +191,8 @@ On the other extreme, one also loses information when making
 a long-exposure photograph out of the whole sequence.
 The same holds in the
 study of complex networks, if we want to understand the behavior of networks,
-we always have to study their dynamics, rather than simply in a static context.
+we always have to study their dynamics at an appropriate time scale, 
+rather than simply in a static context.
 
 Here the network dynamics refers specifically to the dynamic response of the 
 gene regulatory network. Such data are usually obtained from the microarray
@@ -193,7 +211,7 @@ thus multidimensional time series.
 In the following we provide two distinct 
 perspectives of viewing the gene expression time series, namely ranking the 
 single gene dynamics within the same experimental condition by multidimensional
-scaling, and likelihood ratio test of kinetic profiles between two conditions
+scaling, and a likelihood ratio test of kinetic profiles between two conditions
 by fitting a linear model to the time series.
 
 \subsection{Dimensionality reduction}
@@ -308,7 +326,7 @@ avoids being stuck in local minima.
 \caption[Performance of the MDS algorithm]{
 {\bf Comparison of PCA and MDS algorithm.}
 (A) Singular 
-value decomposition, which is the basis of PCA. (B) SVD-MDS
+value decomposition (SVD), which is the basis of PCA. (B) SVD-MDS
 proposed by \citealp{Becavin2011}, which first makes use of
 SVD to initialize the low-dimensional configuration in MDS.
 (C,D) MDS run with two different random initial 
@@ -359,10 +377,9 @@ the maximum likelihood method as implemented in the
 library \texttt{sn}.
 
 \subsection{Heavy-tailed response distribution}
-Based on the multidimensional scaling, we observe an 
-invariant response pattern that only few genes are strongly 
-induced upon stimulation, while the majority reacts
-moderately (\ref{fig:response_strength}). 
+Based on the multidimensional scaling, we assessed
+the response pattern of gene regulatory networks in different
+experimental setups (\ref{fig:response_strength}). 
 For example, in the case of transcripts
 profiled in primary human keratinocytes under the stimulation of 
 hepatocyte growth factor (HGF)~\citep{Busch2008}, we found the distribution of response
@@ -371,7 +388,8 @@ only few genes are strongly induced by a certain stimulus, while the majority
 are barely regulated. This long-tail response strength
 distribution is also observed in other cell types with various stimuli.
 Among them are yeast cells that undergo cell cycles when synchronized by 
-$\alpha$-factor~\citep{Spellman1998,Cho1998}, mouse skin cells stimulated with TPA~\citep{Riehl2010} and erythrocyte progenitor
+$\alpha$-factor~\citep{Spellman1998,Cho1998}, mouse skin cells stimulated with TPA,
+an inducer of skin inflammation~\citep{Riehl2010} and erythrocyte progenitor
 (CFU-E) cells from the mouse fetal liver stimulated with erythropoietin (Epo)~\citep{Bachmann2011}. 
 
 \begin{figure}[!ht]
@@ -387,7 +405,9 @@ is normalized to 1. Datasets used in this plot include
 primary human keratinocytes 
 stimulated with hepatocyte growth factor (ArrayExpress database 
 \texttt{http://www.ebi.ac.uk/arrayexpress/},
-accession number E-TABM-440); CFU-E cells from mouse fetal livers stimulated
+accession number E-TABM-440); Mouse skin cells stimulated with TPA,
+an inducer of skin inflammation (provided by the author); 
+CFU-E cells from mouse fetal livers stimulated
 with Epo (GEO database \texttt{http://www.ncbi.nlm.nih.gov/geo/}, accession
 number GSE26151); yeast cells synchronized with 
 $\alpha$-factor to study the cell cycle
@@ -402,11 +422,12 @@ distribution up to a certain range (\ref{fig:response_fit}).
 Nevertheless, the response distributions from various 
 biological systems do share the same shape between each 
 other (\ref{fig:response_qqplot}). Taken together, gene
-responses are indeed heavy-tailed distributed, with few
+responses in various systems are indeed heavy-tailed distributed, with few
 genes strongly regulated and the majority only moderately
-regulated, but they do not follow the power-law distribution,
+regulated. However, the response strength itself does not exactly 
+follow the power-law distribution,
 which underlines again the necessity of assessing power-law
-distribution on empirical data within a rigorous statistical
+distributions on empirical data within a rigorous statistical
 framework~\citep{Clauset2009}.
 
 \begin{figure}[!ht]
@@ -448,12 +469,13 @@ proof of various microarray normalization schemes, since it is often assumed
 that the majority of 
 genes are not differentially regulated or the number of upregulated genes 
 roughly equals the number of downregulated genes~\citep{Do2006}.
-It is known that the structures of
+Furthermore, it is known that the structures of
 regulatory networks in various species are highly conserved~\citep{Brown2007}, 
 we thus hypothesize that this
 universally invariant transcriptome response pattern results from the generic
-topological features of the gene regulatory networks. Further questions 
-arise, what distinguishes 
+topological features of the gene regulatory networks. To test this hypothesis,
+the following questions also
+arise, namely what distinguishes 
 between the strongly and weakly responding genes? How is phenotype encoded 
 in the gene network?
 
@@ -864,7 +886,7 @@ area~\citep{Busch2008,Schnickmann2009}.
 
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=\textwidth]{degree_response_hgf.pdf}
+\includegraphics[width=\textwidth]{degree_response_hgf_modified.pdf}
 \end{center}
 \caption[Degree-response anti-correlation of HGF-induced response]{
 {\bf Degree-response anti-correlation of gene regulation in HGF-stimulated
