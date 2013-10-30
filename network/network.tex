@@ -502,7 +502,7 @@ network models, both in terms of topology and dynamics.
   is constructed in the following manner. Each node $i$ has a desired degree $k_i$, 
   so we imagine that each node has $k_i$ edge ``stubs'' attached to it. Edges are 
   then assigned by randomly choosing two stubs and drawing an edge between them.
-\item Small-world: a small-world graph with 1000 nodes 
+\item Small-world: a small-world graph  
 according to the 
 Watts-Strogatz model~\citep{Watts1998} is generated, 
 each node is connected
@@ -523,7 +523,9 @@ except that Poisson in-degree (with $\lambda = 3$) and power-law
   concatenated to the other one through the root nodes, such that the resulting
   graph is of the multiple-input multiple-output type.
 \end{itemize}
-All networks have 1000 nodes and are generated with the Python package NetworkX 
+All \emph{ad hoc} parameters are chosen in order to keep the total number of connections
+and the incoming degree of a node manageable in the numerical simulation.
+The network size is varied from 10 to 1000 nodes and are generated with the Python package NetworkX 
 (\citealp{Hagberg2008}), they are further made sure to be connected.
 
 \subsubsection{Dynamics}
@@ -590,6 +592,19 @@ topology, but changed both the intrinsic response of individual genes and
 the connection strength by tuning the kinetic and topological parameters 
 respectively.
 
+\subsubsection{Stimulation scheme}
+Except otherwise noted, we use normally distributed perturbation factors
+to stimulate the network away from the steady state (\emph{norm}). More precisely, the
+perturbation factor applied to the basal activation rate $\alpha_0$ 
+is a random number generated from the normal distribution
+$\mathcal{N}(0,0.33)$. Under circumstances, we also applied two different
+perturbation strategies. In the \emph{max} perturbation, all basal activation
+rates are clamped to the maximal value of 1 at the beginning of the
+simulation. In the case of ranked perturbation (\emph{rank}), we apply a
+perturbation factor proportional to the degree of a node, with a scaling 
+factor of 0.01. Therefore, hub nodes are perturbed more strongly and 
+sparsely connected nodes are only moderately perturbed.
+
 \begin{figure}[!ht]
 \begin{center}
 \includegraphics[width=\textwidth]{rewiring_scheme.pdf}
@@ -604,12 +619,12 @@ coded in gray scale.
 \label{fig:rewiring_scheme}
 \end{figure}
 
-\subsection{Topology determines dynamics}
+\subsection{Topology predominates kinetics}
 We investigate the influence of network topology on the immediate, dynamic gene response in networks. 
 To first gain insight into the role that network topology plays, we compared
 the different network responses after change of topology and change of model
 parameters in an ensemble of \emph{E. coli} networks.
-In the case of rewiring, we permutated the order of target nodes while keeping
+In the case of rewiring, we permuted the order of target nodes while keeping
 the number of connections and kinetics parameters such as synthesis and 
 degradation rates constant. Pearson correlation coefficients of the response
 strengths before and after rewiring decrease slightly with the network size 
@@ -643,11 +658,15 @@ sizes.
 
 One has to keep in mind that when changing the parameters,
 the connection strengths of individual edges are also varied,
-and only the network connectivity remains the same. However,
+and only the network connectivity remains the same. Nevertheless,
 parameter change has in general a higher correlation coefficient
 and thus less effect than rewiring, which changes the connectivity.
+Therefore, the network response pattern changes most dramatically
+if and only if the wiring scheme
+itself, rather than the connection strengths, is changed.
 This result highlights the importance of network topology in
-determining the network dynamics, since rewiring decreases
+determining the network dynamics, 
+since rewiring decreases
 the correlation of network response more strongly than 
 parameter change, and this effect becomes more pronounced in
 larger networks. Our conclusion is very much in line with a 
@@ -690,14 +709,15 @@ and \emph{S. cerevisiae} (\citealp{Balaji2006}). In the case of human and
 mouse cells, no such comprehensive gene regulatory networks is available
 and we thus took the protein-protein interaction network from BioGRID~%
 \citep{Stark2006} as a first approximation. 
-We further investigate the same correlation in a random,
+We further investigate the same correlation in a synthetic random,
 uniform, small-world, scale-free or bow-tie network. Network dynamics was simulated after 
 random 
-multi-factorial perturbations from the steady state. Afterwards, the response 
+multi-factorial perturbations from the steady state. 
+For both biological and synthetic networks, the response 
 strengths of individual genes are quantified by means of multidimensional 
 scaling (\ref{sec:response_strength}). 
 This workflow enables us to investigate how the dynamic
-response pattern of a network relates to its topology. 
+response pattern of a network relates to its topology (\ref{fig:degree_response_example}). 
 
 \begin{figure}[!ht]
 \begin{center}
@@ -716,7 +736,7 @@ represent the centers of mass for each 2-D point distribution.
 
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=\textwidth]{degree_response-summary.pdf}
+\includegraphics[width=0.8\textwidth]{degree_response-summary.pdf}
 \end{center}
 \caption[Comparison between biological and \emph{in silico} networks]{
 {\bf Centers of mass of the response-connectivity distribution for biological
@@ -733,22 +753,153 @@ of change in expression are more likely to be peripheral nodes
 (low connectivity) in the network, whereas hubs (nodes with higher 
 connectivity) and superhubs (nodes that link hubs) tend to have a lower level 
 of change in expression. This anti-correlation is less pronounced in 
-\emph{in silico} networks to different extents. By characterizing the 
+\emph{in silico} networks to different degree, as can be seen from the closeness
+of the red center of mass to the blue identity line. By characterizing the 
 anti-correlation using the center of mass for each point distribution, we
 can show that scale-free\footnote{Although this result should be interpreted 
 with caution according to \ref{sec:scale_free}.} and bow-tie networks are more closely related to
 biological networks, whereas random, uniform and small-world networks behave
 differently (\ref{fig:degree_response_summary}).
 
+\subsection{Topology and perturbation together shape the network dynamcis}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{degree_response-deg_dist.pdf}
+\end{center}
+\caption[Combination of topology and perturbation]{
+{\bf Comparisons of the connectivity-response pattern.} 
+Comparison of the connectivity-response
+anti-correlation for different network topologies and
+perturbation schemes. norm: normally distributed perturbation
+factor, max: perturb all genes to the maximum level of 1 at
+the initial time point, rank: perturbation strength
+proportional to the node degree (hubs more strongly
+perturbed).
+Blue dashed lines indicate the identity and red asterisks 
+represent the centers of mass for each 2-D point distribution.
+}
+\label{fig:degree_response_deg_dist}
+\end{figure}
+
+In order to determine what is the driving force behind the ubiquitous
+anticorrelated pattern between response strength and connectivity, we
+further investigated different combinations of the network topology and
+external stimulation schemes and how they affect the network response
+pattern (\ref{fig:degree_response_deg_dist}). 
+The scale-free networks with both the \emph{norm} and \emph{max}
+perturbation strategies resemble the connectivity-response pattern of 
+biological networks pretty well (cf. \ref{fig:degree_response_example}), 
+as can be seen from both centers of mass
+lying closely to the diagonal. In the case of \emph{rank} perturbation,
+although the center of mass remains at the bottom left corner, the node
+connectivity and its response strength clearly show a positive correlation,
+which stands out from the remaining networks. 
+
+\begin{figure}[!ht]
+\hskip 0.5in A \hskip 2.5in B
+\begin{center}
+\includegraphics[width=0.45\textwidth]{degree_response-ks2d.pdf}
+\includegraphics[width=0.45\textwidth]{degree_response-ks2d_yeast.pdf}
+\end{center}
+\caption[Comparison of the synthetic and biological networks]{
+{\bf Similarity between the topology/perturbation combination and the 
+biological networks.} 
+(A) Kolmogorov-Smirnov distances between each
+network/perturbation combination and the real microarray
+data from keratinocytes stimulated with HGF, the smaller
+the KS distance, the more closely related it is between
+biological and synthetic networks. We infer that the human
+gene regulatory network is mostly reminiscent of the
+scale-free network with normally distributed perturbation
+applied.
+(B) Kolmogorov-Smirnov distances between each
+network/perturbation combination and the real microarray
+data from yeast cells synchronized with the alpha factor,
+the smaller
+the KS distance, the more closely related it is between
+biological and synthetic networks. We infer that the yeast
+gene regulatory network has both the scale-free and bow-tie
+feature.
+}
+\label{fig:degree_response_ks2d}
+\end{figure}
+
+This combined topology and perturbation feature also seems to be highly
+species dependent. Here we quantify the similarity between synthetic
+and biological networks by defining a 2-D Kolmogorov-Smirnov distance~%
+\citep{Press2007}
+between the connectivity-response distributions.
+While the human keratinocyte stimulated with HGF is
+most closely related to the scale-free network with the normally distributed
+perturbations (\ref{fig:degree_response_ks2d}), the yeast cell synchronized
+with the alpha factor tends to behave in a way close to both scale-free and
+bow-tie networks.
+
+Taken together, it is 
+biologically more plausible that cellular networks are perturbed by a normally
+distributed factor upon external stimulation, where most of the genes are
+untouched and few of them are triggered to the level either above or
+below the steady state. The \emph{max} and \emph{rank} perturbation scenario, however, 
+seem more restrictive and hard to be implemented by the cell.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth]{degree_response-rf.pdf}
+\end{center}
+\caption[Node feature importance]{
+{\bf Node feature importance in networks with different topologies and 
+perturbations.} 
+Normalized node feature importance as calculated by a random forest regression
+with response strength as the dependent variable. Errorbars show the mean 
+importance and the standard deviation of 1000 random forest runs.
+The features are: \emph{perturb}, perturbation factor; \emph{in.deg.act},
+activating in-degree; \emph{in.deg.inh}, inhibiting in-degree;
+\emph{out.deg.act}, activating out-degree; \emph{out.deg.inh},
+inhibiting out-degree; \emph{delta}, decay rate, related to the half-life
+by $\delta = \ln 2 / \tau_{1/2}$; \emph{k.mean}, mean dissociation constant
+of all incoming connections; \emph{n.mean}, mean Hill coefficient of all
+incoming connections.
+}
+\label{fig:degree_response_rf}
+\end{figure}
+
+In a first attempt to systematically determine the relative contribution
+of topology, perturbation and kinetic parameters to the network response,
+we performed a random forest regression with the response strength as the
+dependent variable and all other node parameters as independent variables.
+The random forest regression takes multiple subsamples of the data without replacement and
+tries to build an ensemble of conditional inference trees~\citep{Strobl2007}. At each node (step), a conditional inference tree
+chooses an independent variable to split the dataset, based on a univariate $p$-value from a permutation
+independence test between the independent and dependent variables. We randomly sample 5 candidate
+input variables to split at each node, and set the number of trees to be 1000, which is well above our
+number of variables.
+We calculate the variable importance for each feature as the mean decrease in accuracy after permuting a specific input variable, the number of permutations is fixed to 3.
+
+In the case of the \emph{norm} and \emph{max} perturbations, 
+both the perturbation factor and the connection weights as represented by
+the Hill coefficient (\emph{n.mean}) and the dissociation constant 
+(\emph{k.mean}) play a predominating role in predicting the network dynamics.
+When applying the \emph{rank} perturbation, in contrast, it is the network
+connectivity as characterized by the in-/out-degrees and the connection weights
+that explain the network dynamics well. The kinetic parameter, decay rate,
+does not have a high importance score across any combination of network
+topology and perturbations.
+This result highlights the importance
+of network topology alone in the \emph{rank} perturbation scenario, and also
+underlines the combination of both perturbation and topology in a
+more common setting of network dynamics.
+
+\subsection{Strong regulators correlated with the phenotype}
 The fact that strongly regulated genes always have a low degree and thus are
 located at the periphery of the network poses the question whether these genes
 mediate the computation of the whole network and then translate it into the 
-phenotype. We therefore took the transcriptome data from the literature,
+phenotype. To address this question, we took the transcriptome data from the literature,
 where time-resolved response of \emph{E. coli} (\citealp{Jozefczuk2010}) and 
 \emph{S. cerevisiae} (\citealp{Spellman1998,Cho1998}) is 
 measured under different stimuli. We found a similar anti-correlation between
 network topology and response in the above datasets (\ref{fig:ecoli_yeast_go} A,C). Furthermore, we
-carried out enrichment test of Gene Ontology (GO) terms in the significantly 
+carried out the enrichment test of Gene Ontology (GO) terms in the significantly 
 strong responders identified from MDS. 
 For \emph{E. coli} cells in response
 to different stress conditions (\ref{fig:ecoli_yeast_go} D), GO terms such as 
@@ -764,8 +915,7 @@ phenotype of cell cycles. Taken together, we found strongly induced genes,
 which are located at the periphery of gene regulatory networks, are nicely
 correlated with the cellular phenotype.
 
-
-\begin{figure}[!ht]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=\textwidth]{yeast_ecoli_go.pdf}
 \end{center}
@@ -790,6 +940,7 @@ conditions.
 }
 \label{fig:ecoli_yeast_go}
 \end{figure}
+
 
 \begin{figure}[!ht]
 \begin{center}
@@ -817,8 +968,8 @@ conditions.
 
 Our results present an invariant feature of gene regulatory
 networks, namely strongly responding genes correlate with
-the phenotype and are sparsely connected peripheral nodes, 
-in contrast, densely connected hub genes are only moderately
+the phenotype and are sparsely connected peripheral nodes.
+In contrast, densely connected hub genes are only moderately
 regulated. Further GO term analysis reveals that metabolic
 function and transcriptional regulation are depleted in the
 strong responders (\ref{fig:ecoli_yeast_go_under}).
@@ -836,7 +987,7 @@ or workhorses, and will thus not be able to detect master regulators
 that determine the mechanism of action.
 
 The finding of strongly regulated genes being sparsely connected
-has also implication for the reverse engineering of gene regulatory
+has also implications for the reverse engineering of gene regulatory
 networks. Although sparsity has widely been assumed in the field
 of reverse engineering~\citep{Yeung2002,Gardner2003}, especially
 for solving linear ordinary differential equation models, it was
@@ -881,8 +1032,14 @@ of protein kinase A (PKA) signaling, which could suppress HGF-induced
 migration; PLAUR encodes the plasminogen urokinase activator receptor;
 CEACAM1 encodes a member of the immunoglobulin superfamily and is a
 cell adhesion molecule in leukocytes, epithelial and endothelial cells.
-The perturbation of all the above players can reduce the closed migration 
-area~\citep{Busch2008,Schnickmann2009}.
+As an \emph{in vitro} verification, the scratch assay is performed
+where the monolayer keratinocytes were damaged with a \emph{scratch} using a pipette tip
+and HGF and the respective inhibitors (\ref{table:inhibition_method}) 
+of strong regulators are added to 
+the medium. The migration phenotype was then assessed by the closed
+area after a certain period of time between two cell fronts across the \emph{scratch}.
+It has been shown that the perturbation of all the above players can reduce the closed migration 
+area, thus inhibiting the cellular phenotype~\citep{Busch2008,Schnickmann2009}.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -908,10 +1065,14 @@ To verify the role these genes play in keratinocyte migration,
 we used either antibodies or siRNAs to perturb the products of these genes
 (\ref{table:inhibition_method}). One example is shown in 
 \ref{fig:scratch_assay}, where keratinocytes treated with HGF and IL8 
-neutralizing antibodies were found to migrate slower within 12 hours 
+neutralizing antibodies were found to migrate slower after 12 hours 
 than those only treated with HGF.
 Indeed, the inhibition of FERMT2, IL8 and PTGER4 all have an effect on the 
-migratory phenotype of keratinocytes (\ref{fig:migration_prediction}).
+migratory phenotype of keratinocytes, and the relative migration inhibition
+by their inhibitors
+closely matches the response strength of these genes
+(\ref{fig:migration_prediction}). In summary, the more strongly a gene
+is regulated, the more closely related it is to the phenotype.
 
 \begin{longtable}{C{4cm}C{4cm}C{4cm}}
 \caption[Prediction of migration inhibition after perturbing key players]{
@@ -948,7 +1109,7 @@ microscope and an ibidi humidity chamber.
 
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=\textwidth]{migration_prediction.pdf}
+\includegraphics[width=0.9\textwidth]{migration_prediction.pdf}
 \end{center}
 \caption[Prediction of migration inhibition after perturbing key players]{
 {\bf Prediction of migration inhibition after perturbing key players identified
@@ -958,7 +1119,9 @@ from MDS.}
 \end{figure}
 
 We provided a proof of principle that key genes with a high MDS-based response
-score are correlated with the cellular phenotype, they fulfil their functions
+score are correlated with the cellular phenotype, as the inhibition of them
+leads to a reduced phenotypical outcome.
+The top responders fulfil their functions
 while being located at the periphery of the network and sparsely connected.
 The advantage of the MDS-based response metric is that it can rapidly generate
 testable hypotheses from the multidimensional gene expression time series data.
