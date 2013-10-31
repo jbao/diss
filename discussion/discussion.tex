@@ -3,7 +3,8 @@ In the above chapters, we presented results about how gene regulatory networks
 self-organize and the dynamics of which is governed by its topology. We explored
 the cellular signal flow scheme by means of calculating the nodal distances in
 the protein interaction network. Our results have several interesting implications
-as to the general design principles of cellular interaction networks.
+as to the general design principles of cellular interaction networks and
+how we can utilize them to reverse-engineer those interaction networks.
 
 \section{Cellular attractor}
 In \ref{chap:network}, we learned that those strongly perturbed genes are
@@ -58,7 +59,7 @@ driving force of the phenotype, which only became comprehensible in the context
 of cellular attractors.
 
 \section{Topology-constrained reverse-engineering of gene regulatory networks}
-As stated in \ref{sec:anti-correlation}, our finding that strongly perturbed 
+As stated in \ref{sec:strong_regulator_phenotype}, our finding that strongly perturbed 
 genes are sparsely connected has important implications for the reverse-engineering
 of gene regulatory networks. Although posed by many people and attempted by 
 many theoretical framework, the inference of gene regulatory networks from 
@@ -83,9 +84,13 @@ criterion in the optimization. Any of the parameter estimation problem
 can be seen as an optimization problem, in that one defines a certain
 objective function and iteratively tune the parameters to search for
 the optima of this objective function. The objective function is usually the 
-dissimilarity between the experimental and the simulated data (for example
-relative standard error). As a second objective function, one can for example
-penalize the genes that have a undesired degree (\ref{fig:cost_function}), 
+dissimilarity between the experimental data and the simulation with a certain
+set of parameters (for example
+relative standard error). The topological prior knowledge can be incorporated
+into the parameter estimation by adding a penalization term to the
+objective function.
+One can for example
+assign a high cost to the genes that have an undesired degree (\ref{fig:cost_function}), 
 which is exactly derived 
 from the observation that the response strength of a gene and its connectivity
 is negatively related.
@@ -108,12 +113,12 @@ is rather flat. Therefore, these genes do not have any degree preference.
 \label{fig:cost_function}
 \end{figure}
 
-In contrast to the single-objective optimization, the multi-objective
+Instead of the single-objective optimization, the multi-objective
 optimization tries to find a set of solutions that are mutually non-dominating~%
 \citep{Deb2002,Higuera2012}.
 That is, by moving from one solution to another in this optimal solution set,
-one may gain performance according one objective, but always has to 
-sacrifice the other objective.
+one may gain performance according to one objective, but always has to 
+sacrifice the other objectives.
 Previous attempts have been made to incorporate the topological information
 into the multi-objective optimization framework~\citep{Spieth2005}. However,
 it is mainly an implementation of the sparsity assumption, and does not
@@ -144,12 +149,21 @@ network architecture forces the learning procedure to identify the most pronounc
 learning procedure, which leads to statistical
 and computational advantages. The work by \cite{Boeck2012} is based on the idea 
 that biological 
-networks are usually centered around a few hubs. More specifically, they modelled gene regulation using a Bayesian network with discrete, Boolean nodes. A hierarchical prior is employed to identify hub genes. The first layer of the prior is used to regularize weights on edges emanating from one specific node. A second prior on hyperparameters controls the magnitude of the former regularization for different nodes. The net effect is that central nodes tend to form in reconstructed networks.
+networks are usually centered around a few hubs. More specifically, they modelled gene regulation using a Bayesian network with discrete, Boolean nodes. A hierarchical prior is employed to identify hub genes. The first layer of the prior is used to regularize weights on edges emanating from one specific node. A second prior on hyperparameters, in turn, controls the magnitude of the former regularization for different nodes. The net effect is that central nodes tend to form in reconstructed networks.
 
 \section{Network inference by transcription factor binding site prediction}
-Another source of prior information that can be used to reconstruct gene
-regulatory networks is the binding between transcription factors and the 
-promoter region of their target genes. Although experimental techniques,
+We have seen in \ref{chap:flow} that transcription factors act as a key player
+in relaying the information from the protein interaction network to the
+transcriptional machinery, and thus bridging these two cellular processes
+of different time scales. As a result, the understanding of how transcription
+factors trigger the downstream gene regulation or how they bind to target genes
+is of great importance. For instance, in the integrative signal flow approach
+presented in \ref{chap:flow}, we inferred the putatively active transcription
+factors by a target gene set enrichment analysis. The accuracy of the prediction
+can be naturally improved if we have better knowledge about
+the binding between transcription factors and the 
+promoter region of their target genes. 
+Although experimental techniques,
 such as chromatin immunoprecipitation with microarray (ChIP-chip) or 
 next-generation sequencing (ChIP-seq), are becoming mainstream in the study
 of protein-DNA interactions, such data are still relatively scarce and 
@@ -164,7 +178,7 @@ of co-expressed genes are then searched for the over-representation of
 binding motifs; (2) alignment is performed for orthologous promoter sequences of a single gene from multiple species, the conserved sequence indicates a putative
 binding motif according to phylogenetic footprinting. Depending on the 
 technique used, motif detection algorithms can also be classified into
-word-based (string-based) methods that mostly rely on exhaustive enumeration, i.e., counting and comparing oligonucleotide frequencies and probabilistic sequence models which
+word-based (string-based) methods that mostly rely on exhaustive enumeration, i.e., counting and comparing oligonucleotide frequencies, and probabilistic sequence models which
 represent each binding motif by a position weight matrix (PWM) that characterize
 the occurence of individual bases.
 Among the PWM-based approaches, MATCH~\citep{Kel2003} is a popular choice, which 
