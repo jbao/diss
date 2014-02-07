@@ -572,38 +572,6 @@ endothelial cells has no influence on the cell proliferation~%
 as the net effect of tumor cell migration.
 
 \subsubsection{Transcriptome response of H838 cells}
-To explore the mechanisms leading to the enhanced cell migration, we recorded the time-resolved transcriptome response of the tumor cells during migration.
-Illumina Human HT-12 Expression BeadChip was employed to compare the dynamic transcriptome response of scratched H838 cells in both homo- and heterogenous coculture conditions.
-We collected mRNA at $t=(0,0.5,1,2,3,4,5,10,15,24)h$ after scratching for microarrays,
-the data of which were quantile-normalized~\citep{Dunning2008a}.  
-Discarding lowly expressed probesets and those with low interquartile 
-variability between samples, we finally mapped the probes to 14922 EntrezID 
-annotated genes. 
-% Here we should show a time-resolved GO analysis or something similar (Fig. 2)
-% Also add the analysis in the materials and methods
-
-We analyzed the basal differential gene expression between homo- and
-heterogeneous coculture by linear model fitting and Bayesian variance estimation~%
-\citep{Smyth2004}, as well as the dynamic differential gene expression by fitting
-the time series with a full/reduced polynomial model~\citep{Mar2009}. At 0h, only 2
-genes are significantly down-regulated (Benjamini-Hochberg
-corrected $p$-value $<0.01$) in the homogeneous coculture with respect
-to the heterogeneous coculture 
-(\ref{fig:h838_transcriptome} A). Over time, there are more
-genes classified as significantly up- and down-regulated by comparing the full and
-reduced model fitting (\ref{fig:h838_transcriptome} B). 
-We further looked at the time course of all genes that are
-significantly ($q<0.01$) regulated over time from 
-\ref{fig:h838_transcriptome} B. In the heterogeneous
-coculture of H838 and HPAEC cells, most genes are 
-moderately up-regulated over time, with the maximal
-log fold expression being 1.25 relative to 0h.
-Taken together, the majority of genes
-in H838 cells are not differentially expressed in the homo- and heterogeneous
-coculture conditions. We hypothesize that those 
-differentially regulated genes do contribute to certain specific
-phenotypic transformations, but the response of the H838
-transcriptome to heterogeneous coculture is rather weak.
 
 \begin{figure}[!ht]
 \hskip 0.5in A \hskip 2.5in B
@@ -641,29 +609,51 @@ clustering dendrogram of the time series is shown to the left.
 \label{fig:h838_ts}
 \end{figure}
 
-In order to take a glance at what is the function of those
-differentially regulated genes, and to overcome the difficulty in detecting weak
-but simultaneous regulation, we analyzed the transcriptome data with gene set
-enrichment test~\citep{Luo2009}.
-The comparison between heteregeneous and homogeneous coculture yields 
-a mixture of experimentally determined gene sets, both for the basal level
-(\ref{fig:h838_basal_gage_msigdb})
-and the differential expression over time (\ref{fig:h838_dynamic_gage_msigdb}).
-In other words, the H838 cells in the heteregeneous and homogeneous coculture
-do not tend to have a qualitatively different phenotype and are migrating in
-both cases as is also observed in the scratch assay.
+To explore the mechanisms leading to the enhanced cell migration, we recorded the time-resolved transcriptome response of the tumor cells during migration.
+Illumina Human HT-12 Expression BeadChip was employed to compare the dynamic transcriptome response of scratched H838 cells in both homo- and heterogenous coculture conditions.
+We collected mRNA at $t=(0,0.5,1,2,3,4,5,10,15,24)h$ after scratching for microarrays,
+the data of which were quantile-normalized~\citep{Dunning2008a}.  
+Discarding lowly expressed probesets and those with low interquartile 
+variability between samples, we finally mapped the probes to 14922 EntrezID 
+annotated genes. 
+% Here we should show a time-resolved GO analysis or something similar (Fig. 2)
+% Also add the analysis in the materials and methods
+
+We analyzed the basal differential gene expression between homo- and
+heterogeneous coculture by linear model fitting and Bayesian variance estimation~%
+\citep{Smyth2004}, as well as the dynamic differential gene expression by fitting
+the time series with a full/reduced polynomial model~\citep{Mar2009}. At 0h, only 2
+genes are significantly down-regulated (Benjamini-Hochberg
+corrected $p$-value $<0.01$) in the homogeneous coculture with respect
+to the heterogeneous coculture 
+(\ref{fig:h838_transcriptome} A). Over time, there are more
+genes classified as significantly up- and down-regulated by comparing the full and
+reduced model fitting (\ref{fig:h838_transcriptome} B). 
+We further looked at the time course of all genes that are
+significantly ($q<0.01$) regulated over time from 
+\ref{fig:h838_transcriptome} B. In the heterogeneous
+coculture of H838 and HPAEC cells, most genes are 
+moderately up-regulated over time, with the maximal
+log fold expression being 1.25 relative to 0h.
+Taken together, the majority of genes
+in H838 cells are not differentially expressed in the homo- and heterogeneous
+coculture conditions. We hypothesize that those 
+differentially regulated genes do contribute to certain specific
+phenotypic transformations, but the response of the H838
+transcriptome to heterogeneous coculture is rather weak.
 
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=\textwidth]{h838_basal_gage_msigdb.pdf}
+\includegraphics[width=\textwidth]{h838-gage_geneset_basal.pdf}
 \end{center}
 \caption[Basal gene set enrichment]{
 {\bf Basal gene set enrichment between heterogeneous and homogeneous cocultures.} 
 The fold changes between heterogeneous and homogeneous coculture expressions 
 for a certain gene set at 0h are compared with the background using $t$ test.
-The signicance level (negative log-transformed $p$-value) is color-coded, such
-that green means enrichment of a gene set and white means depletion. The size
-of the gene set is coded by the size of the circles.
+The signicance level (negative log-transformed $p$-value) of
+each gene set is reported. The size
+of the gene set is coded by the size of the bubbles.
+The vertical dashed line denotes $p=0.05$.
 }
 \label{fig:h838_basal_gage_msigdb}
 \end{figure}
@@ -678,88 +668,145 @@ cocultures.}
 The differential expression of each gene is first assessed by the full/reduced
 model (\ref{sec:full_reduced}), the mean differential score of a gene set
 is then compared with that of the background set using $t$ test.
-The signicance level (negative log-transformed $p$-value) is color-coded, such
-that green means enrichment of a gene set and white means depletion. The size
-of the gene set is coded by the size of the circles.
+The signicance level (negative log-transformed $p$-value) of
+each gene set is reported. The size
+of the gene set is coded by the size of the bubbles.
+The vertical dashed line denotes $p=0.01$.
 }
 \label{fig:h838_dynamic_gage_msigdb}
 \end{figure}
 
-The functional association of the transcriptome response, however, can be
-decoded in a fine-tuned gene set enrichment test between the 0h unscratched
-sample and each of the other time points. In the heteregeneous coculture 
-(\ref{fig:h838_hetero_gage}),
-we see an initial enrichment of gene sets related to breast cancer, terms
-such as metastasis are over-represented between 1 and 2 hours, which are
-again followed by cell migration related gene sets at 4h. After 5 hours,
-the functions of enriched gene sets diverge and become less specific.
-In contrast, although the enriched gene sets of homogeneous coculture also 
-include cancer-related terms, there is no visible general trend that can
-be followed over time (\ref{fig:h838_homo_gage}). 
+In order to take a glance at what is the function of those
+differentially regulated genes, and to overcome the difficulty in detecting weak
+but simultaneous regulation, we analyzed the transcriptome data with gene set
+enrichment test~\citep{Luo2009}.
+At the basal level between the heterogeneous and homogeneous
+coculture
+(\ref{fig:h838_basal_gage_msigdb}),
+there is a specific enrichment of cancer, 
+cell-cell communication
+related experimentally determined gene sets and another one 
+involved in the regulation
+of actin-cytoskeleton (the orange dot to the right of the 
+vertical threshold line), which are all key players in the
+cell migration phenotype.
+On the other hand, the enriched gene sets
+according to the differential expression over time 
+(\ref{fig:h838_dynamic_gage_msigdb})
+seem to be more diverse. Besides the usual cancer-related 
+gene sets, others such as cell cycle and methylation related
+gene sets also pop up.
+In other words, the H838 cells in the heteregeneous coculture
+are in the beginning primed to regulate the transcriptome in
+a migration-oriented fashion.
+Over time, however, this functional difference becomes less
+distinguishable,
+which also does not translate into a qualitatively different 
+phenotype and the H838 cells are migrating 
+in both heterogeneous and
+homogeneous cocultures 
+as is also observed in the scratch assay.
 
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{h838_HMEC_gage.pdf}
-\end{center}
-\caption[Gene set enrichment of the heterogeneous coculture]{
-{\bf Gene set enrichment between different time points and 0h in the heterogeneous 
-coculture.} 
-The differential expression of each gene is first assessed between time points, 
-the mean differential score of a gene set
-is then compared with that of the background set using $t$ test.
-The signicance level (negative log-transformed $p$-value) is color-coded, such
-that green means enrichment of a gene set and white means depletion. The size
-of the gene set is coded by the size of the circles.
-}
-\label{fig:h838_hetero_gage}
-\end{figure}
+%The functional association of the transcriptome response, however, can be
+%decoded in a fine-tuned gene set enrichment test between the 0h unscratched
+%sample and each of the other time points. In the heteregeneous coculture 
+%(\ref{fig:h838_hetero_gage}),
+%we see an initial enrichment of gene sets related to breast cancer, terms
+%such as metastasis are over-represented between 1 and 2 hours, which are
+%again followed by cell migration related gene sets at 4h. After 5 hours,
+%the functions of enriched gene sets diverge and become less specific.
+%In contrast, although the enriched gene sets of homogeneous coculture also 
+%include cancer-related terms, there is no visible general trend that can
+%be followed over time (\ref{fig:h838_homo_gage}). 
+%
+%\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=\textwidth]{h838_HMEC_gage.pdf}
+%\end{center}
+%\caption[Gene set enrichment of the heterogeneous coculture]{
+%{\bf Gene set enrichment between different time points and 0h in the heterogeneous 
+%coculture.} 
+%The differential expression of each gene is first assessed between time points, 
+%the mean differential score of a gene set
+%is then compared with that of the background set using $t$ test.
+%The signicance level (negative log-transformed $p$-value) is color-coded, such
+%that green means enrichment of a gene set and white means depletion. The size
+%of the gene set is coded by the size of the circles.
+%}
+%\label{fig:h838_hetero_gage}
+%\end{figure}
+%
+%\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=\textwidth]{h838_Mono_gage.pdf}
+%\end{center}
+%\caption[Gene set enrichment of the homogeneous coculture]{
+%{\bf Gene set enrichment between different time points and 0h in the homogeneous 
+%coculture.} 
+%The differential expression of each gene is first assessed between time points, 
+%the mean differential score of a gene set
+%is then compared with that of the background set using $t$ test.
+%The signicance level (negative log-transformed $p$-value) is color-coded, such
+%that green means enrichment of a gene set and white means depletion. The size
+%of the gene set is coded by the size of the circles.
+%}
+%\label{fig:h838_homo_gage}
+%\end{figure}
 
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{h838_Mono_gage.pdf}
-\end{center}
-\caption[Gene set enrichment of the homogeneous coculture]{
-{\bf Gene set enrichment between different time points and 0h in the homogeneous 
-coculture.} 
-The differential expression of each gene is first assessed between time points, 
-the mean differential score of a gene set
-is then compared with that of the background set using $t$ test.
-The signicance level (negative log-transformed $p$-value) is color-coded, such
-that green means enrichment of a gene set and white means depletion. The size
-of the gene set is coded by the size of the circles.
-}
-\label{fig:h838_homo_gage}
-\end{figure}
+In order to understand how the transcriptional program
+at the basal level is executed at the protein level,
+we further investigated
+the enrichment of KEGG pathways between the heterogeneous 
+and homogeneous 
+coculture (\ref{table:h838_gage_kegg}). 
+%By grouping the time points into 3 
+%consecutive phases (early,
+%intermediate, late), 
+In addition to several non-specific pathways, 
+we can identify the actin-cytoskeleton regulation and 
+the MAPK signaling pathway as the potential downstream 
+machinery that is responsible for the enhanced migration
+phenotype in the heteregeneous coculture.% 
+\footnote{We also discuss this
+result later in detail.} 
+%The MAPK pathway also shares 
+%member proteins with other pathways, as indicated by the edges in 
+%\ref{fig:h838_gage_kegg}, which hints at the possibility of the MAPK pathway
+%crosslinking with other signaling pathways.
+%On the other hand, a number of different pathways 
+%are over-represented in the homogeneous coculture, whereas the MAPK
+%pathway is absent.
 
-We further investigated
-the enrichment of KEGG pathways for both heterogeneous and homogeneous 
-coculture (\ref{fig:h838_gage_kegg}). By grouping the time points into 3 
-consecutive phases (early,
-intermediate, late), we can identify the MAPK signaling pathway as a prominent 
-candidate in the heteregeneous coculture. The MAPK pathway also shares 
-member proteins with other pathways, as indicated by the edges in 
-\ref{fig:h838_gage_kegg}, which hints at the possibility of the MAPK pathway
-crosslinking with other signaling pathways.\footnote{We also discuss this
-result later in detail.} On the other hand, a number of different pathways 
-are over-represented in the homogeneous coculture, whereas the MAPK
-pathway is absent.
+\begin{longtable}{rcc}
+\caption{Basal enrichment of KEGG pathways.} \\ 
+\hline
+KEGG pathway & p-value & \# genes \\
+\hline
+\rowcolor{Gray} hsa04810 Regulation of actin cytoskeleton & 0.0433 &  116\\
+hsa04010 MAPK signaling pathway &  0.0716 &   164\\
+\rowcolor{Gray} hsa00983 Drug metabolism - other enzymes & 0.0831 &   27\\
+hsa04142 Lysosome &  0.0906 &    67\\
+\rowcolor{Gray} hsa00230 Purine metabolism &  0.0908 &  84\\
+\hline
+\label{table:h838_gage_kegg}
+\end{longtable}
 
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{h838_gage_kegg.pdf}
-\end{center}
-\caption[KEGG pathway enrichment]{
-{\bf KEGG pathway enrichment of the heterogeneous and homogeneous 
-cocultures in three phases.} 
-The differential expression of each gene of different time phases is first 
-compared to 0h, the mean differential score of a KEGG pathway
-is then compared with that of the background set using $t$ test.
-The signicance level (negative log-transformed $p$-value) is color-coded, such
-that green means enrichment of a gene set and white means depletion. The size
-of the KEGG pathway is coded by the size of the circles.
-}
-\label{fig:h838_gage_kegg}
-\end{figure}
+%\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=\textwidth]{h838_gage_kegg.pdf}
+%\end{center}
+%\caption[KEGG pathway enrichment]{
+%{\bf KEGG pathway enrichment of the heterogeneous and homogeneous 
+%cocultures in three phases.} 
+%The differential expression of each gene of different time phases is first 
+%compared to 0h, the mean differential score of a KEGG pathway
+%is then compared with that of the background set using $t$ test.
+%The signicance level (negative log-transformed $p$-value) is color-coded, such
+%that green means enrichment of a gene set and white means depletion. The size
+%of the KEGG pathway is coded by the size of the circles.
+%}
+%\label{fig:h838_gage_kegg}
+%\end{figure}
 
 \subsubsection{Identification of putative transcription factors in the H838 gene regulation}
 
