@@ -573,6 +573,16 @@ as the net effect of tumor cell migration.
 
 \subsubsection{Transcriptome response of H838 cells}
 
+To explore the mechanisms leading to the enhanced cell migration, we recorded the time-resolved transcriptome response of the tumor cells during migration.
+Illumina Human HT-12 Expression BeadChip was employed to compare the dynamic transcriptome response of scratched H838 cells in both homo- and heterogenous coculture conditions.
+We collected mRNA at $t=(0,0.5,1,2,3,4,5,10,15,24)h$ after scratching for microarrays,
+the data of which were quantile-normalized~\citep{Dunning2008a}.  
+Discarding lowly expressed probesets and those with low interquartile 
+variability between samples, we finally mapped the probes to 14922 EntrezID 
+annotated genes. 
+% Here we should show a time-resolved GO analysis or something similar (Fig. 2)
+% Also add the analysis in the materials and methods
+
 \begin{figure}[!ht]
 \hskip 0.5in A \hskip 2.5in B
 \begin{center}
@@ -608,16 +618,6 @@ clustering dendrogram of the time series is shown to the left.
 }
 \label{fig:h838_ts}
 \end{figure}
-
-To explore the mechanisms leading to the enhanced cell migration, we recorded the time-resolved transcriptome response of the tumor cells during migration.
-Illumina Human HT-12 Expression BeadChip was employed to compare the dynamic transcriptome response of scratched H838 cells in both homo- and heterogenous coculture conditions.
-We collected mRNA at $t=(0,0.5,1,2,3,4,5,10,15,24)h$ after scratching for microarrays,
-the data of which were quantile-normalized~\citep{Dunning2008a}.  
-Discarding lowly expressed probesets and those with low interquartile 
-variability between samples, we finally mapped the probes to 14922 EntrezID 
-annotated genes. 
-% Here we should show a time-resolved GO analysis or something similar (Fig. 2)
-% Also add the analysis in the materials and methods
 
 We analyzed the basal differential gene expression between homo- and
 heterogeneous coculture by linear model fitting and Bayesian variance estimation~%
@@ -866,22 +866,10 @@ absence of such enrichment.
 
 To further bridge the gap between the transcription factors identified above and the membrane cytokine receptors that 
 transmit the external signal,
-we mapped the most likely paths from each cytokine receptor to all putative 
-transcription factors, using the HIPPIE network~\citep{Schaefer2012} and a 
+we mapped the most likely paths from all putative 
+transcription factors to different cytokine receptors, 
+using the HIPPIE network~\citep{Schaefer2012} and a 
 distance metric based on random walk.
-
-In order to justify the information in the PPI network, we want to prune the
-raw interaction network to a smaller
-high-quality one. At the same time, we also want to keep as 
-much information as possible. In \ref{fig:h838_component}, we prune the 
-network with different cutoff values in the confidence score for a particular
-interaction. After pruning, the
-size of the largest connected component first stays constant with the increase 
-of the cutoff and then drops
-sharply at a cutoff value of 0.6. As a trade-off, we choose to prune the PPI network
-to only have interactions with a confidence score $>0.6$ such that the data
-are reasonably reliable and the size of the network is also not too small to
-gain insights into the signal flow between receptors and transcription factors.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -896,17 +884,35 @@ with the increase of the confidence score cutoff value.
 \label{fig:h838_component}
 \end{figure}
 
-We further want to compare both shortest path length (SP) and mean first 
+In order to justify the information in the PPI network, we want to prune the
+raw interaction network to a smaller
+high-quality one. At the same time, we also want to keep as 
+much information as possible. In \ref{fig:h838_component}, we prune the 
+network with different cutoff values in the confidence score for a particular
+interaction. After pruning, the
+size of the largest connected component first stays constant with the increase 
+of the cutoff and then drops
+sharply at a cutoff value of 0.6. As a trade-off, we choose to prune the PPI network
+to only have interactions with a confidence score $>0.6$ such that the data
+are reasonably reliable and the size of the network is also not too small to
+gain insights into the signal flow between receptors and transcription factors.
+
+We further set out to compare both shortest path length (SP) and mean first 
 passage time (MFPT) as a distance metric to infer the dynamic signal flow
 in the network from receptors to transcription factors. To this end, we
-first determined at eacj time point for each receptor its nearest transcription factor (with
-the shortest distance metric), this distance metric for a certain receptor
-$i$ is then $z$-transformed, such that both are comparable, or
+first determined at each time point for each receptor, what is
+the average distance to all of its downstream transcription 
+factors. This distance metric for a certain receptor
+$i$ is then robust $z$-transformed, such that both SP and MFPT 
+are comparable, or
 \[
-\tilde{D}_{i} = \frac{D_{i}-\mu(D)}{\sigma(D)}, 
+\tilde{D}_{i} = \frac{D_{i}-\med(D)}{\IQR(D)/2\sqrt{2}\erf^{-1}(0.5)}, 
 \]
-where $D \in \{SP,MFPT\}$ and $\mu$ and $\sigma$ are the population mean and 
-standard deviation respectively. In \ref{fig:h838_mfpt_sp}, we see the median
+where $D \in \{SP,MFPT\}$ and $\med$ and $\IQR$ are the median 
+and 
+the inter-quartile range of the distance metric over all 
+receptors 
+respectively. In \ref{fig:h838_mfpt_sp}, we see the median
 statistics of both distance metrics are consistent over time. However, the 
 MFPT distributions are in general more skewed, have a larger dynamic range,
 whose bottom outliers represent candidate receptors with shortcuts to the
@@ -930,64 +936,77 @@ and superimposed on the boxplot.
 \label{fig:h838_mfpt_sp}
 \end{figure}
 
-A hallmark of the eukaryotic genome is that individual genes are often 
-regulated by multiple transcription factors that combinatorially bind to 
-promoters of genes~\citep{Harbison2004}. Therefore, the activation of multiple transcription
-factors is vital to the regulatory machinery, which might also result
-in the signal flow from different membrane receptors.
-We selected all receptors with a significantly short MFPT distance (below the 5\% 
-quantile) to the transcription factor, and divided them into 5 different
-functional groups (\ref{fig:h838_mfpt_ts}), which all have distinct
-dynamics. Interleukin receptors in H838 cells are close to the transcription
-factors at an early stage, likely 
-transmitting the external stimulus signal from 0.5 to 10 hours after
-the scratch. C-X-C chemokine receptors and TGF-$\beta$ family receptors
-are likely responsible for the signal flow until 15h after scratch,
-whereas interferon receptors and TNF family receptors have short distances
-to the downstream transcription factors over the whole time span.
-We also fitted the raw data points with a local polynomial regression
-curve. It stands out that TNF family receptors both have a rich number
-of close-to-TF receptors over time, and have a narrow confidence region
-resulting from the fitting, which implies their robust role in the 
-cellular signal flow. Moreover, the closeness between TNF family receptors
-and TFs seems to be most prominent between 5 and 10 hours after the scratch.
-
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=\textwidth]{h838-mfpt_ts.pdf}
+\includegraphics[width=\textwidth]{h838-mfpt_ts_0_6.pdf}
 \end{center}
-\caption[Time course of the MFPT distance]{
-{\bf Time course of the MFPT distance between the 5\% closest receptors
-to transcription factors.} 
-We plot the individual receptors (dots) and a LOESS (locally weighted 
-scatterplot smoothing) regression curve to monitor the receptor dynamics,
-the gray area is the 95\% confidence interval of the fit.
+\caption[Shortcut between receptors and TFs over time]{
+{\bf The $z$-transformed MFPT distance and its significance
+level between individual receptors
+and transcription factors.} 
+The significance level of a certain receptor is represented
+by the negative log-transformed $p$-value from bootstrapping.
+The gray box represents a region
+with negative MFPTs and a negative log-transformed $p$-value
+bounded by 1.7 and 1.9, which contains all candidate
+receptors involved in the signal flow.
 }
 \label{fig:h838_mfpt_ts}
 \end{figure}
 
-As a more parsimonious ansatz, we also only look at the receptors with the 
-minimal MFPT distance for each time point (\ref{fig:h838_mfpt_top}).
-Under the assumption that only one receptor is responsible for the 
-signal transduction at one time point, the picture becomes even clearer.
-The interleukin and interferon receptors have the closest distances to
-TFs at the beginning and end of the experiment respectively. TGF-$\beta$
-and TNF family receptors drive the signal flow in turn, with TNF family
-receptors having a more pronounced time window between 2 and 5 hours
-after the scratch.
+A hallmark of the eukaryotic genome is that individual genes are often 
+regulated by multiple transcription factors that combinatorially bind to 
+promoters of genes~\citep{Harbison2004}. Therefore, the activation of multiple transcription
+factors is vital to the regulatory machinery, which might also result
+from the signal flow from different membrane receptors.
+In order to assess the significance of the $z$-transformed 
+distance, we randomly resampled the same number of downstream
+transcription factors for each receptor, and calculated a
+$p$-value out of this bootstrapped distribution of mean 
+distances.
 
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth]{h838-mfpt_top.pdf}
-\end{center}
-\caption[Receptors with the shortest MFPT at each time point]{
-{\bf The top-ranked receptors in terms of MFPT to TFs at each time point.} 
-We show the top receptors with the shortest MFPT to TFs at each time point,
-they consist of 4 groups, i.e. TNF family, TGF-$\beta$ family, interleukin and
-interferon receptors.
-}
-\label{fig:h838_mfpt_top}
-\end{figure}
+As a result, receptors with both a short distance and a low
+$p$-value are the potential players that relay the external
+signals to the transcription factors. We highlight a region
+with negative MFPTs and a negative log-transformed $p$-value
+bounded by 1.7 and 1.9 in \ref{fig:h838_mfpt_ts}.
+We observe that different receptor groups have different 
+shortcuts over time.
+Most groups, such as interferon receptors, interleukin 
+receptors, TGF-$\beta$ family receptors and TNF family 
+receptors, are more strongly present in the gray zone in
+the early phase (2 hours after scratch). Up to 4h, some of
+these receptors still remain in the highlighted region,
+but the majority of receptors have a less significant
+$p$-value compared to the early hour 
+and are wandering out of the region.
+C-X-C chemokine receptors, more specifically CXCR6 and CXCR7,
+are only significant at 2h. The chemokine (C-C Motif) receptor
+CCR6, in contrast, only creates a short link to the 
+transcription factor at 4h.
+
+%As a more parsimonious ansatz, we also only look at the receptors with the 
+%minimal MFPT distance for each time point (\ref{fig:h838_mfpt_top}).
+%Under the assumption that only one receptor is responsible for the 
+%signal transduction at one time point, the picture becomes even clearer.
+%The interleukin and interferon receptors have the closest distances to
+%TFs at the beginning and end of the experiment respectively. TGF-$\beta$
+%and TNF family receptors drive the signal flow in turn, with TNF family
+%receptors having a more pronounced time window between 2 and 5 hours
+%after the scratch.
+
+%\begin{figure}[!ht]
+%\begin{center}
+%\includegraphics[width=\textwidth]{h838-mfpt_top.pdf}
+%\end{center}
+%\caption[Receptors with the shortest MFPT at each time point]{
+%{\bf The top-ranked receptors in terms of MFPT to TFs at each time point.} 
+%We show the top receptors with the shortest MFPT to TFs at each time point,
+%they consist of 4 groups, i.e. TNF family, TGF-$\beta$ family, interleukin and
+%interferon receptors.
+%}
+%\label{fig:h838_mfpt_top}
+%\end{figure}
 
 %As depicted in \ref{fig:h838_receptor_ts_ex}, the inverse
 %mean first passage time (MFPT) and inverse shortest path 
