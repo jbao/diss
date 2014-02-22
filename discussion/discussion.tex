@@ -20,7 +20,7 @@ The origin of the cellular attractor probably stems from the idea of
 states that different cell types can be visualized by valleys in a landscape,
 and the cell differentiation process is essentially a marble rolling down to
 different points of lowest local elevation. The formalization of the epigenetic landscape notion opens the door to the understanding of the key role played by stochastic fluctuation. 
-It is however important to note that Waddington uses the term \emph{epigenetic} in a broader sense than in modern molecular biology where it refers to apparently irreversible covalent DNA and chromatin modifications that influence expression of individual genes.
+It is however important to note that Waddington uses the term \emph{epigenetic} in a broader sense than in modern molecular biology where it refers to the apparently irreversible covalent DNA and chromatin modifications that influence expression of individual genes.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -59,10 +59,11 @@ driving force of the phenotype, which only became comprehensible in the context
 of cellular attractors.
 
 As yet another example, \cite{Busch2013} applied a correlation trajectory analysis of the 
-time-resolved transcriptome data, and predicted the important role of 
+time-resolved transcriptome data in the moss leaflet apical stem cell development, 
+and predicted the important role of 
 moderately regulated transcription factors in triggering developmental 
 decisions. The methodology successfully narrowed down a total of 1,058 TFs to 
-5 candidates that are likely to be involved in the signaling leading to the establishment of pluripotency in apical stem cells of the moss. One of the predicted bHLH TFs PpRSL1 has previously been described as a positive regulator of caulonema and rhizoid development, 
+5 candidates that are likely to be involved in the signaling leading to the establishment of pluripotency in apical stem cells. One of the predicted bHLH TFs PpRSL1 has previously been described as a positive regulator of caulonema and rhizoid development, 
 its involvement in the establishment of \emph{P. patens} apical stem cells is also confirmed
 in the loss-of-function mutants.
 
@@ -101,7 +102,7 @@ One can for example
 assign a high cost to the genes that have an undesired degree (\ref{fig:cost_function}), 
 which is exactly derived 
 from the observation that the response strength of a gene and its connectivity
-is negatively related.
+are negatively related.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -158,6 +159,83 @@ learning procedure, which leads to statistical
 and computational advantages. The work by \cite{Boeck2012} is based on the idea 
 that biological 
 networks are usually centered around a few hubs. More specifically, they modelled gene regulation using a Bayesian network with discrete, Boolean nodes. A hierarchical prior is employed to identify hub genes. The first layer of the prior is used to regularize weights on edges emanating from one specific node. A second prior on hyperparameters, in turn, controls the magnitude of the former regularization for different nodes. The net effect is that central nodes tend to form in reconstructed networks.
+
+\section{Transcriptome-proteome correlation and time-scale 
+separation}
+Throughout \ref{chap:flow}, we have been advocating the 
+separation of the transcript and protein activity. As a first
+result, the phenotypical difference of the H838 cells between
+the heterogeneous and the homogeneous coculture cannot be
+translated back to the transcriptome response. In other words,
+the H838 transcriptome is hardly differentially regulated
+between the heterogeneous and the homogeneous coculture. 
+Such a weak transcriptome response can be due to the priming
+of the tumor cells with the endothelial cells before the
+scratch/measurement begins. Within the 3 days coculture
+before the confluency, tumor cells and endothelial cells
+may have already exchanged signalling molecules and adapted
+to each other's needs. Therefore, during the measurement
+period, the transcriptome response in H838 cells 
+under both heterogeneous and homogeneous conditions
+may have gone back to the similar baseline.
+
+The phenotype, however, is detectable both experimentally
+and by inference from the basal gene set enrichment analysis.
+This underlines again the divergence of the transcriptional
+program in the tumor cells over time in the heterogeneous
+and homogeneous cocultures. At the time of the phenotype
+change, the transcriptional regulation is largely finished
+and it is the proteins that are actually executing and
+developing the phenotype. We acknowledge that the general 
+protein
+activity cannot be deduced from the transcriptome response.
+However, the activity of the DNA-binding transcription
+factors, which regulate the transcriptome, can be
+inferred from the activity of their target genes.
+More specifically, when considering all target genes of
+a certain transcription factor as a group, one can ask
+the question, whether this transcription factor target
+group is significantly up-regulated compared to the
+background group. The assumption we make here is that the actual
+activity of a transcription factor correlates with 
+the expression of its target genes, which is fairly
+plausible.
+
+The study of \cite{Jothi2009} highlights the discrepancy
+between the transcript and protein level regulation of
+transcription factors. The authors first classified a
+yeast transcriptional network into a hierarchical
+structure by a vertex sort algorithm. It was found that
+transcription factors in different layers of the
+hierarchical framework have distinct dynamic properties.
+For instance, the top-layer transcription factors are
+less abundantly expressed than the middle and bottom
+layer. However, the protein products of the top-layer
+transcription factors have a much richer amount than
+the rest. This seemingly counter-intuitive fact can be explained by
+the low degradation rate of the top transcription
+factor proteins. Therefore, instead of the mRNA 
+expression alone, it is rather the interplay between
+the translation efficiency, degradation and 
+post-translational modification that determine the
+protein activity of a certain gene.
+
+In order to decipher the signal flow in the cellular
+interaction network and to identify the key 
+transcriptional regulators, it is thus not sufficient
+to only look at the transcriptome response of the
+transcription factors. It is notable that transcription
+factors are in general lowly expressed%
+~\citep{Vaquerizas2009}, and they have decoupled
+dynamic properties between the protein and transcript
+level. 
+In our example of the tumor-stroma interaction study, 
+we proposed a time-scale separated,
+integrative ansatz to first infer active 
+transcription factors from the gene set enrichment 
+analysis and then predict the most likely
+signal path in the protein interaction network by 
+random walk.
 
 \section{Network inference by transcription factor binding site prediction}
 We have seen in \ref{chap:flow} that transcription factors act as a key player
@@ -234,7 +312,7 @@ S. cerevisiae, D. melanogaster, H. sapiens})
 \end{figure}
 
 Yet other lines of evidence pointing to the difficulty of TFBS prediction are
-discussed in \cite{Babu2004}. For example, 2604 proteins are predicted to
+discussed in \cite{Babu2004}. For example, 2604 human proteins are predicted to
 have a DNA-binding domain, however, there are currently only 228 and 281 
 transcription
 factor binding motifs annotated in JASPAR~\citep{Sandelin2004} and TRANSFAC 

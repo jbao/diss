@@ -1473,8 +1473,10 @@ On the H838 cell side, it is CXCR7, rather than CXCR4, that
 is closely linked to the downstream transcriptional machinery
 in the early hours. Therefore, it is plausible that \sdfonea
 was originally abundant in the medium and triggers the 
-signal flow in the tumor cell. Over time, the ligands get
-internalized, which forces the endothelial cell to 
+signal flow in the tumor cell through CXCR7. 
+Over time, the ligands get
+internalized by the receptor, 
+which forces the endothelial cell to 
 \emph{de novo} synthesize \sdfonea. Since both \tnfa and
 \sdfonea are most strongly linked to the transcription
 factors shortly after the scratch in H838 cells, we hypothesize
@@ -1543,16 +1545,33 @@ different signal flow paths over time. In this work, however, we primarily
 focus on the feedforward unidirectional flow from the receptor, through
 transcription factors, to the target genes. There is a lack of the 
 feedback mechanism which could occur either at the transcriptional
-regulation level or directly at the receptor protein level. The sustained 
-close link
-between most receptors and transcription factors from 2 to 4 hours (\ref{fig:h838_mfpt_ts})
-after the scratch could be the result of a positive feedback loop.
+regulation level or directly at the receptor protein level. 
+Furthermore, there is also a higher-level feedback loop
+between the tumor and endothelial cells through paracrine 
+interactions. The current signal flow of interest starts 
+from the
+cytokines in the conditioned medium, activates the membrane
+receptors, finds its way through the protein interaction
+network in a most efficient manner, triggers the 
+transcriptome regulation, and finally leads to the phenotype
+change in the tumor cells. It remains unknown whether and how
+the tumor cells proactively communicate with the 
+endothelial cells and the microenvironment. In order to
+study such a double-paracrine loop, it is necessary to cut
+the loop first and stimulate one cell type with the 
+conditioned medium from another cell type.
+%The sustained 
+%close link
+%between most receptors and transcription factors from 2 to 4 hours (\ref{fig:h838_mfpt_ts})
+%after the scratch could be the result of a positive feedback loop.
 
 As with any other network analysis, our results highly depend on the quality of
 the network data. More and more research has now addressed the assignment of
 a confidence score to protein-protein interactions~\citep{Kamburov2012}.
 Our choice of a confidence cutoff is essentially a trade-off between keeping
 an intact network and ensuring a high data quality at the same time.
+
+
 
 %By analyzing the shortest paths between receptors and transcription factors, 
 %we classified \tnfa and \sdfonea related 
