@@ -6,7 +6,7 @@ Cells initiate and control decisions like migration, proliferation or differenti
 coordinated, regulation of large gene interaction networks. 
 As a consequence, there is  well orchestrated time-sequential regulation of protein pathways, resulting in and regulated by a  global change in gene expression.
 Gaining insight into the necessary and suffient regulators controlling cellular decisions  is therefore difficult. 
-The central questions are, how to bridge the large data set to a few regulator or key players, how does the cell come to unique and well defined decisions despite the underlying complexity?
+The central questions are, how to bridge the large data set to a few regulators or key players, how does the cell come to the unique and well defined decisions despite the underlying complexity?
 
 Systems theory points to ways how complex systems are regulated and obey common rules with respect to their organisation and dynamic responses~\citep{Kauffman1993}. 
 In order to tackle the complexity of such systems, 
@@ -17,15 +17,15 @@ interactions among them as edges. In order to understand the
 behavior of complex systems, one has to understand both
 the topological and dynamical properties of networks. In this chapter, we first
 introduce some graph theoretical concepts, we then investigate the dynamics and
-topology in \emph{in silico} networks, finally we present a biological application.
+topology of \emph{in silico} networks, finally we present a biological application.
 
 \section{Complex networks in biology and beyond}
 Biological phenomena are described in the context of a network
-at all spatial and temporal scales, from food web~\citep{Williams2000}, 
-neuronal network~\citep{White1986,Bullmore2009}, gene regulatory networks~%
+at all spatial and temporal scales, from the food web~\citep{Williams2000}, 
+neuronal networks~\citep{White1986,Bullmore2009}, gene regulatory networks~%
 \citep{Kauffman1969,Gama-Castro2008,Abdulrehman2011},
 protein-protein interaction networks~\citep{Jeong2001,Stelzl2005}
-to metabolic network~\citep{Herrgaard2008}.
+to metabolic networks~\citep{Herrgaard2008}.
 
 The study of networks dates back to the K\"onigsberg
 problem from Leonhard Euler in the 18th century. The initial
@@ -46,13 +46,13 @@ The study of biological networks has been largely inspired by the theoretical
 analyses of other types of networks~\citep{Barabasi2004}. In recent years, 
 there is also increasing interest in the comparison between biological and
 other networks. For instance, the transcriptional regulatory network of 
-\emph{E. coli} is found to have a triangle-like hierarchical 
-structure, whereas the Linux kernel displays rather an inverse-triangle
+\emph{E. coli} is found to have a pyramid-like hierarchical 
+structure, whereas the Linux kernel displays rather an inverse-pyramid
 hierarchy, which is believed to be due to different design principles of the two 
 systems: robustness for biological systems and cost effectiveness for 
 software systems~\citep{Yan2010}.
 Such findings highlight the hypothesis of \emph{function follows form}, or 
-the function of complex networks is reflected in their distinct structural 
+the function of complex networks results from their distinct structural 
 properties.
 
 \section{Network topology}
@@ -167,7 +167,7 @@ scale-free model. On the one hand, several rigorous statistical analyses~%
 \citep{Clauset2009,Khanin2006a} have shown that methods used to fit power-laws, such as 
 least-squares, can produce substantially inaccurate estimates of the 
 parameters. The authors concluded that in general the cumulative distribution
-function is more robust than the probability distribution function against 
+function is more robust than the probability density function against 
 fluctuations due to finite sample sizes, especially in the tail of the 
 distribution. It is also extremely difficult to distinguish between
 the log-normal and power-law distribution. These results cast doubt on the
@@ -184,8 +184,10 @@ interaction network~\citep{Deeds2006}.
 \section{Network dynamics}
 Imagine the scene of fireworks, the beauty lies exactly in the whole sequence 
 of explosive events. When you try to snap a shot, it is possible that you end up with
-a black sky. Even if you are able to capture the highlight, you still 
-effectively miss certain information, such as how the visual pattern developed,
+a black sky. Even if you are able to capture the highlight, 
+you have still 
+effectively missed certain information, such as how the 
+visual pattern developed,
 what is the interval between consecutive illuminations. 
 On the other extreme, one also loses information when making
 a long-exposure photograph out of the whole sequence.
@@ -208,10 +210,12 @@ gene expression given a certain stimulus over time, one can perform the
 hybridization at multiple time points. The ultimate gene expression data are
 thus multidimensional time series. 
 
-In the following we provide two distinct 
-perspectives of viewing the gene expression time series, namely ranking the 
+We provide two distinct 
+perspectives of viewing the gene expression time series.
+In the following, we first deal with ranking the 
 single gene dynamics within the same experimental condition by multidimensional
-scaling, and a likelihood ratio test of kinetic profiles between two conditions
+scaling.
+As an alternative, we discuss in \ref{sec:full_reduced} a likelihood ratio test of kinetic profiles between two conditions
 by fitting a linear model to the time series.
 
 \subsection{Dimensionality reduction}
@@ -377,20 +381,6 @@ the maximum likelihood method as implemented in the
 library \texttt{sn}.
 
 \subsection{Heavy-tailed response distribution}
-Based on the multidimensional scaling, we assessed
-the response pattern of gene regulatory networks in different
-experimental setups (\ref{fig:response_strength}). 
-For example, in the case of transcripts
-profiled in primary human keratinocytes under the stimulation of 
-hepatocyte growth factor (HGF)~\citep{Busch2008}, we found the distribution of response
-strengths has a long tail, indicating that 
-only few genes are strongly induced by a certain stimulus, while the majority 
-are barely regulated. This long-tail response strength
-distribution is also observed in other cell types with various stimuli.
-Among them are yeast cells that undergo cell cycles when synchronized by 
-$\alpha$-factor~\citep{Spellman1998,Cho1998}, mouse skin cells stimulated with TPA,
-an inducer of skin inflammation~\citep{Riehl2010} and erythrocyte progenitor
-(CFU-E) cells from the mouse fetal liver stimulated with erythropoietin (Epo)~\citep{Bachmann2011}. 
 
 \begin{figure}[!ht]
 \begin{center}
@@ -415,6 +405,21 @@ $\alpha$-factor to study the cell cycle
 }
 \label{fig:response_strength}
 \end{figure}
+
+Based on the multidimensional scaling, we assessed
+the response pattern of gene regulatory networks in different
+experimental setups (\ref{fig:response_strength}). 
+For example, in the case of transcripts
+profiled in primary human keratinocytes under the stimulation of 
+hepatocyte growth factor (HGF)~\citep{Busch2008}, we found the distribution of response
+strengths has a long tail, indicating that 
+only few genes are strongly induced by a certain stimulus, while the majority 
+are barely regulated. This long-tail response strength
+distribution is also observed in other cell types with various stimuli.
+Among them are yeast cells that undergo cell cycles when synchronized by 
+$\alpha$-factor~\citep{Spellman1998,Cho1998}, mouse skin cells stimulated with TPA,
+an inducer of skin inflammation~\citep{Riehl2010} and erythrocyte progenitor
+(CFU-E) cells from the mouse fetal liver stimulated with erythropoietin (Epo)~\citep{Bachmann2011}. 
 
 The response distributions do not fit well with any of the 
 Gaussian, power-law, exponential, log-normal or Weibull distribution, with the closest one being power-law or log-normal
@@ -485,7 +490,7 @@ Through the simulation of a thermodynamical gene network model, we observed that
 is primarily determined by its topology. This topological
 determinant is more dominant in large and scale-free-like 
 networks, it is also 
-visible in various biological data.
+visible in various biological networks.
 
 \subsection{Synthetic \emph{in silico} networks}
 We first describe the construction of \emph{in silico}
@@ -550,7 +555,7 @@ $2^N$ possible binding states and
   \displaystyle f_i(x_j) = \sum_{m=0}^{2^N-1} \alpha_m \theta_m,
 \end{equation}
 $m$ can be interpreted as an $N$-digit binary number (with padding $0$s) 
-and represents one perticular binding state, with the $i$-th
+and represents one particular binding state, with the $i$-th
 digit indicating the binding state of the $i$-th input gene, namely $0$ for unbound
 and $1$ for bound. $\alpha_m$ is the relative activation of state $m$,
 $\theta_m$ is the joint probability of state $m$: 
@@ -575,7 +580,8 @@ steady state as the initial condition.
 %is available upon request.
 
 \subsubsection{Rewiring and change of parameters}
-In order to compare the influence of both topology and model parameters on 
+In order to compare the influence of both topology and 
+kinetic parameters on 
 the network response, we changed the network topology by rewiring edges and 
 the kinetic parameters $m_i, d_i$ (\ref{eq:gnw_model}) of a gene $i$ 
 respectively (\ref{fig:rewiring_scheme}). The
@@ -622,15 +628,16 @@ coded in gray scale.
 \subsection{Topology predominates kinetics}
 We investigate the influence of network topology on the immediate, dynamic gene response in networks. 
 To first gain insight into the role that network topology plays, we compared
-the different network responses after change of topology and change of model
-parameters in an ensemble of \emph{E. coli} networks.
+the different network responses after change of topology and change of kinetic
+parameters in an ensemble of \emph{E. coli} transcriptional
+regulatory networks (regulonDB 6.2).
 In the case of rewiring, we permuted the order of target nodes while keeping
 the number of connections and kinetics parameters such as synthesis and 
 degradation rates constant. Pearson correlation coefficients of the response
 strengths before and after rewiring decrease slightly with the network size 
 (\ref{fig:system_size}). 
 In contrast, when we 
-change the model parameters without affecting the network topology (%
+change the model parameters without rewiring (%
 \ref{fig:rewiring_scheme}), the Pearson correlation coefficients almost remains 
 at the same level and 
 are in general higher than that before and after rewiring. The Kullback-Leibler
@@ -660,7 +667,7 @@ One has to keep in mind that when changing the parameters,
 the connection strengths of individual edges are also varied,
 and only the network connectivity remains the same. Nevertheless,
 parameter change has in general a higher correlation coefficient
-and thus less effect than rewiring, which changes the connectivity.
+and thus less effect than rewiring, which changes the connectivity only.
 Therefore, the network response pattern changes most dramatically
 if and only if the wiring scheme
 itself, rather than the connection strengths, is changed.
@@ -837,7 +844,8 @@ with the alpha factor tends to behave in a way close to both scale-free and
 bow-tie networks.
 
 Taken together, it is 
-biologically more plausible that cellular networks are perturbed by a normally
+biologically more plausible that cellular interaction 
+networks are perturbed by a normally
 distributed factor upon external stimulation, where most of the genes are
 untouched and few of them are triggered to the level either above or
 below the steady state. The \emph{max} and \emph{rank} perturbation scenario, however, 
@@ -1077,9 +1085,9 @@ closely matches the response strength of these genes
 is regulated, the more closely related it is to the phenotype.
 
 \begin{longtable}{C{4cm}C{4cm}C{4cm}}
-\caption[Prediction of migration inhibition after perturbing key players]{
-Prediction of migration inhibition after perturbing key players identified
-from MDS.} \\
+\caption[Inhibitors of key players]{
+Key regulators as identified by the MDS-based response
+metric, their inhibitors and Gene Ontology terms.} \\
 \hline
 Key players & Inhibition & Function \\
 & & (GO analysis) \\ \hline
