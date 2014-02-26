@@ -215,7 +215,7 @@ ratio test (\ref{fig:full_reduced}).
 Shown are the microarray time series under the control and 
 keratinocyte-conditioned medium stimulation. Dashed lines indicate the full
 model which assumes the alternative hypothesis of differential expression
-between conditions; Dot-dashed line represent the reduced model of null 
+between conditions; The dot-dashed line represents the reduced model of null 
 hypothesis.
 }
 \label{fig:full_reduced}
@@ -223,7 +223,7 @@ hypothesis.
 
 \section{Impulse model}
 \label{sec:impulse}
-The qPCR time courses of \tnfa and \sdfonea measured in HPAEC cells are fitted with an impulse model~\cite{Chechik2009}, which is composed of one rising and one falling sigmoidal curve, as defined by
+The qPCR time courses of \tnfa and \sdfonea measured in HPAEC cells are fitted with an impulse model~\citep{Chechik2009}, which is composed of one rising and one falling sigmoidal curve, as defined by
 \[
 f(x) = \frac{1}{h_1} \cdot \left(h_0+\frac{h_1-h_0}{1+e^{-\beta_1(x-t_1)}}\right) \cdot
 \left(h_2+\frac{h_1-h_2}{1+e^{\beta_2(x-t_2)}}\right), 
@@ -234,8 +234,8 @@ where the three amplitude (height) parameters determine the initial amplitude
 
 \section{Calculating the significantly basal expressed genes}
 In order to robustly estimate differentially regulated genes at the basal level and to avoid the commonly encountered 
-presence of outliers and skewness~\cite{Marko2011}, we fitted 
-a skew-$t$  distribution~\cite{Azzalini2003} to the $\log_2$ raw intensities at 0h. 
+presence of outliers and skewness~\citep{Marko2011}, we fitted 
+a skew-$t$  distribution~\citep{Azzalini2003} to the $\log_2$ raw intensities at 0h. 
 In addition to the regular $t$ distribution $f(x)$ with $v_{df}$ degrees of freedom, a skew-$t$ distribution,  $f_{skew}(x)$ has an additional 
 skewing parameter $\gamma$ such that  
 \[
@@ -246,7 +246,7 @@ f_{skew}\left(\frac{x-\xi}{\omega}\right) =
 \end{cases}
 \]
 where $\xi$  and  $\omega$ denote the location and scale of the distribution.  
-The basal level gene expression distribution was fitted using maximum likelihood 
+The basal level gene expression distribution was fitted using the maximum likelihood 
 estimation for the 
 univariate skew-$t$ distribution, implemented in the R package \texttt{sn}.
 
