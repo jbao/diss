@@ -13,6 +13,8 @@
 \setlength{\parindent}{0pt}
 \usepackage{babel}
 \usepackage{float}
+\usepackage{pdfpages}
+\usepackage{ltablex,booktabs}
 
 \usepackage[authoryear]{natbib}
 \usepackage{amsmath}
@@ -23,7 +25,7 @@
 
 \def\CC{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
 
-\usepackage{longtable}
+\usepackage{longtable,tabu}
 \usepackage{colortbl}
 \definecolor{Gray}{gray}{0.9}
 \usepackage{datetime}
@@ -159,27 +161,27 @@ Fakultät f\"ur Biologie\\
 %Institut für zzz\vspace{-3cm}
 }
 
+\includepdf[pages=-]{Titelblatt.pdf}
+%\maketitle
 
-\maketitle
-
-\thispagestyle{empty}
-\lowertitleback{
-\mbox{}\par\vfill
-\textbf{Dekan}\smallskip{}
-\\ 
-Prof. Dr. Ad Aertsen\bigskip{}
-\\
-\textbf{Promotionsvorsitzender}\smallskip{}
-\\
-Prof. Dr. Stefan Rotter\bigskip{}
-\\
-\textbf{Betreuer der Arbeit}\smallskip{}
-\\
-Dr. Hauke Busch\bigskip{}
-\\
-\textbf{Datum der Promotion (only necessary for final publication)}\smallskip{}
-\\
-xx.yy.zzzz}
+%\thispagestyle{empty}
+%\lowertitleback{
+%\mbox{}\par\vfill
+%\textbf{Dekan}\smallskip{}
+%\\ 
+%Prof. Dr. Ad Aertsen\bigskip{}
+%\\
+%\textbf{Promotionsvorsitzender}\smallskip{}
+%\\
+%Prof. Dr. Stefan Rotter\bigskip{}
+%\\
+%\textbf{Betreuer der Arbeit}\smallskip{}
+%\\
+%Dr. Hauke Busch\bigskip{}
+%\\
+%\textbf{Datum der Promotion (only necessary for final publication)}\smallskip{}
+%\\
+%xx.yy.zzzz}
 
 \cleardoublepage{}
 
@@ -320,23 +322,23 @@ wirkungslos, Praxis ohne Theorie ist blind.
 %I am thankful to Huili, who is a good company and makes my life
 %more colorful; to my parents for their unconditional support.
 
-\newpage
-\chapter*{Erkl\"arung}
-\addcontentsline{toc}{chapter}{Declaration}
-\begin{enumerate}
-\item Ich erkl\"are hiermit, dass ich die vorliegende Arbeit ohne unzul\"assige Hilfe Dritter und ohne Benutzung anderer als der angegebenen Hilfsmittel angefertigt habe. Die aus anderen Quellen direkt 
-oder indirekt \"ubernommenen Daten und Konzepte sind unter Angabe der Quellen gekennzeichnet. Insbesondere habe ich hierf\"ur 
-nicht die entgeltliche Hilfe von Vermittlungs- beziehungsweise 
-Beratungsdiensten (Promotionsberater oder anderer Personen) 
-in Anspruch genommen. Niemand hat von mir unmittelbar oder 
-mittelbar geldwerte Leistungen f\"ur Arbeiten erhalten, die im Zusammenhang mit dem Inhalt der vorgelegten Dissertation stehen.
-\item Die Arbeit wurde bisher weder im In- noch im Ausland in gleicher 
-oder \"ahnlicher Form einer anderen Pr\"ufungsbeh\"orde vorgelegt.
-\item Die Bestimmungen der Promotionsordnung der Fakult\"at f\"ur Biologie der Universit\"at Freiburg sind mir bekannt, insbesondere 
-wei\ss ich, dass ich vor Vollzug der Promotion zur F\"uhrung des 
-Doktortitels nicht berechtigt bin.
-\end{enumerate}
-\vskip 3cm
-Berlin, den \ddmmyyyydate\today \hspace{6cm} Jie Bao
+%\newpage
+%\chapter*{Erkl\"arung}
+%\addcontentsline{toc}{chapter}{Declaration}
+%\begin{enumerate}
+%\item Ich erkl\"are hiermit, dass ich die vorliegende Arbeit ohne unzul\"assige Hilfe Dritter und ohne Benutzung anderer als der angegebenen Hilfsmittel angefertigt habe. Die aus anderen Quellen direkt 
+%oder indirekt \"ubernommenen Daten und Konzepte sind unter Angabe der Quellen gekennzeichnet. Insbesondere habe ich hierf\"ur 
+%nicht die entgeltliche Hilfe von Vermittlungs- beziehungsweise 
+%Beratungsdiensten (Promotionsberater oder anderer Personen) 
+%in Anspruch genommen. Niemand hat von mir unmittelbar oder 
+%mittelbar geldwerte Leistungen f\"ur Arbeiten erhalten, die im Zusammenhang mit dem Inhalt der vorgelegten Dissertation stehen.
+%\item Die Arbeit wurde bisher weder im In- noch im Ausland in gleicher 
+%oder \"ahnlicher Form einer anderen Pr\"ufungsbeh\"orde vorgelegt.
+%\item Die Bestimmungen der Promotionsordnung der Fakult\"at f\"ur Biologie der Universit\"at Freiburg sind mir bekannt, insbesondere 
+%wei\ss ich, dass ich vor Vollzug der Promotion zur F\"uhrung des 
+%Doktortitels nicht berechtigt bin.
+%\end{enumerate}
+%\vskip 3cm
+%Berlin, den \ddmmyyyydate\today \hspace{6cm} Jie Bao
 
 \end{document}

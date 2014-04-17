@@ -1084,13 +1084,14 @@ closely matches the response strength of these genes
 (\ref{fig:migration_prediction}). In summary, the more strongly a gene
 is regulated, the more closely related it is to the phenotype.
 
-\begin{longtable}{C{4cm}C{4cm}C{4cm}}
+\begin{longtabu} to \textwidth {X[c]X[c]X[c]}
 \caption[Inhibitors of key players]{
 Key regulators as identified by the MDS-based response
 metric, their inhibitors and Gene Ontology terms.} \\
 \hline
-Key players & Inhibition & Function \\
-& & (GO analysis) \\ \hline
+\textbf{Key players} & \textbf{Inhibition} & \textbf{Function (GO analysis)} \\
+\hline
+\endhead
 \rowcolor{Gray} PTGER4 &  L-162982 & immune response; G-protein coupled receptor signaling pathway \\
 PLAUR & neutralizing antibody \citep{Schnickmann2009} & chemotaxis \\
 \rowcolor{Gray} IL-8 & neutralizing antibody &  angiogenesis; inflammatory response \\
@@ -1101,7 +1102,7 @@ AKAP12 &  perturbation of protein kinase A \citep{Busch2008} &  positive regulat
 HBEGF & GW2974, double specific inhibitor of EGFR \citep{Busch2008} &  epidermal growth factor receptor binding; heparin binding  \\
 \hline
 \label{table:inhibition_method}
-\end{longtable}
+\end{longtabu}
 %\newpage
 
 \begin{figure}[!ht]
