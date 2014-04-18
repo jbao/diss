@@ -31,18 +31,18 @@ the cellular response to stimulus from a biological point of
 view, and then highlight the need to approach the problem
 within the theoretical context of complex systems. 
 Both the dynamic and 
-network aspect of cellular networks will be presented. 
+network aspects of cellular networks will be presented. 
 Finally, we also lay out the roadmap for the following 
 chapters.
 
 \section{Cellular signal processing}
 Cells are the building blocks of all living organisms except viruses. As an 
-independent functional unit, individual cells sense the environmental cues 
-(such as cytokine or growth factor stimulation, extracellular matrix interactions, DNA damage, or osmotic stress) by the membrane receptors. The latter
-then activate a cascade of protein reaction and modification in the cytoplasm,
+independent functional unit, individual cells sense environmental cues 
+(such as cytokine or growth factor stimulation, extracellular matrix interactions, DNA damage, or osmotic stress) via the membrane receptors. The latter
+then activate a cascade of signalling through proteins reactions and modifications in the cytoplasm,
 which leads to the gene regulation being triggered by 
 DNA-binding proteins, i.e. transcription factors. Post-transcriptional
-regulations again forms feedback loops at various levels, which act upon the
+regulations again form feedback loops at various levels, which act upon the
 upstream signaling proteins (\ref{fig:signal_flow}).
 
 \begin{figure}[!ht]
@@ -66,11 +66,11 @@ use \emph{signal} and \emph{information} interchangably.}
 has long been an active research topic.
 The last decades have witnessed the transition from a classical view of 
 simple linear signaling pathways
-to the idea of an intertwingled signaling network coordinating multiple 
-pathways~\citep{Kholodenko2012}. Techniques as yeast two hybrid system 
+to the idea of a crosslinked signaling network coordinating multiple 
+pathways~\citep{Kholodenko2012}. Techniques such as yeast two-hybrid systems 
 and mass spectrometry based
 proteomics have greatly enhanced the ability to map the components of such 
-signal transduction networks. Despite the inherent large number of false
+signal transduction networks. Despite the inherently large number of false
 positive hits from such high-throughput studies~\citep{Mering2002a}, 
 efforts have been devoted
 to collect different sources of protein-protein interaction 
@@ -83,8 +83,8 @@ a certain
 interaction, the quality of the experimental technique used
 to detect this interaction, and how conserved this particular
 interaction is across species. Such efforts have greatly 
-contributed to the current knowledge of protein interactions
-and therefore the backbone of the signal propagation network.
+contributed to the current knowledge of protein interactions,
+which form the backbone of the signal propagation network.
 
 Proteins interact with and modify each other most often by phosphorylation.
 By further investigating the time-resolved phosphorylation
@@ -101,19 +101,20 @@ of the human embryonic stem cell differentiation in response
 to different stimuli~\citep{Rigbolt2011} reveals interesting
 dynamic phosphorylation of DNA methyltransferases, which
 regulate several pluripotency marker genes and thereby 
-providing a link between the differential signal and the
+provide a link between the differential signal and the
 downstream transcriptional machinery.
 
 After reaching the transcription factor, 
 the cellular signal switches from the
-protein activity to the transcription of the target genes. The transcription,
-or copy of a certain gene is strictly controlled by the transcription factor,
-which binds to the promoter region of the gene and initiates the production
+protein activity to the transcription of the target genes. 
+Among other transcriptional regulation mechanisms,
+transcription factors are a major player,
+which bind to the promoter region of the gene and initiate the production
 of a messenger RNA. The messenger RNA is then translated into proteins,
 which join the signal processing cascade and can change certain cellular 
 phenotypes. Thus the information flow from membrane receptors to transcription
-factors, which induce the gene expression and subsequently protein synthesis, 
-forms a feedback regulatory loop.
+factors, which induce gene expression and subsequently protein synthesis, 
+forms a regulatory feedback loop.
 
 \section{Predictive analysis and systems biology}
 Four great ideas, as Sir Paul Nurse once argued~%
@@ -149,14 +150,14 @@ Republican opponent.
 
 Predictive modeling of biological data ranges from the 
 abstract 
-data-driven modeling framework (including clustering and 
+data-driven statistical analysis framework (including clustering and 
 regression methods) to the mechanistic differential 
 equation-based modeling, with Bayesian networks, Boolean
 logic and other methods lying in between~\citep{deJong2002}. 
-While the lab work remains time- and labor-intensive, 
+While lab work remains time- and labor-intensive, 
 theoretical 
-modeling approaches have helped to gain insights into how
-the signal processing unit in the cell works.
+modeling approaches have helped to gain insights into 
+signal processing in the cell.
 For example, it is observed that only
 weak, sustained EGF receptor (EGFR) phosphorylation can be
 translated into the phosphorylation of ribosomal protein 
@@ -165,19 +166,21 @@ S6, a molecule downstream in the Akt pathway of PC12 cells~%
 the Akt pathway exhibits the property of a low-pass filter,
 namely only transmitting low-frequency signals to the 
 downstream effectors. This led to the somewhat 
-counter-intuitive hypothesis that in a pathway with low-pass filter properties, any upstream inhibitor that can convert a strong transient time course into a weak sustained time course can be a potential downstream activator, which might 
+counter-intuitive hypothesis that in a pathway with low-pass filter properties, any upstream inhibitor that can convert a strong transient signal into a weak sustained signal can be a potential downstream activator, which might 
 explain certain aspects of drug resistance or side-effects
 in different EGFR inhibitor treatments~\citep{Kosaka2011,
 Lin2012}.
 
-Unlike the weather and flu forecasts, however, predictive
-analysis is not the aim, but rather a means to study 
-biological systems. Instead of a one-way street that leads
+Unlike weather and flu forecasts, however, predictive
+analysis in systems biology is not the aim, 
+but rather a means to understand 
+biological systems and to generate falsifiable hypotheses. 
+Instead of a one-way street that leads
 from data to model and finally predictions, systems biology
 is rather a cycle (\ref{fig:sb_cycle}) 
 that starts from describing the current
-biological knowledge by a mathematical model, simulation of
-the model then generates multiple testable hypotheses, which
+biological knowledge by a mathematical model, simulating
+the model and then generating multiple testable hypotheses, which
 are in turn validated in wet experiments~%
 \citep{Kitano2002e}. An analogy can be drawn between the
 cycle of systems biology and the working principles in many
@@ -230,7 +233,7 @@ related to each other physiologically and pathologically.
 The treatment is based on the 
 differentiation of syndromes and a typical prescription
 consists of multiple herbs with about 9 to 18 substances.
-This is in stark contrast to the common single drug
+This is in strong contrast to the common single drug
 target strategy in most \emph{western} medicine.
 
 Therefore, systems biology can heavily profit from the
@@ -251,7 +254,7 @@ resembles the firing events of spiking neurons~%
 
 Although we are now able to describe some of the individual 
 components of the 
-signalling network in detail, we still do not understand how they operate together to generate biological specificity. It is like trying to plan a journey with an incomplete railway network map lacking train time schedules. Even the simple transport of a signal requires both a network map and a time schedule,
+signalling network in detail, we still do not understand completely how they operate together to generate biological specificity. It is like trying to plan a journey with an incomplete railway network map lacking train time schedules. Even the simple transport of a signal requires both a network map and a time schedule,
 because all trains use common tracks, but shifting their 
 running time can determine which connections are enabled or disabled~\citep{Kholodenko2010}.
 Therefore, the study of emergent properties of signalling networks encoded by temporal dynamics becomes more and more
@@ -259,7 +262,7 @@ appreciated.
 
 Probably one of the most prominent examples linking network
 dynamics and phenotypic response comes from observations 
-that the duration of extracellular signal-regulated kinase (ERK) activation correlates with cell fate decisions in rat pheochromocytoma PC12 cells. More specifically, transient ERK activation by epidermal growth factor (EGF) induced cell proliferation, whereas sustained ERK activation by nerve growth factor (NGF) induced differentiation~\citep{Marshall1995a}.
+that the duration of extracellular signal-regulated kinase (ERK) activation correlates with cell fate decisions in rat pheochromocytoma PC12 cells. More specifically, transient ERK activation by epidermal growth factor (EGF) induced cell proliferation, whereas sustained ERK activation by nerve growth factor (NGF) induced differentiation~\citep{Marshall1995a,Santos2007}.
 
 Likewise, although missing a direct functional mechanism, the link between the molecular 
 dynamics of certain proteins/genes and the cellular phenotype has been observed in the yeast.
@@ -280,7 +283,7 @@ the interaction between billions of them.
 Because networks are so ubiquitous
 in science as well as our daily life, it is beneficial to
 study the abstract representation of different complex 
-systems as networks. Network theory aims to understand the origins and characteristics of networks that hold together the components in various complex systems. The more we look
+systems as networks. Network theory aims at understanding the origins and characteristics of networks that hold together the components in various complex systems. The more we look
 into networks of different nature, the more we come to 
 realize that networks behind most complex systems are governed by a series of fundamental laws that determine and limit their behaviour. 
 It is therefore believed that in general complexity can only be understood within the
@@ -300,18 +303,17 @@ available recently with the advance of various technologies.
 A variety of biological networks including protein-protein interaction, protein-DNA interaction, and RNA interaction networks are essential to cooperative biological activities~\citep{Zhu2007a}. These networks consist of nodes (vertices) which denote molecules, and links (edges) which denote interactions between them. Depending on the type of interaction, the corresponding edge might be directed or undirected. For example, a binding between two proteins is usually represented as an undirected edge while an interaction between a transcription factor and a gene whose expression is regulated by the given transcription factor is usually represented as a directed edge where the direction goes from the transcription factor to the gene.
 
 If the cellular phenotype is indeed encoded in interaction 
-networks, one would expect that the development of 
+networks, one would expect that the development of the
 phenotype can be predicted by studying the cellular
 networks. By integrating a coexpression network, seeded with four well-known breast cancer
 associated genes, together with genetic and physical interactions, \cite{Pujana2007} yielded a breast cancer network model, out of which candidate cancer susceptibility and modifier genes could be predicted.
 \cite{Zhong2009} studied the
 perturbations of cellular networks, which can result in phenotypic variations.
-The type of the perturbation ranges from node removal at one end and edge-specific,
-\emph{edgetic} perturbations at the other. The
+The type of the perturbation ranges from node removal at one end and edge removal at the other. The
 consequences on network structure and function are shown
-to be radically dissimilar for node removal versus edgetic perturbation. Node removal not only disables the function of a node but
+to be radically dissimilar for node versus edge removal. Node removal not only disables the function of a node but
 also disables all the interactions of that node with other nodes,
-disrupting in some way the function of all of the neighboring nodes. An edgetic disruption, in contrast, removes one or a few interactions
+disrupting in some way the function of all of the neighboring nodes. An edge removal, in contrast, disrupts one or a few interactions
 but leaves the rest intact and functioning, and has thus 
 subtler effects
 on the network. 
