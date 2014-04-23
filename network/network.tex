@@ -33,7 +33,7 @@ problem deals with seven bridges across the river in the city
 of K\"onigsberg, and the aim is to find a walk through the 
 city that would cross each bridge once and only once, to which
 Euler proved that there is no solution. For a long time,
-graph theory remains a specialized and abstract mathematical 
+graph theory remained a specialized and abstract mathematical 
 discipline. Not until the publication of the first 
 small-world network model~\citep{Watts1998} did people
 realize that there is a class of networks, which is neither
@@ -51,9 +51,11 @@ structure, whereas the Linux kernel displays rather an inverse-pyramid
 hierarchy, which is believed to be due to different design principles of the two 
 systems: robustness for biological systems and cost effectiveness for 
 software systems~\citep{Yan2010}.
-Such findings highlight the hypothesis of \emph{function follows form}, or 
+Such findings highlight the close relationship between 
+function and structure, either
 the function of complex networks results from their distinct structural 
-properties.
+properties, or the network structure evolved to facilitate
+the function.
 
 \section{Network topology}
 There are a variety of methods to determine the topology of biological
@@ -155,7 +157,7 @@ also attracted much attention in the research community.~%
 \footnote{We think this topic deserves its own section and we also discuss
 the relevance of scale-free networks in our results later.}
 The basic idea of 
-how a scale-free network and its power-law degree distribution comes into
+how a scale-free network and its power-law degree distribution come into
 existence is called preferential attachment. In other words, at each time
 step of a growing network, a new node is added to a certain node in the 
 network based on the probability that is proportional to the degree of the
@@ -535,8 +537,7 @@ motivated ones (scale-free and bow-tie network).
 \item Uniform: network with uniform in- and out-degree distributions $k_{in,out} \in 
   \{0,1,...,11\}$ is constructed 
   with the configuration model (\citealp{Newman2001}). 
-  In short, a configuration network 
-  is constructed in the following manner. Each node $i$ has a desired degree $k_i$, 
+  In short, each node $i$ has a desired degree $k_i$, 
   so we imagine that each node has $k_i$ edge ``stubs'' attached to it. Edges are 
   then assigned by randomly choosing two stubs and drawing an edge between them.
 \item Small-world: a small-world graph  
@@ -577,7 +578,7 @@ gene expression dynamics is defined by
 \end{equation}
 where $x_i(t)$ denotes the expression level of gene $i$ at time $t$, 
 $m_i$ is the 
-maximum transcription rate, $d_i$ the mRNA degradation rate. $f_i(\cdot)$
+maximum transcription rate, and $d_i$ the mRNA degradation rate. $f_i(\cdot)$
 is the activation function of gene $i$, it depends on the expression level of 
 all the input onto gene $i$ at time $t$, $x_j(t)$ and is the sum of relative 
 activations for
@@ -619,7 +620,7 @@ the kinetic parameters $m_i, d_i$ (\ref{eq:gnw_model}) of a gene $i$
 respectively (\ref{fig:rewiring_scheme}). The
 network response strengths before and afterwards were then compared by
 calculating the Pearson correlation. More specifically, in the case of 
-rewiring, the list of target nodes is randomly permutated and assigned to the
+rewiring, the list of target nodes is randomly permuted and assigned to the
 source nodes to form new edges. 
 In such a way, the total number of edges
 remains the same after rewiring. 
@@ -808,7 +809,7 @@ with caution according to \ref{sec:scale_free}.} and bow-tie networks are more c
 biological networks, whereas random, uniform and small-world networks behave
 differently (\ref{fig:degree_response_summary}).
 
-\subsection{Topology and perturbation together shape the network dynamcis}
+\subsection{Topology and perturbation together shape the network dynamics}
 
 \begin{figure}[!ht]
 \begin{center}
@@ -836,7 +837,7 @@ external stimulation schemes and how they affect the network response
 pattern (\ref{fig:degree_response_deg_dist}). 
 The scale-free networks with both the \emph{norm} and \emph{max}
 perturbation strategies resemble the connectivity-response pattern of 
-biological networks pretty well (cf. \ref{fig:degree_response_example}), 
+biological networks most closely (cf. \ref{fig:degree_response_example}), 
 as can be seen from both centers of mass
 lying closely to the diagonal. In the case of \emph{rank} perturbation,
 although the center of mass remains at the bottom left corner, the node
@@ -939,7 +940,7 @@ the Hill coefficient (\emph{n.mean}) and the dissociation constant
 When applying the \emph{rank} perturbation, in contrast, it is the network
 connectivity as characterized by the in-/out-degrees and the connection weights
 that explain the network dynamics well. The kinetic parameter, decay rate,
-does not have a high importance score across any combination of network
+does not have a high importance score for any combination of network
 topology and perturbations.
 
 This result cross-validates and adds new information to 
