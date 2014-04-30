@@ -12,17 +12,17 @@ to the protein signaling events that propagate through the protein interaction
 network and ultimately lead to the measured gene regulation (\ref{fig:signal_flow}).
 
 In the following, we first introduce several classical methods to infer the
-enrichment of pathways from the transcriptome data. We point out the drawback
-of their implicit assumptions and propose a two-step approach to identify the
+enrichment of pathways from the transcriptome data. We point out the drawbacks
+due to their implicit assumptions and propose a two-step approach to identify the
 causal signal\footnote{We use \emph{signal} and \emph{information} interchangably.} 
 flow from membrane receptors to transcription factors. Finally,
-we apply this approach in the study of cell-cell communication in the lung
+we test the validity and usefulness of this approach in the study of cell-cell communication in the lung
 cancer.
 
 \section{Pathway enrichment analyses}
 Since the introduction of the microarray technology, 
 most researchers have been dependent on the identification
-of a gene list that is significantly differentially expressed
+of genes that are significantly differentially expressed
 under different experimental conditions.
 Such differentially regulated genes can be candidates for 
 further investigation and validation, but it is without
@@ -34,8 +34,8 @@ three generations of pathway analyses~\citep{Khatri2012}, here we discuss
 their core features and limitations.
 
 \subsection{Over-representation test}
-Over-representation test is also called Fisher's exact test, it statistically 
-evaluates the fraction of genes in a particular pathway found among the set 
+The over-representation test, also called hypergeometric test, 
+evaluates whether the fraction of genes in a particular pathway is over-represented among the set 
 of genes showing significant changes in expression. 
 A researcher first looks at the proportion between genes 
 that are 
@@ -45,7 +45,7 @@ threshold (first row in \ref{table:contigency_table}).
 %Then, for each pathway, the number of genes that are part of the 
 %pathway is counted. 
 This process is repeated for an appropriate background 
-list of genes (e.g., all genes measured on a microarray), 
+list of genes (e.g. all genes measured on a microarray), 
 such that they can also be divided into differentially 
 regulated and not differentially regulated. 
 Next, every pathway 
@@ -54,7 +54,7 @@ a $2 \times 2$ contingency table (\ref{table:contigency_table}).
 Fisher has shown that the probability of obtaining any such set of values was 
 given by the hypergeometric distribution. To calculate the significance of the
 test, i.e. the total probability of observing data as extreme or more extreme 
-if the null hypothesis is true, one has to sum up the individual probability
+if the null hypothesis is true, one has to sum up the individual probabilities
 of observing the data and all those of observing more extreme frequencies.
 
 \begin{longtable}{cccc}
@@ -70,11 +70,11 @@ background & $c$ & $d$ & $c+d$\\
 \end{longtable}
 
 One of the major critics on Fisher's exact test is that it only considers a ranked
-list of differentially expressed genes and is thus independent of the 
+list of differentially expressed genes and that it is thus independent of the 
 measured fold changes. Second, the generation of the contingency table
 requires setting a significance cutoff to count the number of differentially
 regulated genes. This procedure introduces a subjective criterion and 
-effectively treats the gene regulation as a black-white picture, namely only 
+effectively treats the gene regulation as a black-and-white picture, namely only 
 genes above this threshold are considered differentially expressed.
     
 \subsection{Gene set analysis}
@@ -159,9 +159,9 @@ Therefore, questions arise about the validity of inferring signaling
 pathway activity based solely on the gene expression data.
 
 \section{Two-step integrative approach to causal signal flow}
-We propose here a two-step integrative approach to infer the activated protein signaling
+Here we propose a two-step integrative approach to infer the activated protein signaling
 pathways from time-resolved microarray data. As a first step, we apply a
-gene set enrichemnt analysis to test the
+gene set enrichment analysis to test the
 enrichment of transcription factor target genes, which acts as a proxy of
 the transcription factor activity \emph{per se}. Second, the upstream 
 signal flow from membrane receptors to transcription factors is predicted 
@@ -190,16 +190,16 @@ strengths as derived from the
 multidimensional scaling of the normalized time series 
 (\ref{sec:response_strength}). The difference in fold 
 expression or the response strength of both
-the transcription factor target gene set and  
-the whole transcriptome as a background is tested by a 
+the transcription factor target gene sets and  
+the whole transcriptome as a background was tested by a 
 $t$-statistic. 
 The transcription factors of the respective significantly differentially regulated
-gene sets are deemed active.
+gene sets were considered active.
 
 \subsection{Signal flow from membrane receptors}
-The second step involves inferring how extracellular signal flows from the 
+The second step infers how extracellular signals flow from the 
 membrane receptors to 
-the transcription factors and subsequently induces gene regulation. 
+the transcription factors and subsequently induce gene regulation. 
 To this end, we assume that the signal flows along the edges of a network 
 in a most efficient manner. Consequently, it is 
 crucial to be able to measure the proximity between a given pair of receptor and
@@ -211,8 +211,8 @@ being the mean first passage time based on the idea of random walk.
 \subsubsection{Shortest path length}
 If one assumes that information propagates in the network in 
 a most parsimonious way,
-shortest path (SP) length between two nodes in the network is a classical way to
-assess the distance between these two nodes and thus possible route of the signal flow
+the shortest path (SP) length between two arbitrary nodes in the network is a classical way to
+assess the distance between these two nodes and thus the putative route of the signal flow
 (\ref{sec:shortest_path}). Several variations of the 
 shortest path approach have been used in extracting 
 phenotype-associated and previously unknown genes~%
@@ -247,10 +247,11 @@ Intuitively, the shortest path is only the best scenario of all possible routes
 of information flow in the network. Therefore, it simply ignores the 
 neighborhood or global structure around the shortest path when calculating
 distances. Another limitation of the shortest path distance metric has to do
-with the small characteristic path lengths in a small-world networks~%
-\citep{Watts1998}, such that any nodes can be reached from any other nodes
-within only few hops when traveling on the shortest path and the shortest path
-metric loses its discriminative power. Since most biological
+with the small characteristic path lengths in small-world networks~%
+\citep{Watts1998}, such that any node can be reached from any other nodes
+within only few hops when traveling on the shortest path.
+Therefore, the shortest path
+metric soon loses its discriminative power. Since most biological
 and real-world networks demonstrate the small-world feature~%
 \citep{Barabasi2004}, this limitation
 has to be kept in mind when working with the shortest path.
@@ -268,16 +269,16 @@ first time. It has been shown that MFPT can be used to detect community
 structures in the protein interaction network of yeast~\citep{Zhou2003}. 
 Recently, a random walk with restart approach was applied to associate
 target gene sets to reference datasets as an alternative to 
-over-representation-based enrichement analyses~\citep{Glaab2012}. 
+over-representation-based enrichment analyses~\citep{Glaab2012}. 
 Further examples include a random walk-based software tool for functional
 analyses of cellular networks with genomic data integrated~\citep{Komurov2012a}.
 Moreover,
-the usefulness of MFPT became evident by the fact that the pairwise MFPT 
+the usefulness of MFPT is evident by the fact that the pairwise MFPT 
 matrix is sufficient to reconstruct the full network topology~%
 \citep{Wittmann2009}.
 
-MFPT can be calculated analytically by solving a linear equation system~%
-\citep{Kampen2007}. Consider the special case of a linear chain 
+The MFPT can be calculated analytically by solving a linear equation system~%
+\citep{Kampen2007,Weber2010}. Consider the special case of a linear chain 
 (\ref{fig:mfpt_calculation}) and suppose the random walker starts from node 
 $x$ at a certain time $t$, with the probability of jumping to adjacent nodes
 being equal, we have
@@ -348,7 +349,7 @@ matrix that ensures $\tau(y,y)=0$, more specifically
 0 & \textnormal{otherwise}
 \end{cases}
 \end{equation}
-It is easy to see that $\tilde{\mathbf{L}}$ can be pre-calculated and then be 
+It is easy to see that $\tilde{\mathbf{L}}$ can be pre-calculated and 
 reused to estimate the
 MFPT for each target node $y$. Moreover, the calculations
 for different targets are independent and hence can be
@@ -366,7 +367,7 @@ measures the length of the backbone and is
 thus the same across all three topologies, whereas MFPT has a broader range
 and changes between 9 and 17.5. This demonstrates that SP does not take into
 account the global network topology. Furthermore, SP is also more susceptible
-than MFPT to the pruning of a critical link, which is illustrated in the 
+to the pruning of a critical link than MFPT, which is illustrated in the 
 network C and D with only a single connection between $n1$ and $n2$ removed
 in D. Since this edge is part of the shortest path between $n0$ and $n3$, the
 SP distance changes dramatically by 33\%, while MFPT increase only moderately
@@ -388,7 +389,7 @@ Shown are the distances between node $n0$ and $n3$ measured in shortest path
 \section{Application in tumor-stroma interaction of lung cancer}
 
 The hallmark of lung tumor development is its early spread, 
-complicating the patient treatment and strongly impairing survival.
+complicating patient treatment and strongly impairing survival.
 Recent studies~\citep{Mueller2004} have shown the tumor-stroma interaction to be relevant to 
 tumor growth and spread, and therefore a possible target for
 novel, effective treatment. 
@@ -487,7 +488,7 @@ Here, we combine the previous approaches and
 study \emph{in vitro} the crosstalk between tumor and 
 endothelial cells in  a non-small-cell lung cancer model: namely,
 H838 lung cancer cells and HPAEC, i.e. human pulmonary artery endothelial cells.
-We found that the  migration of  H838 cells in a trans-well H838/HPAEC coculture
+We found that the  migration of  H838 cells in a transfilter H838/HPAEC coculture
 was significantly enhanced when compared to the H838/H838
 homogeneous coculture.
 Gene set enrichment analysis of the dynamic transcriptome
@@ -548,12 +549,14 @@ a two-sided  $t$-test of the observed difference yields a
 $p$-value of 
 $2.82 \times 10^{-5}$.
 
+%\begin{figure}[!ht]
 \begin{center}
 \captionsetup{labelformat=prepage}
 \includegraphics[width=\textwidth]{h838_setup.pdf}
 \newpage
 %\begin{FPfigure}[!ht]
 \captionof{figure}[H838 experimental setup]{
+%\caption[H838 experimental setup]{\small{
 {\bf The experimental setup of the tumor-stroma interaction 
 between H838 and HPAEC cells.} 
 The coculture of tumor and endothelial cells is carried out
@@ -573,6 +576,7 @@ experiments respectively.
 \label{fig:h838_setup}
 %\end{FPfigure}
 \end{center}
+%\end{figure}
 
 \begin{figure}[!ht]
 \begin{center}
@@ -933,25 +937,27 @@ gain insights into the signal flow between receptors and transcription factors.
 
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=\textwidth]{h838-mfpt_sp_z.pdf}
+\includegraphics[width=\textwidth]{h838-mfpt_sp_z_qqplot.pdf}
 \end{center}
 \caption[MFPT and SP distribution]{
-{\bf Time-resolved distribution of MFPT and SP for receptors to the 
-nearest transcription factor.} 
-Shown are the boxplot of the standardized MFPT and SP distributions at 
-different time points. Individual data points are blue-shaded, jittered
-and superimposed on the boxplot.
+{\bf Time-resolved quantile-quantile plot of MFPT and SP for receptors to the 
+average transcription factor.} 
+Shown are the quantile-quantile plots of the standardized MFPT and SP distributions at 
+different time points. Each black dot is a receptor and the 
+red dashed line denotes where the MFPT and SP distributions
+are identical.
 }
 \label{fig:h838_mfpt_sp}
 \end{figure}
 
-We further set out to compare both shortest path length (SP) and mean first 
+We next set out to compare both shortest path length (SP) and mean first 
 passage time (MFPT) as a distance metric to infer the dynamic signal flow
 in the network from receptors to transcription factors. To this end, we
-first determined at each time point for each receptor, what is
-the distance to the closest downstream transcription 
+first determined at each time point and for each receptor, 
+the average distance to the downstream transcription 
 factor. This distance metric for a certain receptor
-$i$ is then robust $z$-transformed, such that both SP and MFPT 
+$i$ is then robustly $z$-transformed, such that the distance
+metric is insensitive to outliers and both SP and MFPT 
 are comparable, or
 \[
 \tilde{D}_{i} = \frac{D_{i}-\med(D)}{\IQR(D)/2\sqrt{2}\erf^{-1}(0.5)}, 
@@ -960,66 +966,71 @@ where $D \in \{SP,MFPT\}$ and $\med$ and $\IQR$ are the median
 and 
 the inter-quartile range of the distance metric over all 
 receptors 
-respectively. In \ref{fig:h838_mfpt_sp}, we see the median
-statistics of both distance metrics are consistent over time. However, the 
-MFPT distributions are in general more skewed, have a larger dynamic range,
-whose bottom outliers represent candidate receptors with shortcuts to the
+respectively. In \ref{fig:h838_mfpt_sp}, we see the positive
+parts of the $z$-transformed MFPT and SP distributions are
+nearly identical for all time points. However, the 
+MFPT distributions are in general more skewed towards the
+negative side, as can be seen from the long tail to the 
+bottom left. The negative outliers as identified by the MFPT
+represent candidate receptors with shortcuts to the
 downstream transcription factors and therefore likely crucial in the signal
-flow chain. On the other hand, the SP values are intrinsically discrete, as
-evident from the half-transparent blue dots. Since multiple receptors have
+flow chain. On the other hand, the SP values are intrinsically discrete and have a smaller dynamic range. Since usually 
+multiple receptors have
 the minimal SP distance, this metric is effectively less powerful in
 discriminating between receptors.
 
 \begin{figure}[!ht]
+\hskip 0.5in A \hskip 2.5in B
 \begin{center}
-\includegraphics[width=\textwidth]{h838-mfpt_ts_0_6.pdf}
+\includegraphics[width=0.45\textwidth]{h838-mfpt_ranking.pdf}
+\includegraphics[width=0.45\textwidth]{h838-mfpt_top_ts.pdf}
 \end{center}
-\caption[Shortcut between receptors and TFs over time]{
-{\bf The $z$-transformed MFPT distance and its significance
-level between individual receptors
-and transcription factors.} 
-The significance level of a certain receptor is represented
-by the negative log-transformed $p$-value from bootstrapping.
-The gray box represents a region
-with negative MFPTs and a negative log-transformed $p$-value
-bounded by 1.7 and 1.9, which contains all candidate
-receptors involved in the signal flow.
-Only receptors with a $p$-value $<0.045$ are shown.
+\caption[Top receptors identified by MFPT]{
+{\bf Top receptors with the shortest average $z$-transformed MFPT distances and their time course.} 
+(A) Receptors are ranked by their average $z$-transformed
+MFPT, only receptors with a bootstrapped $p$-value $<0.05$
+and an absolute MFPT $z$-score $>1.96$ are shown.
+(B) Time-resolved MFPT distances of three example receptors 
+with the shortest average MFPT.
 }
 \label{fig:h838_mfpt_ts}
 \end{figure}
 
-A hallmark of the eukaryotic genome is that individual genes are often 
-regulated by multiple transcription factors that combinatorially bind to 
-promoters of genes~\citep{Harbison2004}. Therefore, the activation of multiple transcription
-factors is vital to the regulatory machinery, which might also result
-from the signal flow from different membrane receptors.
-In order to assess the significance of the $z$-transformed 
+Due to the fact that the distance metric is calculated on a static network, the distance between any single receptor and TF does not change over time. It is however possible that
+the network connectivity is time- and context-dependent, 
+and the accessibility and the distance between a certain transcription factor
+and receptors differ between time points.
+In order to estimate the uncertainty and the significance of the $z$-transformed 
 MFPT distance of a certain receptor at a certain time point, 
 we randomly resampled the same number of downstream
 transcription factors for each receptor, and calculated a
 $p$-value out of this bootstrapped distribution of mean 
 distances.
 
-As a result, receptors with both a short distance and a low
-$p$-value are the potential players that relay the external
-signals to the transcription factors. We highlight a region
-with negative MFPTs and a negative log-transformed $p$-value
-bounded by 1.7 and 1.9 in \ref{fig:h838_mfpt_ts}.
-We observe that different receptor groups have different 
-shortcuts over time.
-Most groups, such as interferon receptors, interleukin 
-receptors, TGF-$\beta$ family receptors and TNF family 
-receptors, are more strongly present in the gray zone in
-the early phase (2 hours after scratch). Up to 4h, some of
-these receptors still remain in the highlighted region,
-but the majority of receptors have a less significant
-$p$-value compared to the early hour 
-and are wandering out of the region.
-C-X-C chemokine receptors, more specifically CXCR6 and CXCR7,
-are only significant at 2h. The chemokine (C-C Motif) receptor
-CCR6, in contrast, only creates a short link to the 
-transcription factor at 4h.
+As a result, we ranked all receptors that are significant
+according to bootstrapping ($p<0.05$) and the robust 
+$z$-score ($z>1.96$) by their average $z$-transformed MFPT
+over time (\ref{fig:h838_mfpt_ts} A).
+We observe that there are fewer receptors with a negative
+MFPT and a short distance than those with a positive
+MFPT and a long distance, which suggests that the signalling
+at the receptor level might be a specific process 
+involving only a handful of players.
+Among the top receptors with a short distance, it is 
+interferon receptors, TGF-$\beta$ family receptors, 
+C-X-C chemokine receptors and TNF family receptors.
+We further examined how the MFPT distance metric changes
+over time for three of the top receptors, i.e. TNFRSF8, 
+IFNAR1 and CXCR7 (\ref{fig:h838_mfpt_ts} B). 
+The receptors have a short MFPT distance (negative peak) 
+and thus are
+possibly involved in the signal transduction at different 
+time points. For instance, both IFNAR1 and CXCR7 are close
+to the transcription factors at 1h, and CXCR7 peaks again
+at 5h, while IFNAR1 approaches transcription factors at
+a later time point (10h). In contrast, the MFPT metric
+between TNFRSF8 and transcription factors only fluctuates
+moderately around a baseline.
 
 %As a more parsimonious ansatz, we also only look at the receptors with the 
 %minimal MFPT distance for each time point (\ref{fig:h838_mfpt_top}).
@@ -1177,18 +1188,18 @@ The quantification of fifty different analytes was performed and evaluated in a 
 
 \clearpage
 \begin{longtable}{ccccc}
-\caption{List of cytokines in the array.} \\ 
+\caption{Gene symbol list of cytokines in the array.} \\ 
 \hline
-Eotaxin & IL-5 &   IP-10 &  HGF & MCP-3\\
-\rowcolor{Gray} FGF basic &  IL-6 &   MCP-1 &  ICAM-1 & M-CSF\\
-G-CSF &  IL-7 &   MIP-1$\alpha$ & IFN$\alpha$2 & MIF\\
-\rowcolor{Gray} GM-CSF & IL-8 &   MIP-1$\beta$ &  IL-1$\alpha$ & MIG\\
-IFN-$\gamma$ &  IL-9&    PDGF bb&  IL-11-R$\alpha$-lokus chemokine & SCF\\
-\rowcolor{Gray} IL-1b &  IL-10 &  RANTES & IL-12 (p40) & SCGF-$\beta$\\
-IL-1R$\alpha$ &  IL-12 (p70) &  TNF$\alpha$ &   IL-16 &  SDF-1$\alpha$\\
-\rowcolor{Gray} IL-2 &   IL-13 &  VEGF &   IL-18 &  TNF$\beta$\\
-IL-3 &   IL-15 &  $\beta$-NGF&  IL-2R-$\alpha$ &   TRAIL\\
-\rowcolor{Gray} IL-4 &   IL-17 &  GRO$\alpha$ &  LIF &VCAM-1\\
+CCL11 & IL5 &   CXCL10 &  HGF & CCL7\\
+\rowcolor{Gray} FGF2 &  IL6 &   CCL2 &  ICAM1 & CSF1\\
+CSF3 &  IL7 &   CCL3 & IFNA2 & MIF\\
+\rowcolor{Gray} CSF2 & IL8 &   CCL4 &  IL1A & MIG\\
+IFNG &  IL9&    PDGFB&  IL11RA & KITLG\\
+\rowcolor{Gray} IL1B &  IL10 &  CCL5 & IL12B  & SCGFB\\
+IL1RA &  IL12A  &  TNFA &   IL16 &  CXCL12\\
+\rowcolor{Gray} IL2 &   IL13 &  VEGF &   IL18 &  TNFB\\
+IL3 &   IL15 &  NGF&  IL2RA &   TRAIL\\
+\rowcolor{Gray} IL4 &   IL17 &  CXCL1 &  LIF &VCAM1\\
 \hline
 \label{table:cytokine}
 \end{longtable}
@@ -1224,18 +1235,18 @@ A total of twenty-four different cytokines were present in detectable amounts,
 fifteen of which showed significant differential upregulation
 (\ref{fig:cytokine} A).
 % Should add here an additional table with the quantification of all cytokines
-Gro-$\alpha$ (ligand for CXCR2), MCP-3 (ligand for CCR1/2/3), IL-6, IL-8, IL-13, FGF basic, G-CSF, IP-10 (ligand for CXCR3) and RANTES (ligand for CCR1) were
+CXCL1 (aka. Gro-$\alpha$, ligand for CXCR2), CCL7 (aka. MCP-3, ligand for CCR1/2/3), IL6, IL8, IL13, FGF2 (aka. FGF basic), CSF3 (aka. G-CSF), CXCL10 (aka. IP-10, ligand for CXCR3) and CCL5 (aka. RANTES, ligand for CCR1) were
 upregulated in the heterogeneous coculture prior to cell migration.
-MIF, IL-12, IL-15, MCP-1 (ligand for CCR2/4) and TNF-$\alpha$ were also upregulated
+MIF, IL12, IL15, CCL2 (aka. MCP-1, ligand for CCR2/4) and TNFA were also upregulated
 in the heterogeneous cocultures, and this upregulation was increasing
 during tumor cell migration.
-Finally, SDF-1$\alpha$ (ligand for CXCR4/7) was only found in the heterogeneous coculture,
+Finally, CXCL12 (aka. SDF-1$\alpha$, ligand for CXCR4/7) was only found in the heterogeneous coculture,
 and was also upregulated after scratching. 
 
 % Need a better headline for the subsection here 
 \subsubsection{Isolation of cytokines relevant to migration}
 
-Based on the cytokine array results and the receptor inference from random walk, 
+Based on the cytokine array results and the receptor inference from MFPT, 
 we found that the TNF super family receptors, CXCRs, CCRs,
 interleukin receptors are contributing to the putative 
 signal flow and their corresponding ligands can also be
@@ -1380,11 +1391,7 @@ and the inhibition of the respective ligands leads to reduced migration
 activity. We further
 hint at endothelial cells as possible sources for \tnfa and \sdfonea in the conditioned medium.
 
-We discuss next the endothelial cell-tumor cell communication, what is known and what we found at the transcription and protein level.
-We also speculate the role of \tnfa and \sdfonea in tumors and especially lung tumors.
-
-\begin{itemize}
-\item \textbf{What do we know about \tnfa and \sdfonea with respect to tumor cell migration?}
+\subsubsection{Tumor-stroma communication}
 
 \tnfa was first identified as an anti-tumor cytokine that is involved in the killing
 of certain kinds of tumors, however, it is appreciated recently that \tnfa can also 
@@ -1395,6 +1402,12 @@ CXCR4 mRNA, which is the receptor of \sdfonea. This response to \tnfa involves b
 AP-1 and NF-$\kappa$B related pathways~\citep{Kulbe2005}. Blocking the \tnfa receptor
 in mouse Lewis lung carcinoma cell cultures decreases the gene expression of CXCR4~%
 \citep{Sasi2011}.
+
+The identification of \tnfa as a key stroma-originating factor that promotes 
+tumor cell migration is of great interest, since its release is a general response to chemotherapy in different stromal cell types~\citep{Acharyya2012}. Together with
+other cytokines, such as HGF, that contribute to the drug resistance of cancer
+treatment~\citep{Straussman2012}, these soluble factors in the tumor microenvironment
+might be the key to the adverse effects in the cancer therapy and the potential target of intervention.
 
 It has been shown that the \sdfonea/CXCR4 pathway has pleiotropic activities and it 
 promotes tumor growth and malignancy, enhances tumor angiogenesis, participates in tumor metastasis, and contributes to immunosuppressive networks within the tumor microenvironment~\citep{Kryczek2007}. 
@@ -1414,14 +1427,8 @@ fine-tune the \sdfonea-mediated migratory cues by cross-talking
 with the signal transduction through CXCR4%
 ~\citep{Zabel2009,Liberman2012f}
 
-The identification of \tnfa as a key stroma-originating factor that promotes 
-tumor cell migration is of great interest, since its release is a general response to chemotherapy in different stromal cell types~\citep{Acharyya2012}. Together with
-other cytokines, such as HGF, that contribute to the drug resistance of cancer
-treatment~\citep{Straussman2012}, these soluble factors in the tumor microenvironment
-might be the key to the adverse effects in the cancer therapy and the potential target of intervention.
 
-
-\item \textbf{What is new in our methods?}
+\subsubsection{Methodology}
 
 The advantage of our two-step integrative approach to identifying 
 relevant transcription factors that lead to the transcriptome response
@@ -1445,8 +1452,15 @@ path connecting a certain pair of receptor and transcription factor, which is
 defined by the mean first passage time of a random walker and takes into account
 the global topology of the protein interaction network.
 
-\item \textbf{What new  biological insights do we gain?}
-
+The distribution of mean first passage time is usually
+highly skewed and thus generates lots of candidate
+receptors that have potentially short distances to
+transcription factors. We limited the number of testable
+receptors/hypotheses by filtering the MFPT by a bootstrapped
+$p$-value. We only consider MFPTs with a low $p$-value,
+which is equal to a low
+probability that a random collection of transcription 
+factors can yield the same or more extreme MFPT.
 The combination of the random walk approach, cytokine array and single factor
 stimulation together confirms the involvement of \tnfa, 
 \sdfonea and 
@@ -1461,9 +1475,10 @@ neutralizing antibody experiments.
 
 Based on our time-resolved qPCR results, we conclude that \tnfa in the endothelial 
 cells is 
-transiently expressed and peaks earlier than \sdfonea, which is in line with
-the random walk prediction that TNF familiy receptors are strongly linked to
-the transcription factors between 2 and 4 hours after the scratch. This receptor
+transiently expressed and peaks earlier than \sdfonea.
+The random walk predicts that TNF familiy receptors, e.g.
+TNFRSF8, are first equally strongly linked to
+the transcription factors and then peak around 5 hours after the scratch. This receptor
 wave in the H838 cells lags behind the ligand transcript level in the HPAEC cells,
 which possibly corresponds to the time delay due to the 
 secretion of cytokine and diffusion in the medium.
@@ -1477,7 +1492,8 @@ signal flow in the tumor cell through CXCR7.
 Over time, the ligands get
 internalized by the receptor, 
 which forces the endothelial cell to 
-\emph{de novo} synthesize \sdfonea. Since both \tnfa and
+\emph{de novo} synthesize \sdfonea. Since both receptors of
+\tnfa and
 \sdfonea are most strongly linked to the transcription
 factors shortly after the scratch in H838 cells, we hypothesize
 that the transcriptional program was switched on and thus the
@@ -1527,7 +1543,7 @@ migration~\citep{Busch2008,Singh2012}.
 %between 3 and 10 hours in the tumor cell also correlates with the expression of 
 %the CXCR4 ligand \sdfonea by endothelial cells within the same time frame.
 
-\item \textbf{Limitations}
+\subsubsection{Limitations}
 
 One of the fundamental assumptions about the interactome analysis that links receptos
 and transcription factors is that the network is static. However, one can 
@@ -1611,7 +1627,6 @@ an intact network and ensuring a high data quality at the same time.
 %\label{fig:mfpt_sp_bar}
 %\end{figure}
 
-\end{itemize}
 
 
 
