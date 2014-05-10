@@ -1,6 +1,6 @@
 \chapter{Discussion}
 In the above chapters, we presented results about how gene regulatory networks
-self-organize and the dynamics of which is governed by its topology. We explored
+self-organize and how their dynamics are governed by topology. We explored
 the cellular signal flow scheme by means of calculating the nodal distances in
 the protein interaction network. Our results have several interesting implications
 as to the general design principles of cellular interaction networks and
@@ -37,7 +37,7 @@ Using a random Boolean network approach, \cite{Kauffman1969a} postulated that hi
 extending the notion of attractors from phenotypes to molecular interaction
 networks.
 In dynamical systems theory, the attractor landscape can also be naturally 
-understood as steady states of the system, which is determined by the system 
+understood as steady states of the system, which are determined by the system 
 parameters.
 The relative size, shape, and distribution of the basins of
 attraction in the $N$-dimensional hyperspace of gene configurations restrict the patterns with which the system will
@@ -150,15 +150,31 @@ topology. Instead of using a uniform topological prior, one can specify
 different probability distributions for nodes with different responses~%
 \citep{Friedman1998,Huang2007}.
 
-As examples, \cite{Pe'er2002} introduced a method that examines only
-those networks in which a small number of
-regulators explain the expression of all other
-genes. The restriction to such a
-network architecture forces the learning procedure to identify the most pronounced regulators in the data set. It also simplifies the
-learning procedure, which leads to statistical
-and computational advantages. The work by \cite{Boeck2012} is based on the idea 
+As an example, \cite{Pe'er2002} introduced a method that
+identifies active regulator genes based on the gene expression
+profiles. The method uses a greedy algorithm to find the 
+regulators from a pre-existing 
+regulator list that maximize the mutual information between 
+the regulator and the target genes. At the same time, it 
+imposes topological constraints such
+as a maximal in-degree and only few genes with an out-degree
+greater than 0. The final results were then validated by
+the Gene Ontology annotations of the identified regulators.
+Similarly, the work by \cite{Boeck2012} is based on the idea 
 that biological 
-networks are usually centered around a few hubs. More specifically, they modelled gene regulation using a Bayesian network with discrete, Boolean nodes. A hierarchical prior is employed to identify hub genes. The first layer of the prior is used to regularize weights on edges emanating from one specific node. A second prior on hyperparameters, in turn, controls the magnitude of the former regularization for different nodes. The net effect is that central nodes tend to form in reconstructed networks.
+networks are usually centered around a few hubs. More specifically, they modelled gene regulation using a Bayesian network with discrete, Boolean nodes and a hierarchical prior that
+regularizes both edge weights and their variances. The net effect is thus genes with a large weight tend to attract more
+edges with large weights and hub nodes form in the 
+reconstructed network. The central ideas of both studies 
+can be summarized as a) there is a limited number
+of regulators in the network, b) there is a limited number
+of highly connected nodes in the network. Both methods were
+successful in unravelling a core regulator network from the
+gene expression data, whereas our topological prior based on
+the connectivity and response aims to reverse-engineer both
+the core and periphery network. However, this unbiased
+nature may also pose a challenge in terms of problem
+complexity.
 
 \section{Transcriptome-proteome correlation and time-scale 
 separation}
@@ -169,7 +185,9 @@ the heterogeneous and the homogeneous coculture cannot be
 translated back to the transcriptome response. In other words,
 the H838 transcriptome is hardly differentially regulated
 between the heterogeneous and the homogeneous coculture. 
-Such a weak transcriptome response can be due to the priming
+Assuming the spontaneous cell communication in the coculture
+without any external stimulation,
+such a weak transcriptome response can be due to the priming
 of the tumor cells with the endothelial cells before the
 scratch/measurement begins. Within the 3 days coculture
 before the confluency, tumor cells and endothelial cells
@@ -240,7 +258,7 @@ random walk.
 \section{Network inference by transcription factor binding site prediction}
 We have seen in \ref{chap:flow} that transcription factors act as a key player
 in relaying the information from the protein interaction network to the
-transcriptional machinery, and thus bridging these two cellular processes
+transcriptional machinery, and thus bridge these two cellular processes
 of different time scales. As a result, the understanding of how transcription
 factors trigger the downstream gene regulation or how they bind to target genes
 is of great importance. For instance, in the integrative signal flow approach
@@ -324,3 +342,72 @@ In comparison to prokaryotes, the eukaryote transcription factor binding motifs
 are usually shorter, thus making the degeneracy of binding motifs more remarkable.
 Therefore, one way to obtain more specificity might be achieved by the 
 combinatorial regulation of transcription factors.
+
+Experimental technologies to detect TF interactions, however,
+can only be performed on a limited scale since they treat 
+each TF separately. Therefore, numerous efforts have been
+spent to computationally predict TF interactions. 
+\cite{Mysickova2012}, for instance, assessed the significance
+of the interaction between two TFs by first ranking target
+genes of each TF by their binding affinity, and then 
+performing the hypergeometric 
+test based on these two ranked target gene lists.
+The results were validated by the known protein-protein
+interaction data.
+
+Even more noticeable is the Encyclopedia of DNA Elements 
+(ENCODE) project~\citep{ENCODE2011}. The goal of the project
+is to discover and define the functional elements encoded 
+in the human genome, including genes, transcripts, and 
+transcriptional regulatory regions. Regarding transcriptional
+regulatory regions, detailed maps of histone modifications
+and chromatin accessibility are produced, which include
+the so-called DNaseI hypersensitive sites (DHS) 
+that can be putative
+open genomic regions and thus hotspots for regulatory factor
+bindings. The actual interaction between transcription
+factors and sequence elements in cis-regulatory regions
+is then verified by the ChIP-seq experiments. The combination
+of various data sources provided novel insights into the
+transcriptional regulation~\citep{Thurman2012b}. 
+It was found that methylation at transcription factor
+recognition sequences is negatively correlated with 
+transcription factor abundance, which implies that DNA
+methylation is a passive mechanism followed by the void of
+transcription factor activity.
+As another example, only 5\% of the DHS lie within 2.5 kb of a
+transcriptional start site (TSS), which means that there are 
+many more possibilities for the transcriptional regulation 
+at a distal DHS than simply binding to the promoter.
+
+Since long-range interactions between regulatory proteins
+and DNA regions are experimentally difficult to detect,
+computational methods have been developed to combine 
+open chromatin and gene expression data from the ENCODE
+project to identify these distal regulatory elements. 
+For example, \cite{Demeyer2014} built correlation graphs 
+based on DNase-seq and exon array datasets from a large 
+number of cell types, indirect interactions were then pruned
+from the resulting graph and the remaining long-range
+interactions were validated by both literature and 
+independent experimental data.
+
+Despite its easily accessible, high-resolution data,
+the results from the ENCODE project have triggered a hot
+debate in both media and the scientific community.
+Regarding one of the major statements that \emph{80\% of 
+the human genome have biochemical functions}~%
+\citep{ENCODE2012} and whether this number is too high, 
+we note that a chunk of DNA is considered functional if is transcribed OR it is reasonably close to a protein-binding site OR it has some histone modification or other chromatin structure to it AND this only needs to be observed in one cell type. Although the ENCODE project has included
+a variety of cell types at different developmental stages, 
+it is still largely a single snapshot. The gene transcription
+and its regulation, which ultimately lead to the development
+of phenotype, are highly dynamic and depend strongly on the 
+stimulus and extracellular environment. Therefore, 
+by following a single cell type under stimulus over time,
+we might
+obtain a more specific profile of transcripts, DNaseI
+hypersensitive sites, methylation etc. and more detailed
+knowledge about the transcriptome dynamics.
+
+\chapter{Conclusions and outlook}
