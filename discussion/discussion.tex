@@ -411,3 +411,79 @@ hypersensitive sites, methylation etc. and more detailed
 knowledge about the transcriptome dynamics.
 
 \chapter{Conclusions and outlook}
+More than 10 years after the completion of the Human Genome
+Project, we are now facing the challenge of understanding 
+how genes are transcribed and finally translated to functional
+proteins. In contrast to the genomic sequences, the collection
+of all transcripts and proteins 
+in the cell is highly dynamic, which also
+gives rise to the diverse cellular phenotypes. Therefore, it
+is crucial to gain more insights into 
+how, when and under which conditions 
+genes and their products 
+are expressed and interact with each other.
+
+Here we provided two use cases of graph theoretical approaches
+in the study of cellular regulatory networks. 
+In \ref{chap:network}, we established the link between network
+dynamics and topology, and how the former is determined by
+the latter as well as external perturbations. Strongly 
+regulated and peripherally connected genes are considered 
+the workhorse in the development of the phenotype, and the
+direct inhibition of such \emph{key players} was shown to 
+have a clear phenotypical impact. \ref{chap:flow} then
+went a step further and illustrated the signal flow from
+membrane receptors to transcription factors and finally 
+target genes, we explored the possibility of reconstruct
+a plausible signalling pathway from the random walk based
+distance metric between nodes in the protein interaction
+network.
+
+To think in a holistic manner, networks do not only exist
+within cells, but between cells or at even higher levels
+as well. Cell-cell communication is found to be involved
+in almost all biological processes, such as cancer. 
+\ref{chap:flow} provides an example of the communication
+between tumor cells and endothelial cells, or precisely
+the tumor cell response as a result of coculture with 
+endothelial cells. However, we did not investigate in detail 
+the information
+transfer in the other direction, namely from tumor cells
+to endothelial cells. Only with the knowledge of the signal
+flow in both directions can we reconstruct the feedback loop
+between cells.
+
+One of the concerns in the network study is the limited
+quality of the biological network data, which is 
+technology-constrained, context independent and static. 
+There is now an ongoing research activity to shift studying
+static networks to temporal networks~\citep{Holme2012}.
+Due to the temporal nature of edges, certain parts of
+the network may suddenly become unreachable for a certain
+time period. Old features may differ between static and
+temporal networks, and new features may have to be 
+defined. However, such an approach requires to take 
+snapshots of the network at different time points, which
+leads to an explosion of the data volume and potentially
+technical difficulty to achieve certain time resolutions.
+Once we have such temporal network data, we would be
+able to break down the network key players by different
+time points and are likely to predict when to inhibit
+which molecule in case of a phenotypical change. 
+This lack of temporal network information might also
+explain the discrepancy between the theoretical 
+prediction and the actual inhibition efficiency in
+\ref{chap:network}.
+
+In the future, we expect a tighter interplay between 
+experimental data and computational analysis. While
+modelling methods based on gene expression 
+data will remain essential 
+in the study of gene regulatory networks and the 
+generation of testable hypotheses, new large-scale 
+experimental
+data, such as the promoter binding and chromatin 
+accessibility from the ENCODE project, is also being
+produced at a fast rate, which again provides
+additional information and facilitates the model
+prediction.
