@@ -18,7 +18,7 @@ The origin of the cellular attractor probably stems from the idea of
 \emph{epigenetic landscape} by Conrad Waddington in the 1950s 
 (\ref{fig:landscape}). It basically
 states that different cell types can be visualized by valleys in a landscape,
-and the cell differentiation process is essentially a marble rolling down to
+and the cell differentiation process is essentially a marble rolling downhill to
 different points of lowest local elevation. The formalization of the epigenetic landscape notion opens the door to the understanding of the key role played by stochastic fluctuation. 
 It is however important to note that Waddington uses the term \emph{epigenetic} in a broader sense than in modern molecular biology where it refers to the apparently irreversible covalent DNA and chromatin modifications that influence expression of individual genes.
 
@@ -53,9 +53,9 @@ away from the attractor, the network itself then selectively moves into another
 accessible attractor.
 
 Taking as an example the neutrophil differentiation through two different stimuli, dimethyl sulfoxide (DMSO) and all-trans-retinoic acid (atRA), \cite{Tsuchiya2010}
-analyzed the gene expression dynamics in correlation space defined by Pearson correlation and mutual information. It was shown that the probability distributions of
+analyzed the gene expression dynamics in the correlation space defined by Pearson correlation and mutual information. It was shown that the probability distributions of
 correlation for both stimuli converge after 48 hours, defining the neutrophil attractor. They noticed that only genes with low or moderate expression changes, which are often considered noisy and insignificant, are essential components of the neutrophil attractor. This work highlights the function of moderately regulated genes as 
-driving force of the phenotype, which only became comprehensible in the context
+driving force of the phenotype, which only becomes comprehensible in the context
 of cellular attractors.
 
 As yet another example, \cite{Busch2013} applied a correlation trajectory analysis of the 
@@ -63,7 +63,7 @@ time-resolved transcriptome data in the moss leaflet apical stem cell developmen
 and predicted the important role of 
 moderately regulated transcription factors in triggering developmental 
 decisions. The methodology successfully narrowed down a total of 1,058 TFs to 
-5 candidates that are likely to be involved in the signaling leading to the establishment of pluripotency in apical stem cells. One of the predicted bHLH TFs PpRSL1 has previously been described as a positive regulator of caulonema and rhizoid development, 
+5 candidates that are likely to be involved in the signaling leading to the establishment of pluripotency in apical stem cells. One of the predicted basic helix-loop-helix TFs PpRSL1 has previously been described as a positive regulator of caulonema and rhizoid development, 
 its involvement in the establishment of \emph{P. patens} apical stem cells is also confirmed
 in the loss-of-function mutants.
 
@@ -92,7 +92,7 @@ First, one can take the topological prior knowledge as an additional
 criterion in the optimization. Any of the parameter estimation problem
 can be seen as an optimization problem, in that one defines a certain
 objective function and iteratively tune the parameters to search for
-the optima of this objective function. The objective function is usually the 
+the optimum of this objective function. The objective function is usually the 
 dissimilarity between the experimental data and the simulation with a certain
 set of parameters (for example
 relative standard error). The topological prior knowledge can be incorporated
@@ -131,7 +131,7 @@ sacrifice the other objectives.
 Previous attempts have been made to incorporate the topological information
 into the multi-objective optimization framework~\citep{Spieth2005}. However,
 it is mainly an implementation of the sparsity assumption, and does not
-distinguish between genes with different response strengths. The lesson
+distinguish between genes with different response strengths. The lessons
 learned in the current study may provide much richer information to the 
 multi-objective optimization algorithm.
 
@@ -164,7 +164,8 @@ Similarly, the work by \cite{Boeck2012} is based on the idea
 that biological 
 networks are usually centered around a few hubs. More specifically, they modelled gene regulation using a Bayesian network with discrete, Boolean nodes and a hierarchical prior that
 regularizes both edge weights and their variances. The net effect is thus genes with a large weight tend to attract more
-edges with large weights and hub nodes form in the 
+edges with large weights and hub nodes form automatically 
+in the 
 reconstructed network. The central ideas of both studies 
 can be summarized as a) there is a limited number
 of regulators in the network, b) there is a limited number
@@ -182,7 +183,7 @@ Throughout \ref{chap:flow}, we have been advocating the
 separation of the transcript and protein activity. As a first
 result, the phenotypical difference of the H838 cells between
 the heterogeneous and the homogeneous coculture cannot be
-translated back to the transcriptome response. In other words,
+directly translated back to the transcriptome response. In other words,
 the H838 transcriptome is hardly differentially regulated
 between the heterogeneous and the homogeneous coculture. 
 Assuming the spontaneous cell communication in the coculture
@@ -194,7 +195,7 @@ before the confluency, tumor cells and endothelial cells
 may have already exchanged signalling molecules and adapted
 to each other's needs. Therefore, during the measurement
 period, the transcriptome response in H838 cells 
-under both heterogeneous and homogeneous conditions
+under the heterogeneous condition
 may have gone back to the similar baseline.
 
 The phenotype, however, is detectable both experimentally
@@ -235,7 +236,7 @@ the low degradation rate of the top transcription
 factor proteins. Therefore, instead of the mRNA 
 expression alone, it is rather the interplay between
 the translation efficiency, degradation and 
-post-translational modification that determine the
+post-translational modification that determines the
 protein activity of a certain gene.
 
 In order to decipher the signal flow in the cellular
@@ -283,12 +284,29 @@ binding motifs; (2) alignment is performed for orthologous promoter sequences of
 binding motif according to phylogenetic footprinting. Depending on the 
 technique used, motif detection algorithms can also be classified into
 word-based (string-based) methods that mostly rely on exhaustive enumeration, i.e., counting and comparing oligonucleotide frequencies, and probabilistic sequence models which
-represent each binding motif by a position weight matrix (PWM) that characterize
+represent each binding motif by a position weight matrix (PWM) that characterizes
 the occurence of individual bases.
 Among the PWM-based approaches, MATCH~\citep{Kel2003} is a popular choice, which 
 defines the matrix/core similarity score between a position weight matrix and
 a DNA sequence, regions with both scores above a customized cut-off are considered
 as possible binding sites.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pwm_ic.pdf}
+\end{center}
+\caption[Information content of position weight matrices]{
+{\bf Distribution of the information content for position weight matrices in 
+the TRANSFAC database.}
+Shown are the distributions of information content in bits for species-specific
+position weight matrices (PWM) in the TRANSFAC database. (Fungi: F\$, Insect: I\$,
+Nematode: N\$, Plant: P\$ and Vertebrate: V\$) Vertical dashed lines denote
+the calculated minimal information required to be able to identify a motif from
+the genomic sequence using a particular PWM. (From left to right: \emph{E. coli, 
+S. cerevisiae, D. melanogaster, H. sapiens})
+}
+\label{fig:pwm_ic}
+\end{figure}
 
 Despite the long-lasting research effort in transcription factor binding site
 prediction and a large number of proposed algorithms, the prediction accuracy 
@@ -312,23 +330,6 @@ minimal required information for fruit fly and human. This discrepancy is most
 pronounced for the human genome, which pinpoints the difficulty of detecting 
 transcription factor binding motifs from the human DNA sequence.
 
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{pwm_ic.pdf}
-\end{center}
-\caption[Information content of position weight matrices]{
-{\bf Distribution of the information content for position weight matrices in 
-the TRANSFAC database.}
-Shown are the distributions of information content in bits for species-specific
-position weight matrices (PWM) in the TRANSFAC database. (Fungi: F\$, Insect: I\$,
-Nematode: N\$, Plant: P\$ and Vertebrate: V\$) Vertical dashed lines denote
-the calculated minimal information required to be able to identify a motif from
-the genomic sequence using a particular PWM. (From left to right: \emph{E. coli, 
-S. cerevisiae, D. melanogaster, H. sapiens})
-}
-\label{fig:pwm_ic}
-\end{figure}
-
 Yet other lines of evidence pointing to the difficulty of TFBS prediction are
 discussed in \cite{Babu2004}. For example, 2604 human proteins are predicted to
 have a DNA-binding domain, however, there are currently only 228 and 281 
@@ -349,9 +350,10 @@ each TF separately. Therefore, numerous efforts have been
 spent to computationally predict TF interactions. 
 \cite{Mysickova2012}, for instance, assessed the significance
 of the interaction between two TFs by first ranking target
-genes of each TF by their binding affinity, and then 
+genes of each TF according to their binding affinity, 
+and then 
 performing the hypergeometric 
-test based on these two ranked target gene lists.
+test based on the ranked target gene lists of the two TFs.
 The results were validated by the known protein-protein
 interaction data.
 
@@ -398,16 +400,16 @@ debate in both media and the scientific community.
 Regarding one of the major statements that \emph{80\% of 
 the human genome have biochemical functions}~%
 \citep{ENCODE2012} and whether this number is too high, 
-we note that a chunk of DNA is considered functional if is transcribed OR it is reasonably close to a protein-binding site OR it has some histone modification or other chromatin structure to it AND this only needs to be observed in one cell type. Although the ENCODE project has included
+we note that a chunk of DNA is considered functional if it is transcribed OR it is reasonably close to a protein-binding site OR it has some histone modification or other chromatin structure to it AND this only needs to be observed in one cell type. Although the ENCODE project has included
 a variety of cell types at different developmental stages, 
 it is still largely a single snapshot. The gene transcription
 and its regulation, which ultimately lead to the development
 of phenotype, are highly dynamic and depend strongly on the 
 stimulus and extracellular environment. Therefore, 
 by following a single cell type under stimulus over time,
-we might
+one might
 obtain a more specific profile of transcripts, DNaseI
-hypersensitive sites, methylation etc. and more detailed
+hypersensitive sites, methylation etc. and thus more detailed
 knowledge about the transcriptome dynamics.
 
 \chapter{Conclusions and outlook}
@@ -434,7 +436,7 @@ direct inhibition of such \emph{key players} was shown to
 have a clear phenotypical impact. \ref{chap:flow} then
 went a step further and illustrated the signal flow from
 membrane receptors to transcription factors and finally 
-target genes, we explored the possibility of reconstruct
+target genes, we explored the possibility to reconstruct
 a plausible signalling pathway from the random walk based
 distance metric between nodes in the protein interaction
 network.
@@ -468,9 +470,9 @@ leads to an explosion of the data volume and potentially
 technical difficulty to achieve certain time resolutions.
 Once we have such temporal network data, we would be
 able to break down the network key players by different
-time points and are likely to predict when to inhibit
+time points and predict when to inhibit
 which molecule in case of a phenotypical change. 
-This lack of temporal network information might also
+The lack of temporal network information might also
 explain the discrepancy between the theoretical 
 prediction and the actual inhibition efficiency in
 \ref{chap:network}.

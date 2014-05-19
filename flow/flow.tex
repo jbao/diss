@@ -28,7 +28,7 @@ Such differentially regulated genes can be candidates for
 further investigation and validation, but it is without
 doubt that only a follow-up
 pathway analysis can give insights into the underlying 
-biological mechanisms that distinguish and result in 
+biological mechanisms that result in 
 the experimental condition of interest. Over the past decade, we have seen at least 
 three generations of pathway analyses~\citep{Khatri2012}, here we discuss 
 their core features and limitations.
@@ -39,7 +39,8 @@ evaluates whether the fraction of genes in a particular pathway is over-represen
 of genes showing significant changes in expression. 
 A researcher first looks at the proportion between genes 
 that are 
-differentially regulated and not regulated in a given 
+differentially regulated and not differentially 
+regulated in a given 
 pathway according to a certain 
 threshold (first row in \ref{table:contigency_table}). 
 %Then, for each pathway, the number of genes that are part of the 
@@ -47,11 +48,11 @@ threshold (first row in \ref{table:contigency_table}).
 This process is repeated for an appropriate background 
 list of genes (e.g. all genes measured on a microarray), 
 such that they can also be divided into differentially 
-regulated and not differentially regulated. 
+regulated and not differentially regulated ones. 
 Next, every pathway 
 is tested for over- or under-representation based on the frequencies in such 
 a $2 \times 2$ contingency table (\ref{table:contigency_table}). 
-Fisher has shown that the probability of obtaining any such set of values was 
+Fisher has shown that the probability of obtaining any such set of values is 
 given by the hypergeometric distribution. To calculate the significance of the
 test, i.e. the total probability of observing data as extreme or more extreme 
 if the null hypothesis is true, one has to sum up the individual probabilities
@@ -69,8 +70,9 @@ background & $c$ & $d$ & $c+d$\\
 \label{table:contigency_table}
 \end{longtable}
 
-One of the major critics on Fisher's exact test is that it only considers a ranked
-list of differentially expressed genes and that it is thus independent of the 
+One of the major critics on hypergeometric test or 
+Fisher's exact test is that it only considers a ranked
+list of gene expression and that it is thus independent of the 
 measured fold changes. Second, the generation of the contingency table
 requires setting a significance cutoff to count the number of differentially
 regulated genes. This procedure introduces a subjective criterion and 
@@ -96,7 +98,7 @@ each pathway is still analyzed independently and thus crosstalks between
 pathways are disregarded.
 
 \subsection{Topology-based approach (SPIA)}
-Over-representation and gene set analyses only consider the number of genes 
+Over-representation tests and gene set analyses only consider the number of genes 
 in a pathway to identify significant pathways, and ignore the additional 
 information available from various prior knowledge bases. Recently a signaling
 pathway impact analysis (SPIA) was proposed~%
@@ -111,7 +113,7 @@ SPIA heavily depends on the true pathway topology, which is highly
 context-dependent and remains poorly understood and annotated.
 
 \subsection{NetSearch}
-\cite{Steffen2002} further built upon the idea of incorporating 
+\cite{Steffen2002} also built upon the idea of incorporating 
 prior knowledge about the pathway topology and suggested
 the inference of signal transduction networks with protein-interaction maps
 and expression profiles from DNA microarrays.
@@ -137,7 +139,7 @@ the interaction network in response to pheromone.
 \subsection{Drawback}
 All the above methods make the implicit assumption that the expression of genes
 and their corresponding protein products are correlated, or the signaling 
-pathway activity, which is largely determined by the member protein level, 
+pathway activity, which is largely determined by the member protein levels, 
 can be inferred from the transcriptome data. There, however, 
 has been ongoing debate 
 about whether the transcriptome regulation correlates with the proteome
@@ -153,7 +155,7 @@ protein
 and mRNA level, which renders them a highly dynamic and efficient switch that 
 can fine-tune the gene expression. Indeed, many of the TFs that regulate physiological
     targets are constitutively present, and their activity is determined
-    by posttranslational modifications such as phosphorylation%
+    by post-translational modifications such as phosphorylation%
     ~\citep{Messina2004}.
 Therefore, questions arise about the validity of inferring signaling 
 pathway activity based solely on the gene expression data.
@@ -193,7 +195,8 @@ expression or the response strength of both
 the transcription factor target gene sets and  
 the whole transcriptome as a background was tested by a 
 $t$-statistic. 
-The transcription factors of the respective significantly differentially regulated
+The transcription factors that regulate 
+significantly enriched
 gene sets were considered active.
 
 \subsection{Signal flow from membrane receptors}
@@ -248,7 +251,7 @@ of information flow in the network. Therefore, it simply ignores the
 neighborhood or global structure around the shortest path when calculating
 distances. Another limitation of the shortest path distance metric has to do
 with the small characteristic path lengths in small-world networks~%
-\citep{Watts1998}, such that any node can be reached from any other nodes
+\citep{Milgram1967,Watts1998}, such that any node can be reached from any other nodes
 within only few hops when traveling on the shortest path.
 Therefore, the shortest path
 metric soon loses its discriminative power. Since most biological
@@ -258,7 +261,7 @@ has to be kept in mind when working with the shortest path.
 
 \subsubsection{Mean first passage time}
 Another category of distance metric in networks is the 
-so-called flow-based methods, which compute the fraction of flow going through each intermediate node/edge. In the case of current flow approach, the network is modeled to mimic the behavior of current in an electronic circuit, where each edge has an associated resistance~\citep{Missiuro2009}. The current flow approach is
+so-called flow-based methods, which compute the fraction of flow going through each intermediate node/edge. In the case of the current flow approach, the network is modeled to mimic the behavior of current in an electronic circuit, where each edge has an associated resistance~\citep{Missiuro2009}. The current flow approach is
 also shown to be equivalent to a random walk in the network~%
 \citep{Doyle2000}.
 
@@ -270,7 +273,7 @@ structures in the protein interaction network of yeast~\citep{Zhou2003}.
 Recently, a random walk with restart approach was applied to associate
 target gene sets to reference datasets as an alternative to 
 over-representation-based enrichment analyses~\citep{Glaab2012}. 
-Further examples include a random walk-based software tool for functional
+Further example studies include a random walk-based software tool for functional
 analyses of cellular networks with genomic data integrated~\citep{Komurov2012a}.
 Moreover,
 the usefulness of MFPT is evident by the fact that the pairwise MFPT 
@@ -288,7 +291,7 @@ being equal, we have
 \end{equation}
 where $\tau(x,y)$ denotes the mean first passage time of reaching $y$ and 
 starting at $x$, which can be decomposed of 1 time unit needed to reach the
-next time step $t+1$ and the travel time to the target node $y$ at $t+1$.
+next time step $t+1$ and the travel time from neighboring nodes to the target node $y$ at $t+1$.
 Since the random walker can be at either node $x-1$ or $x+1$ at $t+1$, each
 with equal probability, we express the mean first passage time to $y$ at
 time step $t+1$ as the right-hand-side of \ref{eq:mfpt}.
@@ -359,20 +362,6 @@ is suitably represented by a sparse matrix. The matrix
 is positive semi-definite and can be solved by the LGMRES algorithm~%
 \citep{Baker2005}.
 
-\ref{fig:mfpt_toy} compares the distance measure of shortest path (SP) length
-and mean first passage time (MFPT) on different toy networks. Network A, B and
-C are all composed of a linear chains as the backbone and different complex 
-global structures, the SP metric between $n0$ and $n3$ 
-measures the length of the backbone and is 
-thus the same across all three topologies, whereas MFPT has a broader range
-and changes between 9 and 17.5. This demonstrates that SP does not take into
-account the global network topology. Furthermore, SP is also more susceptible
-to the pruning of a critical link than MFPT, which is illustrated in the 
-network C and D with only a single connection between $n1$ and $n2$ removed
-in D. Since this edge is part of the shortest path between $n0$ and $n3$, the
-SP distance changes dramatically by 33\%, while MFPT increase only moderately
-by 3\%.
-
 \begin{figure}[!ht]
 \begin{center}
 \includegraphics[width=\textwidth]{mfpt_toy.pdf}
@@ -386,10 +375,24 @@ Shown are the distances between node $n0$ and $n3$ measured in shortest path
 \label{fig:mfpt_toy}
 \end{figure}
 
+\ref{fig:mfpt_toy} compares the distance measure of shortest path (SP) length
+and mean first passage time (MFPT) on different toy networks. Network A, B and
+C are all composed of a linear chain as the backbone and different complex 
+global structures, the SP metric between $n0$ and $n3$ 
+measures the length of the backbone and is 
+thus the same across all three topologies, whereas MFPT has a broader range
+and changes between 9 and 17.5. This demonstrates that SP does not take into
+account the global network topology. Furthermore, SP is also more susceptible
+to the pruning of a critical link than MFPT, which is illustrated in the 
+network C and D with only a single connection between $n1$ and $n2$ removed
+in D. Since this edge is part of the shortest path between $n0$ and $n3$, the
+SP distance changes dramatically by 33\%, while MFPT increase only moderately
+by 3\%.
+
 \section{Application in tumor-stroma interaction of lung cancer}
 
 The hallmark of lung tumor development is its early spread, 
-complicating patient treatment and strongly impairing survival.
+which complicates patient treatment and strongly impairs survival.
 Recent studies~\citep{Mueller2004} have shown the tumor-stroma interaction to be relevant to 
 tumor growth and spread, and therefore a possible target for
 novel, effective treatment. 
@@ -476,7 +479,7 @@ an adenocarcinoma/stromal murine lung cell coculture.
 the transcriptome homeostasis of pancreatic
 cancer cells and stromal fibroblasts,
 and singled out candidate genes that are
-differentially expressed in coculture.
+differentially expressed in the coculture.
 One of the most important types of stromal cells are endothelial cells (EC), 
 the integral components of blood vessels. ECs not only promote the homeostasis of 
 vascular system, but play an important role in tumor progression as well. 
@@ -484,7 +487,7 @@ It was shown that ECs influence different responses of cancer cells, such as
 proliferation and invasiveness \emph{in vitro}, as well as the metastatic potential 
 of tumor cells \emph{in vivo}~\citep{Franses2011}.
 
-Here, we combine the previous approaches and
+Here, we 
 study \emph{in vitro} the crosstalk between tumor and 
 endothelial cells in  a non-small-cell lung cancer model: namely,
 H838 lung cancer cells and HPAEC, i.e. human pulmonary artery endothelial cells.
@@ -535,16 +538,16 @@ The experimental setup (\ref{fig:h838_setup}) of the homo- and heterogeneous coc
 similar physical and environmental conditions, thereby minimizing 
 experimental artifacts, e.g. due to different cell numbers per conditions. 
 
-Tumor cells on the bottom of the cell culture dish were scratched and the 
+Tumor cells on the bottom of the cell culture dish were scratched under the confluent condition and the 
 closing of the cell-free area was observed using time-lapse microscopy, in both
 homo- and heterogenous cocultures (\ref{fig:migration} B).
-In the heterogeneous cocultures, 
+In the heterogeneous coculture, 
 H838 cells close on average $963.5\pm156.8\ \mu m^2$ 
 (mean $\pm$ standard deviation) within 24h, 
-against $702.8\pm104.0\ \mu m^2$ in the homogeneous cocultures 
+against $702.8\pm104.0\ \mu m^2$ in the homogeneous coculture 
 (\ref{fig:migration} C). 
 % Note that we should put all these figures into one panel 
-The migration area of the heterogeneous cocultures is significantly higher, and
+The migration area of the heterogeneous coculture is significantly larger, and
 a two-sided  $t$-test of the observed difference yields a 
 $p$-value of 
 $2.82 \times 10^{-5}$.
@@ -569,7 +572,7 @@ approximately 3 days of coculture and both the well and the
 filter layers become confluent, medium is changed. Then
 after another 24 hours, multiple scratches are performed
 in the bottom well. The migration phenotype is measured within
-24 hours after scratch and the cell and supernatant samples 
+24 hours after the scratch and the cell and supernatant samples 
 are subject to the transcript and cytokine profiling 
 experiments respectively.
 }
@@ -585,7 +588,7 @@ experiments respectively.
 \caption[H838 migration in homo- and heterogeneous coculture]{
 {\bf Migration of H838 cells in the homo- and heterogeneous coculture.} 
 (A) Trans-filter system. (B) Scratch assay of the homo- and heterogeneous coculture.
-(C) Migration area of H838 cells at 24h after scratch from multiple independent 
+(C) Migration area of H838 cells at 24h after the scratch from multiple independent 
 experiments 
 plotted as 
 boxplots for the homogeneous (H838 + H838) and heterogeneous (H838 + HPAEC) 
@@ -628,7 +631,7 @@ Basal differential expression is
 represented as the negative log-transformed and multiple
 testing corrected $p$-value of the limma test.
 (B) Histogram of the differential gene expression over time as determined by the
-full/reduced model fitting~\citep{Mar2009}.
+full/reduced model fitting~\citep{Mar2009} (cf. \ref{sec:full_reduced}).
 Dynamical differential expression is 
 represented as the negative log-transformed and multiple
 testing corrected $p$-value of the full/reduced model
@@ -677,7 +680,7 @@ We hypothesize that those
 differentially regulated genes contribute in a way 
 to certain specific
 phenotypic transformations, but the total response of the H838
-transcriptome to heterogeneous coculture is rather weak.
+transcriptome to the heterogeneous coculture is rather weak.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -705,7 +708,7 @@ cocultures.}
 The differential expression of each gene is first assessed by the full/reduced
 model (\ref{sec:full_reduced}), the mean differential score of a gene set
 is then compared with that of the background set using $t$ test.
-The signicance level (negative log-transformed $p$-value) of
+The significance level (negative log-transformed $p$-value) of
 each gene set is reported. The size
 of the gene set is coded by the size of the bubbles.
 The vertical dashed line denotes $p=0.01$.
@@ -732,8 +735,8 @@ according to the differential expression over time
 (\ref{fig:h838_dynamic_gage_msigdb})
 seem to be more diverse. Besides the usual cancer-related 
 gene sets, others such as cell cycle and methylation related
-gene sets also pop up.
-In other words, the H838 cells in the heteregeneous coculture
+gene sets also emerge.
+In other words, H838 cells in the heteregeneous coculture
 are in the beginning primed to regulate the transcriptome in
 a migration-oriented fashion.
 Over time, however, this functional difference becomes less
@@ -794,7 +797,8 @@ In order to understand how the transcriptional program
 at the basal level is executed at the protein level,
 we took a classical pathway analysis approach and further 
 measured
-the enrichment of KEGG pathways between the heterogeneous 
+the enrichment of KEGG (Kyoto Encyclopedia of Genes and 
+Genomes) pathways between the heterogeneous 
 and homogeneous 
 coculture (\ref{table:h838_gage_kegg}). 
 %By grouping the time points into 3 
@@ -805,7 +809,9 @@ we can identify the actin-cytoskeleton regulation and
 the MAPK signaling pathway as the potential downstream 
 machinery that is responsible for the enhanced migration
 phenotype in the heteregeneous coculture.% 
-\footnote{We also discuss this
+\footnote{We also note the limitation of the pathway 
+enrichment analysis based on the transcriptome data and 
+discuss this
 result later in detail.} 
 %The MAPK pathway also shares 
 %member proteins with other pathways, as indicated by the edges in 
@@ -848,8 +854,8 @@ hsa04142 Lysosome &  0.0906 &    67\\
 
 \subsubsection{Identification of putative transcription factors in the H838 gene regulation}
 
-The cellular signal flow, in the form of pathway activation
-downstream from membrane receptors and the subsequent 
+The identification of the cellular signal flow, in the form of pathway activation
+downstream from membrane receptors to the subsequent 
 transcriptional 
 regulation, is made non-trivial by the fact that proteome 
 and transcriptome regulation changes have different time scales~\citep{Busch2008}. 
@@ -858,7 +864,7 @@ tracing the cause of the transcriptome dynamics back to the external stimuli via
 and receptor activation. 
 
 We first applied a gene set enrichment test for the gene expression at 
-the different time points using the transcription factor target gene sets (The Molecular Signature Database).
+different time points using the transcription factor target gene sets (The Molecular Signature Database).
 For each time point, 
 genes were ranked according to their fold expression values
 between the homo- and heterogenous coculture responses. 
@@ -890,15 +896,16 @@ depicted in \ref{fig:h838_tf}. Up to 2 hours, nuclear
 factor family, AP-1 complex (JUN, FOS) and other diverse
 transcription factors are active and responsible for 
 inducing immediate early genes. Between 3 and 4 hours after
-scratch, several E2F and E4F transcription factors take
+the scratch, several E2F and E4F transcription factors take
 over the control and effectively become the secondary 
 transcriptional regulators. Active transcription factors
-at later time points are less in number than the early 
+at later time points are fewer in number than the early 
 active ones.
 Taken together, applying the gene set
 enrichment method on the time-resolved microarray data, we identified here the
 sequence of putatively enriched transcription factor targets, which could also serve as
-a proxy for the temporal activity of transcription factors \emph{per se}.
+a proxy for the temporal activity of the corresponding 
+transcription factors \emph{per se}.
 
 \subsubsection{Data-mining the pathways from cytokine receptors to transcription factors and gene response}
 
@@ -1017,12 +1024,14 @@ MFPT and a long distance, which suggests that the signalling
 at the receptor level might be a specific process 
 involving only a handful of players.
 Among the top receptors with a short distance, it is 
-interferon receptors, TGF-$\beta$ family receptors, 
-C-X-C chemokine receptors and TNF family receptors.
+interferon receptors, TGF-$\beta$ (transforming growth
+factor beta) family receptors, 
+C-X-C chemokine receptors and TNF (tumor necrosis factor) 
+family receptors.
 We further examined how the MFPT distance metric changes
 over time for three of the top receptors, i.e. TNFRSF8, 
 IFNAR1 and CXCR7 (\ref{fig:h838_mfpt_ts} B). 
-The receptors have a short MFPT distance (negative peak) 
+These receptors have a short MFPT distance (negative peak) 
 and thus are
 possibly involved in the signal transduction at different 
 time points. For instance, both IFNAR1 and CXCR7 are close
@@ -1183,7 +1192,7 @@ HPAEC and H838 cells and enhance the tumor cell migration.
 To this end, we quantified the cytokine composition
 of the  homo- and heterogeneous cocultures
 both before and 24h after the onset of migration.
-We used a  fluorescent bead array based cytokine assay which detects fifty cytokines (\ref{table:cytokine}).
+We used a  fluorescent bead array based cytokine assay which includes fifty cytokines (\ref{table:cytokine}).
 The quantification of fifty different analytes was performed and evaluated in a  fully automated 96-well format Luminex analysis system (Multimetrix, Regensburg,  Germany). 
 
 \clearpage
@@ -1213,15 +1222,15 @@ IL3 &   IL15 &  NGF&  IL2RA &   TRAIL\\
 \end{center}
 \caption[Verification of key cytokines]{
 {\bf Verification of key cytokines involved in the tumor cell migration.} 
-(A) $\log_2$ transformed ratios of cytokine expression in heterogeneous respective
+(A) $\log_2$ transformed ratios of cytokine expression in the heterogeneous respective
 homogeneous coculture are shown. The black dashed line with a slope of 1 denotes 
 the identity and the blue dashed lines denote the zero $\log_2$ fold change
 or equal amount of cytokines between the scratched and unscratched conditioned 
 media.
-(B) Migration area of H838 cells at 24h after scratch in the H838 mono-culture 
+(B) Migration area of H838 cells at 24h after the scratch in the H838 mono-culture 
 treated with the 8
 factors, the 2 factor groups and as in the control experiment.
-(C) Migration area of H838 cells at 24h after scratch in the heterogeneous 
+(C) Migration area of H838 cells at 24h after the scratch in the heterogeneous 
 H838/HPAEC coculture 
 treated with the neutralizing antibodies against TNF-$\alpha$, SDF-1$\alpha$
 and both together. Asterisks in all plots denote that data are significantly 
@@ -1280,7 +1289,7 @@ $p < 0.05$).
 To further corroborate this result, we neutralized 
 TNF-$\alpha$ and SDF-1$\alpha$ in heterogeneous cocultures  by adding neutralizing antibodies.
 Inhibition of  either TNF-$\alpha$ or SDF-1$\alpha$ significantly reduced tumor cell migration (\ref{fig:cytokine} C). 
-Simultaneous inhibition of TNF-$\alpha$ and SDF-1$\alpha$ did not result in an additive effect, yet increased the statistical significance of the migration 
+Simultaneous inhibition of both TNF-$\alpha$ and SDF-1$\alpha$ did not result in an additive effect, yet increased the statistical significance of the migration 
 inhibition
 (two-sided $t$-test, $p=1.6\times10^{-4}$).
 
@@ -1302,7 +1311,7 @@ over time for the hetero- and homogeneous coculture respectively.
 (B) $\log_2$ fold expression of TNF-$\alpha$ and SDF-1$\alpha$ in HPAEC cells 
 from the qPCR
 experiment in the heterogeneous coculture plotted
-over time. Blue dashed lines denote the impulse model fit~\cite{Chechik2009}.
+over time. Blue dashed lines denote the impulse model fit~\citep{Chechik2009}.
 }
 \label{fig:cytokine_dynamic}
 \end{figure}
@@ -1321,7 +1330,7 @@ our previously identified cytokines of interest in both H838 and HPAEC cells.
 Neither \tnfa nor \sdfonea in the H838 cells
 responds differentially during H838 migration (\ref{fig:cytokine_dynamic} A).
 However, 
-an RT-qPCR experiment confirmed an early and transient response of  
+an RT-qPCR (real-time quantitative polymerase chain reaction) experiment confirmed an early and transient response of  
 TNF-$\alpha$ as well as a later and prolonged upregulation of 
 SDF-1$\alpha$ in the HPAEC cells (\ref{fig:cytokine_dynamic} B). 
 % maybe put this figure into the supplement
@@ -1353,6 +1362,7 @@ SDF-1$\alpha$ in the HPAEC cells (\ref{fig:cytokine_dynamic} B).
 We conclude that the cytokines in the supernatant that can drive the migration
 phenotype
 must originate primarily from the HPAEC cells.  
+While HPAEC cells regulate \tnfa in a transient fashion,
 \sdfonea is expressed in the HPAEC cells with both a delay and a longer peak duration.
 By fitting the qPCR time course with an impulse model 
 (\ref{sec:impulse}), which measures the peak 
@@ -1370,7 +1380,7 @@ The key medical problem in lung cancer and its predominant type non-small
 cell lung carcinoma (NSCLC) is an early systemic metastatic spread of tumor cells 
 independent of the tumor size, which leads to a high mortality rate. Tumor progression 
 and metastasis is regulated by many different processes, inter alia by interactions 
-via soluble factors between tumor cells and cells of tumor microenvironment, such as 
+via soluble factors between tumor cells and cells of the tumor microenvironment, such as 
 endothelial cells. In this study, we analyzed the interactions between NSCLC cells 
 and endothelial cells and their influence on NSCLC cell migration. We identified 
 two key cytokines, TNF-$\alpha$ and SDF-1$\alpha$, that are expressed by the 
@@ -1389,7 +1399,7 @@ a random walk approach in the interactome. Among all candidate receptors,
 TNF-$\alpha$ and SDF-1$\alpha$ receptors have a direct effect on the phenotype,
 and the inhibition of the respective ligands leads to reduced migration 
 activity. We further
-hint at endothelial cells as possible sources for \tnfa and \sdfonea in the conditioned medium.
+hint at endothelial cells as the primary source for \tnfa and \sdfonea in the conditioned medium.
 
 \subsubsection{Tumor-stroma communication}
 
@@ -1477,27 +1487,29 @@ Based on our time-resolved qPCR results, we conclude that \tnfa in the endotheli
 cells is 
 transiently expressed and peaks earlier than \sdfonea.
 The random walk predicts that TNF familiy receptors, e.g.
-TNFRSF8, are first equally strongly linked to
+TNFRSF8, are first moderately linked to
 the transcription factors and then peak around 5 hours after the scratch. This receptor
 wave in the H838 cells lags behind the ligand transcript level in the HPAEC cells,
 which possibly corresponds to the time delay due to the 
 secretion of cytokine and diffusion in the medium.
 \sdfonea, in contrast, has
-a delayed but longer activation time window. 
+a delayed but longer activation time window at the 
+transcript level in HPAEC cells. 
 On the H838 cell side, it is CXCR7, rather than CXCR4, that
 is closely linked to the downstream transcriptional machinery
 in the early hours. Therefore, it is plausible that \sdfonea
-was originally abundant in the medium and triggers the 
+is originally abundant in the medium and triggers the 
 signal flow in the tumor cell through CXCR7. 
 Over time, the ligands get
 internalized by the receptor, 
 which forces the endothelial cell to 
-\emph{de novo} synthesize \sdfonea. Since both receptors of
-\tnfa and
-\sdfonea are most strongly linked to the transcription
-factors shortly after the scratch in H838 cells, we hypothesize
-that the transcriptional program was switched on and thus the
-cellular decisions were made early in the process.
+\emph{de novo} synthesize \sdfonea. 
+%Since both receptors of
+%\tnfa and
+%\sdfonea are most strongly linked to the transcription
+%factors shortly after the scratch in H838 cells, we hypothesize
+%that the transcriptional program is switched on and thus the
+%cellular decisions are made early in the process.
 
 %These results are in line with the hypothesis 
 %that \tnfa induces the CXCR4 expression in tumor cells, which can then respond
